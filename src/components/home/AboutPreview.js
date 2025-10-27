@@ -107,7 +107,7 @@ export default function AboutPreview() {
             position: 'relative'
           }}>
             <img 
-              src="https://images.unsplash.com/photo-1558036117-15e82a2c9c7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              src="/images/reno.jpg"
               alt="Luxury renovation in Dubai"
               style={{
                 width: '100%',
