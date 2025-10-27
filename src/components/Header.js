@@ -19,8 +19,7 @@ export default function Header() {
         backgroundColor: '#1C2734',
         color: 'white',
         padding: '0.4rem 0',
-        fontSize: '0.8rem',
-        display: { mobile: 'none', desktop: 'block' }
+        fontSize: '0.8rem'
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -28,14 +27,12 @@ export default function Header() {
           padding: '0 20px',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap'
+          alignItems: 'center'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '2rem',
-            flexWrap: 'wrap'
+            gap: '2rem'
           }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <span style={{ marginRight: '0.4rem' }}>📞</span>
@@ -69,12 +66,12 @@ export default function Header() {
             color: '#1C2734',
             textDecoration: 'none'
           }}>
-            Alpamayo
+            Alpamayo Technical Services
           </Link>
 
           {/* Desktop Navigation */}
           <div style={{
-            display: 'none',
+            display: 'flex',
             alignItems: 'center',
             gap: '2rem'
           }}>
@@ -128,10 +125,10 @@ export default function Header() {
             <Link href="/faqs" style={navLinkStyle}>FAQs</Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Hidden on Desktop */}
           <button 
             style={{
-              display: 'block',
+              display: 'none',
               background: 'none',
               border: 'none',
               cursor: 'pointer',
@@ -144,7 +141,7 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Hidden on Desktop */}
         {mobileMenuOpen && (
           <div style={{
             position: 'absolute',
@@ -222,13 +219,25 @@ export default function Header() {
       </nav>
 
       <style jsx>{`
-        @media (min-width: 768px) {
-          nav > div > div:first-of-type {
-            display: flex;
+        @media (max-width: 767px) {
+          /* Hide top bar on mobile */
+          header > div:first-child {
+            display: none;
           }
           
-          button:last-child {
+          /* Show mobile menu button */
+          nav > div > button:last-child {
+            display: block;
+          }
+          
+          /* Hide desktop navigation on mobile */
+          nav > div > div:first-of-type {
             display: none;
+          }
+          
+          /* Mobile logo size */
+          nav > div > a:first-child {
+            font-size: 1.2rem;
           }
         }
         
@@ -240,7 +249,7 @@ export default function Header() {
   );
 }
 
-// Style objects
+// Style objects (same as before)
 const navLinkStyle = {
   color: '#1C2734',
   textDecoration: 'none',
