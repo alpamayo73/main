@@ -36,8 +36,8 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <div className="desktop-nav">
-              <Link href="/" className="nav-link">Home</Link>
-              <Link href="/about" className="nav-link">About</Link>
+              <Link href="/" className="nav-link desktop-nav-link">Home</Link>
+              <Link href="/about" className="nav-link desktop-nav-link">About</Link>
               
               {/* Services Dropdown */}
               <div 
@@ -64,8 +64,8 @@ export default function Header() {
                 )}
               </div>
               
-              <Link href="/contact" className="nav-link">Contact</Link>
-              <Link href="/faqs" className="nav-link">FAQs</Link>
+              <Link href="/contact" className="nav-link desktop-nav-link">Contact</Link>
+              <Link href="/faqs" className="nav-link desktop-nav-link">FAQs</Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -197,7 +197,7 @@ export default function Header() {
           gap: 2rem;
         }
 
-        .nav-link {
+        .desktop-nav-link {
           color: #1C2734;
           text-decoration: none;
           font-size: 0.9rem;
@@ -206,7 +206,7 @@ export default function Header() {
           padding: 0.5rem 0;
         }
 
-        .nav-link:hover {
+        .desktop-nav-link:hover {
           color: #577D8E;
         }
 
@@ -217,6 +217,15 @@ export default function Header() {
           display: flex;
           align-items: center;
           gap: 0.3rem;
+          color: #1C2734;
+          font-size: 0.9rem;
+          font-weight: 500;
+          padding: 0.5rem 0;
+          transition: color 0.3s ease;
+        }
+
+        .dropdown-btn:hover {
+          color: #577D8E;
         }
 
         .services-dropdown {
@@ -362,7 +371,6 @@ export default function Header() {
             font-size: 1.2rem;
           }
           
-          /* Add padding for mobile header */
           .nav-container {
             padding: 1rem 20px;
           }
