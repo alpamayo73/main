@@ -268,4 +268,22 @@ export default function FeaturedServices() {
             gap: 2rem;
           }
           
-          div > div
+          div > div:last-child > div:last-child {
+            flex-direction: row;
+            justify-content: center;
+          }
+          
+          div > div:last-child > div:last-child a {
+            width: auto;
+          }
+        }
+        
+        @media (min-width: 1024px) {
+          div > div:nth-child(2) {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
+        }
+      `}</style>
+    </section>
+  );
+}
