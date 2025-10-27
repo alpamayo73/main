@@ -2,35 +2,109 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-[#1C2734] to-[#577D8E] text-white overflow-hidden">
+    <section style={{
+      position: 'relative',
+      height: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #1C2734 0%, #577D8E 100%)',
+      color: 'white',
+      overflow: 'hidden'
+    }}>
       {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url(https://images.unsplash.com/photo-1540518614846-7eded1027f2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80)'
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: 'url(https://images.unsplash.com/photo-1540518614846-7eded1027f2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundColor: 'black',
+          opacity: 0.5
+        }}></div>
       </div>
       
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 20px',
+        textAlign: 'center',
+        position: 'relative',
+        zIndex: 10
+      }}>
+        <h1 style={{
+          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontWeight: 'bold',
+          marginBottom: '1.5rem',
+          lineHeight: 1.2
+        }}>
           Luxury Renovation &<br />AC Services in Dubai
         </h1>
-        <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+        <p style={{
+          fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+          marginBottom: '2rem',
+          maxWidth: '800px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          lineHeight: 1.6
+        }}>
           Transforming spaces with premium quality, exceptional craftsmanship, and innovative solutions for villas, apartments, and offices.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
           <Link 
             href="/services" 
-            className="bg-white text-[#1C2734] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg"
+            style={{
+              backgroundColor: 'white',
+              color: '#1C2734',
+              padding: '1rem 2rem',
+              borderRadius: '8px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              fontSize: '1.125rem',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#f3f4f6';
+              e.target.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'white';
+              e.target.style.transform = 'scale(1)';
+            }}
           >
             Explore Our Services
           </Link>
           <Link 
             href="/contact" 
-            className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#1C2734] transition-all duration-300 text-lg"
+            style={{
+              border: '2px solid white',
+              color: 'white',
+              padding: '1rem 2rem',
+              borderRadius: '8px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              fontSize: '1.125rem',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = 'white';
+              e.target.style.color = '#1C2734';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = 'transparent';
+              e.target.style.color = 'white';
+            }}
           >
             Get Free Consultation
           </Link>
@@ -38,11 +112,50 @@ export default function Hero() {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
+      <div style={{
+        position: 'absolute',
+        bottom: '2rem',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        animation: 'bounce 2s infinite'
+      }}>
+        <div style={{
+          width: '24px',
+          height: '40px',
+          border: '2px solid white',
+          borderRadius: '12px',
+          display: 'flex',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            width: '4px',
+            height: '12px',
+            backgroundColor: 'white',
+            borderRadius: '2px',
+            marginTop: '8px'
+          }}></div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes bounce {
+          0%, 20%, 50%, 80%, 100% {
+            transform: translateX(-50%) translateY(0);
+          }
+          40% {
+            transform: translateX(-50%) translateY(-10px);
+          }
+          60% {
+            transform: translateX(-50%) translateY(-5px);
+          }
+        }
+        
+        @media (min-width: 640px) {
+          div > div {
+            flex-direction: row;
+          }
+        }
+      `}</style>
     </section>
   );
 }
