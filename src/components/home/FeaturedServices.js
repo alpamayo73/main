@@ -30,7 +30,7 @@ export default function FeaturedServices() {
 
   return (
     <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#1C2734] mb-4">
             Our Premium Services
@@ -44,7 +44,7 @@ export default function FeaturedServices() {
           {featuredServices.map((service, index) => (
             <div 
               key={index}
-              className="group relative overflow-hidden rounded-lg luxury-shadow hover:luxury-shadow-lg transition-all duration-500"
+              className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-500"
             >
               <div 
                 className="h-80 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
@@ -69,7 +69,7 @@ export default function FeaturedServices() {
         <div className="text-center">
           <Link 
             href="/services"
-            className="inline-flex items-center bg-[#1C2734] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#577D8E] transition-all duration-300 transform hover:scale-105"
+            className="inline-flex items-center bg-[#1C2734] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#577D8E] transition-all duration-300 hover:scale-105"
           >
             View All Services
             <span className="ml-2">→</span>
