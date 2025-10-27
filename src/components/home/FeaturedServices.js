@@ -104,13 +104,14 @@ export default function FeaturedServices() {
               Let's discuss your renovation or AC service needs and create a customized solution for your space.
             </p>
             <div className="cta-buttons">
-              <Link href="/contact" className="btn btn-primary">
-                Get Free Quote
-              </Link>
-              <Link href="/services" className="btn btn-secondary">
-                View All Services
-              </Link>
-            </div>
+  <Link href="/contact" className="services-btn services-btn-primary">
+    Get Free Quote
+  </Link>
+  <Link href="/services" className="services-btn services-btn-secondary">
+    View All Services
+  </Link>
+</div>
+
           </div>
         </div>
       </section>
