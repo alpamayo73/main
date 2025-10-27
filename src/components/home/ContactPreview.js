@@ -1,5 +1,5 @@
 // src/components/home/ContactPreview.js
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function ContactPreview() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,18 @@ export default function ContactPreview() {
     service: '',
     message: ''
   })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleChange = (e) => {
     setFormData({
@@ -22,12 +34,248 @@ export default function ContactPreview() {
     e.preventDefault()
     // Handle form submission
     console.log('Form submitted:', formData)
+    alert('Thank you for your inquiry! We will contact you within 24 hours.')
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      service: '',
+      message: ''
+    })
+  }
+
+  // Your brand colors
+  const colors = {
+    primary: '#1C2734',
+    secondary: '#577D8E',
+    white: '#FFFFFF'
+  }
+
+  const styles = {
+    section: {
+      padding: '5rem 0',
+      background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%)'
+    },
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '0 1rem'
+    },
+    header: {
+      textAlign: 'center',
+      marginBottom: '4rem'
+    },
+    title: {
+      fontSize: '2.5rem',
+      fontWeight: 'bold',
+      color: colors.primary,
+      marginBottom: '1rem'
+    },
+    subtitle: {
+      fontSize: '1.25rem',
+      color: '#6B7280',
+      maxWidth: '42rem',
+      margin: '0 auto',
+      lineHeight: '1.6'
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: '3rem',
+      alignItems: 'start'
+    },
+    // Contact Information
+    contactInfo: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '2rem'
+    },
+    infoHeader: {
+      marginBottom: '1rem'
+    },
+    infoTitle: {
+      fontSize: '2rem',
+      fontWeight: 'bold',
+      color: colors.primary,
+      marginBottom: '1rem'
+    },
+    infoDescription: {
+      fontSize: '1.125rem',
+      color: '#6B7280',
+      lineHeight: '1.6'
+    },
+    contactMethods: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: '1rem'
+    },
+    contactMethod: {
+      backgroundColor: colors.white,
+      borderRadius: '12px',
+      padding: '1.5rem',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+      border: '1px solid #E5E7EB',
+      transition: 'all 0.3s ease'
+    },
+    methodHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '1rem'
+    },
+    methodIcon: {
+      width: '48px',
+      height: '48px',
+      backgroundColor: colors.secondary,
+      borderRadius: '10px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: '1rem',
+      flexShrink: 0
+    },
+    methodTitle: {
+      fontSize: '1.125rem',
+      fontWeight: 'bold',
+      color: colors.primary,
+      margin: '0 0 0.25rem 0'
+    },
+    methodValue: {
+      fontSize: '1rem',
+      color: colors.secondary,
+      fontWeight: '600',
+      margin: 0
+    },
+    methodDescription: {
+      fontSize: '0.875rem',
+      color: '#6B7280',
+      margin: 0
+    },
+    // Additional Info
+    additionalInfo: {
+      backgroundColor: colors.primary,
+      borderRadius: '16px',
+      padding: '2rem',
+      color: colors.white
+    },
+    additionalTitle: {
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      marginBottom: '1.5rem',
+      color: colors.white
+    },
+    additionalList: {
+      listStyle: 'none',
+      padding: 0,
+      margin: 0
+    },
+    additionalItem: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: '1rem',
+      fontSize: '1rem'
+    },
+    additionalIcon: {
+      width: '20px',
+      height: '20px',
+      color: colors.secondary,
+      marginRight: '1rem',
+      flexShrink: 0
+    },
+    // Contact Form
+    contactForm: {
+      backgroundColor: colors.white,
+      borderRadius: '20px',
+      padding: isMobile ? '2rem' : '3rem',
+      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
+      border: '1px solid #E5E7EB'
+    },
+    formTitle: {
+      fontSize: '2rem',
+      fontWeight: 'bold',
+      color: colors.primary,
+      marginBottom: '0.5rem'
+    },
+    formSubtitle: {
+      fontSize: '1rem',
+      color: '#6B7280',
+      marginBottom: '2rem'
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1.5rem'
+    },
+    formRow: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: '1rem'
+    },
+    formGroup: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.5rem'
+    },
+    label: {
+      fontSize: '0.875rem',
+      fontWeight: '600',
+      color: colors.primary
+    },
+    input: {
+      padding: '1rem',
+      borderRadius: '8px',
+      border: '1px solid #D1D5DB',
+      fontSize: '1rem',
+      color: colors.primary,
+      transition: 'all 0.3s ease',
+      outline: 'none'
+    },
+    select: {
+      padding: '1rem',
+      borderRadius: '8px',
+      border: '1px solid #D1D5DB',
+      fontSize: '1rem',
+      color: colors.primary,
+      backgroundColor: colors.white,
+      transition: 'all 0.3s ease',
+      outline: 'none'
+    },
+    textarea: {
+      padding: '1rem',
+      borderRadius: '8px',
+      border: '1px solid #D1D5DB',
+      fontSize: '1rem',
+      color: colors.primary,
+      resize: 'vertical',
+      minHeight: '120px',
+      transition: 'all 0.3s ease',
+      outline: 'none',
+      fontFamily: 'inherit'
+    },
+    submitButton: {
+      backgroundColor: colors.secondary,
+      color: colors.white,
+      padding: '1.25rem 2rem',
+      borderRadius: '8px',
+      border: 'none',
+      fontSize: '1.125rem',
+      fontWeight: '600',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      boxShadow: '0 4px 12px rgba(87, 125, 142, 0.2)'
+    },
+    privacyText: {
+      textAlign: 'center',
+      fontSize: '0.875rem',
+      color: '#6B7280',
+      marginTop: '1rem'
+    }
   }
 
   const contactMethods = [
     {
       icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
         </svg>
       ),
@@ -37,7 +285,7 @@ export default function ContactPreview() {
     },
     {
       icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
         </svg>
       ),
@@ -47,7 +295,7 @@ export default function ContactPreview() {
     },
     {
       icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
@@ -58,7 +306,7 @@ export default function ContactPreview() {
     },
     {
       icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
@@ -69,76 +317,81 @@ export default function ContactPreview() {
   ]
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 lg:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Ready to Transform Your Space?
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+    <section style={styles.section}>
+      <div style={styles.container}>
+        {/* Header */}
+        <div style={styles.header}>
+          <h2 style={styles.title}>Ready to Transform Your Space?</h2>
+          <p style={styles.subtitle}>
             Contact us today for a free consultation and let's bring your vision to life with our premium renovation and AC services in Dubai
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div style={styles.grid}>
           {/* Contact Information */}
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl lg:text-3xl font-bold text-primary mb-6">
-                Get In Touch
-              </h3>
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+          <div style={styles.contactInfo}>
+            <div style={styles.infoHeader}>
+              <h3 style={styles.infoTitle}>Get In Touch</h3>
+              <p style={styles.infoDescription}>
                 Our team of experts is ready to discuss your project and provide you with the best solutions for your renovation and AC needs in Dubai.
               </p>
             </div>
 
             {/* Contact Methods */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div style={styles.contactMethods}>
               {contactMethods.map((method, index) => (
                 <div 
                   key={index}
-                  className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  style={styles.contactMethod}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)'
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)'
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = styles.contactMethod.boxShadow
+                  }}
                 >
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-secondary rounded-xl flex items-center justify-center mr-4">
-                      <div className="text-white">
+                  <div style={styles.methodHeader}>
+                    <div style={styles.methodIcon}>
+                      <div style={{ color: colors.white }}>
                         {method.icon}
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-primary text-lg">{method.title}</h4>
-                      <p className="text-secondary font-semibold">{method.value}</p>
+                      <h4 style={styles.methodTitle}>{method.title}</h4>
+                      <p style={styles.methodValue}>{method.value}</p>
                     </div>
                   </div>
-                  <p className="text-gray-600 text-sm">{method.description}</p>
+                  <p style={styles.methodDescription}>{method.description}</p>
                 </div>
               ))}
             </div>
 
             {/* Additional Info */}
-            <div className="bg-primary rounded-2xl p-6 lg:p-8 text-white">
-              <h4 className="text-xl font-bold mb-4">Why Choose Us?</h4>
-              <ul className="space-y-3">
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div style={styles.additionalInfo}>
+              <h4 style={styles.additionalTitle}>Why Choose Us?</h4>
+              <ul style={styles.additionalList}>
+                <li style={styles.additionalItem}>
+                  <svg style={styles.additionalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Free consultation and site assessment
                 </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li style={styles.additionalItem}>
+                  <svg style={styles.additionalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Transparent pricing with no hidden costs
                 </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li style={styles.additionalItem}>
+                  <svg style={styles.additionalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Professional team with years of experience
                 </li>
-                <li className="flex items-center">
-                  <svg className="w-5 h-5 text-secondary mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li style={styles.additionalItem}>
+                  <svg style={styles.additionalIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                   Quality guarantee and after-service support
@@ -148,18 +401,16 @@ export default function ContactPreview() {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white rounded-3xl shadow-2xl p-6 lg:p-8 border border-gray-100">
-            <h3 className="text-2xl lg:text-3xl font-bold text-primary mb-2">
-              Free Consultation
-            </h3>
-            <p className="text-gray-600 mb-6 lg:mb-8">
+          <div style={styles.contactForm}>
+            <h3 style={styles.formTitle}>Free Consultation</h3>
+            <p style={styles.formSubtitle}>
               Fill out the form below and our expert will contact you within 24 hours
             </p>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-2">
+            <form onSubmit={handleSubmit} style={styles.form}>
+              <div style={styles.formRow}>
+                <div style={styles.formGroup}>
+                  <label htmlFor="firstName" style={styles.label}>
                     First Name *
                   </label>
                   <input
@@ -169,12 +420,20 @@ export default function ContactPreview() {
                     required
                     value={formData.firstName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500"
+                    style={styles.input}
                     placeholder="John"
+                    onFocus={(e) => {
+                      e.target.style.borderColor = colors.secondary
+                      e.target.style.boxShadow = `0 0 0 3px rgba(87, 125, 142, 0.1)`
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#D1D5DB'
+                      e.target.style.boxShadow = 'none'
+                    }}
                   />
                 </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-2">
+                <div style={styles.formGroup}>
+                  <label htmlFor="lastName" style={styles.label}>
                     Last Name *
                   </label>
                   <input
@@ -184,14 +443,22 @@ export default function ContactPreview() {
                     required
                     value={formData.lastName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500"
+                    style={styles.input}
                     placeholder="Doe"
+                    onFocus={(e) => {
+                      e.target.style.borderColor = colors.secondary
+                      e.target.style.boxShadow = `0 0 0 3px rgba(87, 125, 142, 0.1)`
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = '#D1D5DB'
+                      e.target.style.boxShadow = 'none'
+                    }}
                   />
                 </div>
               </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+              <div style={styles.formGroup}>
+                <label htmlFor="email" style={styles.label}>
                   Email Address *
                 </label>
                 <input
@@ -201,13 +468,21 @@ export default function ContactPreview() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500"
+                  style={styles.input}
                   placeholder="john@example.com"
+                  onFocus={(e) => {
+                    e.target.style.borderColor = colors.secondary
+                    e.target.style.boxShadow = `0 0 0 3px rgba(87, 125, 142, 0.1)`
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#D1D5DB'
+                    e.target.style.boxShadow = 'none'
+                  }}
                 />
               </div>
 
-              <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+              <div style={styles.formGroup}>
+                <label htmlFor="phone" style={styles.label}>
                   Phone Number *
                 </label>
                 <input
@@ -217,13 +492,21 @@ export default function ContactPreview() {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500"
+                  style={styles.input}
                   placeholder="+971 50 123 4567"
+                  onFocus={(e) => {
+                    e.target.style.borderColor = colors.secondary
+                    e.target.style.boxShadow = `0 0 0 3px rgba(87, 125, 142, 0.1)`
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#D1D5DB'
+                    e.target.style.boxShadow = 'none'
+                  }}
                 />
               </div>
 
-              <div>
-                <label htmlFor="service" className="block text-sm font-semibold text-gray-700 mb-2">
+              <div style={styles.formGroup}>
+                <label htmlFor="service" style={styles.label}>
                   Service Interested In *
                 </label>
                 <select
@@ -232,7 +515,15 @@ export default function ContactPreview() {
                   required
                   value={formData.service}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 text-gray-800"
+                  style={styles.select}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = colors.secondary
+                    e.target.style.boxShadow = `0 0 0 3px rgba(87, 125, 142, 0.1)`
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#D1D5DB'
+                    e.target.style.boxShadow = 'none'
+                  }}
                 >
                   <option value="">Select a service</option>
                   <option value="villa">Villa Renovation</option>
@@ -243,8 +534,8 @@ export default function ContactPreview() {
                 </select>
               </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+              <div style={styles.formGroup}>
+                <label htmlFor="message" style={styles.label}>
                   Project Details
                 </label>
                 <textarea
@@ -253,19 +544,37 @@ export default function ContactPreview() {
                   rows="4"
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all duration-300 text-gray-800 placeholder-gray-500 resize-none"
+                  style={styles.textarea}
                   placeholder="Tell us about your project requirements, timeline, and any specific needs..."
+                  onFocus={(e) => {
+                    e.target.style.borderColor = colors.secondary
+                    e.target.style.boxShadow = `0 0 0 3px rgba(87, 125, 142, 0.1)`
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#D1D5DB'
+                    e.target.style.boxShadow = 'none'
+                  }}
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-secondary text-white py-4 rounded-xl hover:bg-primary transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg hover:shadow-xl"
+                style={styles.submitButton}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = colors.primary
+                  e.target.style.transform = 'translateY(-2px)'
+                  e.target.style.boxShadow = '0 8px 20px rgba(28, 39, 52, 0.3)'
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = colors.secondary
+                  e.target.style.transform = 'translateY(0)'
+                  e.target.style.boxShadow = styles.submitButton.boxShadow
+                }}
               >
                 Request Free Consultation
               </button>
 
-              <p className="text-center text-gray-500 text-sm">
+              <p style={styles.privacyText}>
                 We respect your privacy and will never share your information
               </p>
             </form>
