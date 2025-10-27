@@ -23,114 +23,124 @@ export default function Features() {
   ];
 
   return (
-    <section style={{
-      padding: '5rem 0',
-      backgroundColor: '#f9fafb'
-    }}>
-      <div style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '0 20px'
-      }}>
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '4rem'
-        }}>
-          <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            color: '#1C2734',
-            marginBottom: '1rem'
-          }}>
-            Why Choose Alpamayo
-          </h2>
-          <p style={{
-            fontSize: '1.25rem',
-            color: '#6b7280',
-            maxWidth: '600px',
-            margin: '0 auto'
-          }}>
-            We combine luxury design with technical excellence to deliver exceptional results for our clients in Dubai.
-          </p>
-        </div>
+    <>
+      <section className="features-section">
+        <div className="features-container">
+          <div className="features-header">
+            <h2 className="features-title">
+              Why Choose Alpamayo
+            </h2>
+            <p className="features-subtitle">
+              We combine luxury design with technical excellence to deliver exceptional results for our clients in Dubai.
+            </p>
+          </div>
 
-        {/* 4 Columns Grid - Desktop */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr 1fr',
-          gap: '2rem'
-        }}>
-          {features.map((feature, index) => (
-            <div 
-              key={index}
-              style={{
-                backgroundColor: 'white',
-                padding: '2rem 1.5rem',
-                borderRadius: '12px',
-                textAlign: 'center',
-                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
-                transition: 'all 0.3s ease',
-                border: '1px solid rgba(0, 0, 0, 0.05)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.12)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
-              }}
-            >
-              <div style={{
-                fontSize: '3rem',
-                marginBottom: '1rem'
-              }}>
-                {feature.icon}
+          <div className="features-grid">
+            {features.map((feature, index) => (
+              <div key={index} className="feature-card">
+                <div className="feature-icon">{feature.icon}</div>
+                <h3 className="feature-card-title">{feature.title}</h3>
+                <p className="feature-card-description">{feature.description}</p>
               </div>
-              <h3 style={{
-                fontSize: '1.2rem',
-                fontWeight: '600',
-                color: '#1C2734',
-                marginBottom: '0.8rem'
-              }}>
-                {feature.title}
-              </h3>
-              <p style={{
-                color: '#6b7280',
-                lineHeight: 1.5,
-                fontSize: '0.9rem'
-              }}>
-                {feature.description}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       <style jsx>{`
+        .features-section {
+          padding: 5rem 0;
+          background-color: #f9fafb;
+        }
+
+        .features-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        .features-header {
+          text-align: center;
+          margin-bottom: 4rem;
+        }
+
+        .features-title {
+          font-size: 2.5rem;
+          font-weight: bold;
+          color: #1C2734;
+          margin-bottom: 1rem;
+        }
+
+        .features-subtitle {
+          font-size: 1.25rem;
+          color: #6b7280;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .features-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr;
+          gap: 2rem;
+        }
+
+        .feature-card {
+          background-color: white;
+          padding: 2rem 1.5rem;
+          border-radius: 12px;
+          text-align: center;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          transition: all 0.3s ease;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+          font-size: 3rem;
+          margin-bottom: 1rem;
+        }
+
+        .feature-card-title {
+          font-size: 1.2rem;
+          font-weight: 600;
+          color: #1C2734;
+          margin-bottom: 0.8rem;
+        }
+
+        .feature-card-description {
+          color: #6b7280;
+          line-height: 1.5;
+          font-size: 0.9rem;
+        }
+
+        /* Mobile Styles */
         @media (max-width: 767px) {
-          section {
+          .features-section {
             padding: 3rem 0;
           }
           
-          h2 {
+          .features-title {
             font-size: 2rem;
           }
           
-          p {
+          .features-subtitle {
             font-size: 1rem;
           }
           
-          div > div:last-child {
+          .features-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
           }
           
-          div > div:last-child > div {
+          .feature-card {
             padding: 1.5rem;
           }
         }
       `}</style>
-    </section>
+    </>
   );
 }
