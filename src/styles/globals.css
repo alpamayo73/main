@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Rakkas', serif;
+  font-family: 'Roboto', sans-serif;
   background-color: #ffffff;
   color: #1C2734;
   line-height: 1.6;
