@@ -23,36 +23,100 @@ export default function Features() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#1C2734] mb-4">
+    <section style={{
+      padding: '5rem 0',
+      backgroundColor: '#f9fafb'
+    }}>
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 20px'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          marginBottom: '4rem'
+        }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: 'bold',
+            color: '#1C2734',
+            marginBottom: '1rem'
+          }}>
             Why Choose Alpamayo
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p style={{
+            fontSize: '1.25rem',
+            color: '#6b7280',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
             We combine luxury design with technical excellence to deliver exceptional results for our clients in Dubai.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: '2rem'
+        }}>
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white p-8 rounded-lg shadow-lg text-center hover:scale-105 transition-all duration-300"
+              style={{
+                backgroundColor: 'white',
+                padding: '2rem',
+                borderRadius: '12px',
+                textAlign: 'center',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+              }}
             >
-              <div className="text-4xl mb-4">
+              <div style={{
+                fontSize: '3rem',
+                marginBottom: '1rem'
+              }}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold text-[#1C2734] mb-4">
+              <h3 style={{
+                fontSize: '1.5rem',
+                fontWeight: '600',
+                color: '#1C2734',
+                marginBottom: '1rem'
+              }}>
                 {feature.title}
               </h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p style={{
+                color: '#6b7280',
+                lineHeight: 1.6
+              }}>
                 {feature.description}
               </p>
             </div>
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (min-width: 768px) {
+          div > div {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+        
+        @media (min-width: 1024px) {
+          div > div {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+          }
+        }
+      `}</style>
     </section>
   );
 }
