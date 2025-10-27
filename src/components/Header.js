@@ -36,8 +36,8 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <div className="desktop-nav">
-              <Link href="/" className="nav-link desktop-nav-link">Home</Link>
-              <Link href="/about" className="nav-link desktop-nav-link">About</Link>
+              <Link href="/" className="nav-link">Home</Link>
+              <Link href="/about" className="nav-link">About</Link>
               
               {/* Services Dropdown */}
               <div 
@@ -64,8 +64,8 @@ export default function Header() {
                 )}
               </div>
               
-              <Link href="/contact" className="nav-link desktop-nav-link">Contact</Link>
-              <Link href="/faqs" className="nav-link desktop-nav-link">FAQs</Link>
+              <Link href="/contact" className="nav-link">Contact</Link>
+              <Link href="/faqs" className="nav-link">FAQs</Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -197,16 +197,17 @@ export default function Header() {
           gap: 2rem;
         }
 
-        .desktop-nav-link {
+        .nav-link {
           color: #1C2734;
           text-decoration: none;
           font-size: 0.9rem;
           font-weight: 500;
           transition: color 0.3s ease;
           padding: 0.5rem 0;
+          cursor: pointer;
         }
 
-        .desktop-nav-link:hover {
+        .nav-link:hover {
           color: #577D8E;
         }
 
@@ -257,6 +258,7 @@ export default function Header() {
           font-size: 0.9rem;
           padding: 0.4rem 0;
           transition: color 0.3s ease;
+          cursor: pointer;
         }
 
         .dropdown-link:hover {
@@ -291,6 +293,7 @@ export default function Header() {
           padding: 0.8rem 20px;
           border-bottom: 1px solid #f3f4f6;
           transition: color 0.3s ease;
+          cursor: pointer;
         }
 
         .mobile-nav-link:hover {
@@ -331,6 +334,7 @@ export default function Header() {
           font-size: 0.9rem;
           padding: 0.6rem 0;
           transition: color 0.3s ease;
+          cursor: pointer;
         }
 
         .mobile-dropdown-link:hover {
