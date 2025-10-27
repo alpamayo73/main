@@ -86,7 +86,7 @@ export default function FeaturedServices() {
                 <div className="service-content">
                   <h3 className="service-card-title">{service.title}</h3>
                   <p className="service-card-description">{service.description}</p>
-                  <Link href={service.link} className="service-link">
+                  <Link href={service.link} className="service-learn-link">
                     Learn More 
                     <span className="link-arrow">→</span>
                   </Link>
@@ -104,10 +104,10 @@ export default function FeaturedServices() {
               Let's discuss your renovation or AC service needs and create a customized solution for your space.
             </p>
             <div className="cta-buttons">
-              <Link href="/contact" className="cta-btn primary">
+              <Link href="/contact" className="btn btn-primary">
                 Get Free Quote
               </Link>
-              <Link href="/services" className="cta-btn secondary">
+              <Link href="/services" className="btn btn-secondary">
                 View All Services
               </Link>
             </div>
@@ -243,7 +243,7 @@ export default function FeaturedServices() {
           margin-bottom: 1.5rem;
         }
 
-        .service-link {
+        .service-learn-link {
           display: inline-flex;
           align-items: center;
           color: #577D8E;
@@ -253,7 +253,7 @@ export default function FeaturedServices() {
           transition: all 0.3s ease;
         }
 
-        .service-link:hover {
+        .service-learn-link:hover {
           color: #1C2734;
           transform: translateX(5px);
         }
@@ -263,7 +263,7 @@ export default function FeaturedServices() {
           transition: transform 0.3s ease;
         }
 
-        .service-link:hover .link-arrow {
+        .service-learn-link:hover .link-arrow {
           transform: translateX(3px);
         }
 
@@ -298,34 +298,38 @@ export default function FeaturedServices() {
           align-items: center;
         }
 
-        .cta-btn {
-          display: inline-flex;
-          align-items: center;
+        .btn {
           padding: 0.8rem 1.8rem;
           border-radius: 8px;
           font-weight: 600;
           text-decoration: none;
           font-size: 0.9rem;
           transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+          text-align: center;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .cta-btn.primary {
+        .btn-primary {
           background-color: #577D8E;
           color: white;
         }
 
-        .cta-btn.primary:hover {
+        .btn-primary:hover {
           background-color: #1C2734;
           transform: scale(1.05);
         }
 
-        .cta-btn.secondary {
+        .btn-secondary {
           border: 2px solid #1C2734;
           color: #1C2734;
           background-color: transparent;
         }
 
-        .cta-btn.secondary:hover {
+        .btn-secondary:hover {
           background-color: #1C2734;
           color: white;
           transform: scale(1.05);
@@ -364,7 +368,7 @@ export default function FeaturedServices() {
             gap: 1rem;
           }
           
-          .cta-btn {
+          .btn {
             width: 100%;
             max-width: 250px;
             justify-content: center;
