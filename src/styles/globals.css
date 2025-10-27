@@ -17,25 +17,8 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Only style actual anchor tags that are links */
-a:not(.btn):not(.cta-btn):not(.nav-link):not(.footer-link):not(.dropdown-link):not(.mobile-nav-link):not(.mobile-dropdown-link):not(.service-link):not([class*="btn"]) {
-  color: #577D8E;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-a:not(.btn):not(.cta-btn):not(.nav-link):not(.footer-link):not(.dropdown-link):not(.mobile-nav-link):not(.mobile-dropdown-link):not(.service-link):not([class*="btn"]):hover {
-  color: #1C2734;
-  text-decoration: underline;
-}
-
-/* Reset button styles for links that are meant to be buttons */
-a.btn, a.cta-btn, a[class*="btn"] {
-  color: inherit;
-  text-decoration: none;
-}
-
-a.btn:hover, a.cta-btn:hover, a[class*="btn"]:hover {
+/* Reset all links to have no default styling */
+a {
   color: inherit;
   text-decoration: none;
 }
