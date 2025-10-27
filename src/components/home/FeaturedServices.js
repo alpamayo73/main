@@ -51,7 +51,7 @@ export default function FeaturedServices() {
             Our Premium Services
           </h2>
           <p style={{
-            fontSize: '1.25rem',
+            fontSize: '1.125rem',
             color: '#6b7280',
             maxWidth: '600px',
             margin: '0 auto'
@@ -60,6 +60,7 @@ export default function FeaturedServices() {
           </p>
         </div>
 
+        {/* 2 Columns Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr',
@@ -72,52 +73,55 @@ export default function FeaturedServices() {
               style={{
                 position: 'relative',
                 overflow: 'hidden',
-                borderRadius: '12px',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.5s ease'
+                borderRadius: '16px',
+                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.4s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.transform = 'translateY(-8px)';
                 const bg = e.currentTarget.querySelector('div:first-child');
-                bg.style.transform = 'scale(1.1)';
+                bg.style.transform = 'scale(1.08)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.transform = 'translateY(0)';
                 const bg = e.currentTarget.querySelector('div:first-child');
                 bg.style.transform = 'scale(1)';
               }}
             >
               <div 
                 style={{
-                  height: '320px',
+                  height: '300px',
                   backgroundImage: `url(${service.image})`,
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  transition: 'transform 0.5s ease'
+                  transition: 'transform 0.4s ease'
                 }}
               >
                 <div style={{
                   position: 'absolute',
                   inset: 0,
-                  background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)'
+                  background: 'linear-gradient(to top, rgba(28, 39, 52, 0.85) 0%, rgba(28, 39, 52, 0.4) 100%)'
                 }}></div>
                 <div style={{
                   position: 'absolute',
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  padding: '1.5rem',
-                  color: 'white'
+                  padding: '2rem'
                 }}>
                   <h3 style={{
                     fontSize: '1.5rem',
                     fontWeight: '600',
-                    marginBottom: '0.75rem'
+                    marginBottom: '0.75rem',
+                    color: 'white'
                   }}>{service.title}</h3>
                   <p style={{
                     color: '#e5e7eb',
-                    marginBottom: '1rem',
-                    lineHeight: 1.6
+                    marginBottom: '1.5rem',
+                    lineHeight: 1.6,
+                    fontSize: '0.95rem'
                   }}>{service.description}</p>
                   <Link 
                     href={service.link}
@@ -127,13 +131,19 @@ export default function FeaturedServices() {
                       color: 'white',
                       fontWeight: '600',
                       textDecoration: 'none',
-                      transition: 'color 0.3s ease'
+                      transition: 'all 0.3s ease',
+                      padding: '0.5rem 1rem',
+                      border: '2px solid #577D8E',
+                      borderRadius: '6px',
+                      fontSize: '0.875rem'
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.color = '#577D8E';
+                      e.target.style.backgroundColor = '#577D8E';
+                      e.target.style.transform = 'scale(1.05)';
                     }}
                     onMouseLeave={(e) => {
-                      e.target.style.color = 'white';
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.transform = 'scale(1)';
                     }}
                   >
                     Learn More <span style={{ marginLeft: '0.5rem' }}>→</span>
@@ -152,11 +162,12 @@ export default function FeaturedServices() {
               alignItems: 'center',
               backgroundColor: '#1C2734',
               color: 'white',
-              padding: '1rem 2rem',
+              padding: '0.875rem 1.75rem',
               borderRadius: '8px',
               fontWeight: 'bold',
               textDecoration: 'none',
-              transition: 'all 0.3s ease'
+              transition: 'all 0.3s ease',
+              fontSize: '0.875rem'
             }}
             onMouseEnter={(e) => {
               e.target.style.backgroundColor = '#577D8E';
@@ -175,7 +186,7 @@ export default function FeaturedServices() {
 
       <style jsx>{`
         @media (min-width: 768px) {
-          div > div:first-child {
+          div > div:nth-child(2) {
             grid-template-columns: 1fr 1fr;
           }
         }
