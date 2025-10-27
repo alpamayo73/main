@@ -1,24 +1,22 @@
-import { Star, Shield, Clock, Award } from 'lucide-react';
-
 export default function Features() {
   const features = [
     {
-      icon: <Award className="w-12 h-12" />,
+      icon: '🏆',
       title: 'Premium Quality',
       description: 'Luxury finishes and premium materials for exceptional, long-lasting results that exceed expectations.'
     },
     {
-      icon: <Shield className="w-12 h-12" />,
+      icon: '🛡️',
       title: 'Guaranteed Work',
       description: 'Comprehensive warranties on all our services, ensuring your peace of mind and satisfaction.'
     },
     {
-      icon: <Clock className="w-12 h-12" />,
+      icon: '⏱️',
       title: 'On-Time Delivery',
       description: 'We respect your time and deliver projects as scheduled, maintaining strict timelines.'
     },
     {
-      icon: <Star className="w-12 h-12" />,
+      icon: '👨‍🔧',
       title: 'Expert Craftsmanship',
       description: 'Skilled professionals with years of experience in luxury renovations and AC installations.'
     }
@@ -42,7 +40,7 @@ export default function Features() {
               key={index}
               className="bg-white p-8 rounded-lg luxury-shadow text-center hover:transform hover:scale-105 transition-all duration-300"
             >
-              <div className="text-[#577D8E] mb-4 flex justify-center">
+              <div className="text-4xl mb-4">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold text-[#1C2734] mb-4">
