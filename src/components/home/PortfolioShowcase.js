@@ -36,30 +36,182 @@ export default function PortfolioShowcase() {
     ? projects 
     : projects.filter(project => project.category === activeFilter)
 
+  // Your brand colors
+  const colors = {
+    primary: '#1C2734',
+    secondary: '#577D8E',
+    white: '#FFFFFF'
+  }
+
+  const styles = {
+    section: {
+      padding: '4rem 0',
+      backgroundColor: colors.white
+    },
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '0 1rem'
+    },
+    header: {
+      textAlign: 'center',
+      marginBottom: '3rem'
+    },
+    title: {
+      fontSize: '2.25rem',
+      fontWeight: 'bold',
+      color: colors.primary,
+      marginBottom: '1rem'
+    },
+    subtitle: {
+      fontSize: '1.125rem',
+      color: '#6B7280',
+      maxWidth: '42rem',
+      margin: '0 auto'
+    },
+    filterContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+      gap: '0.5rem',
+      marginBottom: '2rem'
+    },
+    filterButton: {
+      padding: '0.5rem 1rem',
+      borderRadius: '9999px',
+      fontSize: '0.875rem',
+      fontWeight: '500',
+      border: 'none',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease'
+    },
+    filterButtonActive: {
+      backgroundColor: colors.secondary,
+      color: colors.white
+    },
+    filterButtonInactive: {
+      backgroundColor: '#F3F4F6',
+      color: '#374151'
+    },
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: '1fr',
+      gap: '1.5rem'
+    },
+    card: {
+      backgroundColor: colors.white,
+      borderRadius: '0.5rem',
+      overflow: 'hidden',
+      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+      border: '1px solid #E5E7EB',
+      transition: 'all 0.3s ease'
+    },
+    imageContainer: {
+      position: 'relative',
+      width: '100%',
+      height: '12rem'
+    },
+    categoryBadge: {
+      position: 'absolute',
+      top: '0.75rem',
+      left: '0.75rem',
+      backgroundColor: colors.secondary,
+      color: colors.white,
+      padding: '0.25rem 0.5rem',
+      borderRadius: '0.25rem',
+      fontSize: '0.75rem',
+      fontWeight: '500',
+      textTransform: 'uppercase'
+    },
+    cardContent: {
+      padding: '1.5rem'
+    },
+    location: {
+      color: colors.secondary,
+      fontSize: '0.875rem',
+      fontWeight: '500',
+      marginBottom: '0.5rem'
+    },
+    cardTitle: {
+      fontSize: '1.25rem',
+      fontWeight: 'bold',
+      color: colors.primary,
+      marginBottom: '0.75rem'
+    },
+    cardDescription: {
+      color: '#6B7280',
+      fontSize: '0.875rem',
+      marginBottom: '1rem'
+    },
+    viewButton: {
+      color: colors.secondary,
+      fontWeight: '500',
+      fontSize: '0.875rem',
+      background: 'none',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.25rem'
+    },
+    ctaContainer: {
+      textAlign: 'center',
+      marginTop: '3rem'
+    },
+    ctaButton: {
+      backgroundColor: colors.secondary,
+      color: colors.white,
+      padding: '0.75rem 2rem',
+      borderRadius: '0.5rem',
+      border: 'none',
+      fontSize: '1rem',
+      fontWeight: '500',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease'
+    }
+  }
+
+  // Media queries for responsive design
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth >= 768) {
+      styles.grid.gridTemplateColumns = 'repeat(2, 1fr)'
+    }
+    if (window.innerWidth >= 1024) {
+      styles.grid.gridTemplateColumns = 'repeat(3, 1fr)'
+    }
+  }
+
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
+    <section style={styles.section}>
+      <div style={styles.container}>
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-            Our Premium Projects
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <div style={styles.header}>
+          <h2 style={styles.title}>Our Premium Projects</h2>
+          <p style={styles.subtitle}>
             Discover our exceptional renovation projects that redefine luxury living in Dubai
           </p>
         </div>
 
         {/* Filter Buttons */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
+        <div style={styles.filterContainer}>
           {['all', 'villa', 'apartment', 'office'].map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeFilter === filter
-                  ? 'bg-blue-600 text-white shadow-md'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              style={{
+                ...styles.filterButton,
+                ...(activeFilter === filter ? styles.filterButtonActive : styles.filterButtonInactive)
+              }}
+              onMouseOver={(e) => {
+                if (activeFilter !== filter) {
+                  e.target.style.backgroundColor = '#E5E7EB'
+                }
+              }}
+              onMouseOut={(e) => {
+                if (activeFilter !== filter) {
+                  e.target.style.backgroundColor = styles.filterButtonInactive.backgroundColor
+                }
+              }}
             >
               {filter === 'all' ? 'All Projects' : 
                filter === 'villa' ? 'Villas' :
@@ -69,44 +221,55 @@ export default function PortfolioShowcase() {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div style={styles.grid}>
           {filteredProjects.map((project) => (
             <div 
               key={project.id} 
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+              style={styles.card}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.boxShadow = styles.card.boxShadow
+              }}
             >
               {/* Image Container */}
-              <div className="relative h-48 w-full">
+              <div style={styles.imageContainer}>
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover"
+                  style={{ objectFit: 'cover' }}
                 />
-                {/* Category Badge */}
-                <div className="absolute top-3 left-3">
-                  <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs font-medium uppercase">
-                    {project.category}
-                  </span>
+                <div style={styles.categoryBadge}>
+                  {project.category}
                 </div>
               </div>
               
               {/* Content */}
-              <div className="p-6">
-                <div className="mb-2">
-                  <span className="text-blue-600 text-sm font-medium">
-                    {project.location}
-                  </span>
+              <div style={styles.cardContent}>
+                <div style={styles.location}>
+                  {project.location}
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 mb-3">
+                <h3 style={styles.cardTitle}>
                   {project.title}
                 </h3>
-                <p className="text-gray-600 text-sm mb-4">
+                <p style={styles.cardDescription}>
                   {project.description}
                 </p>
-                <button className="text-blue-600 font-medium hover:text-blue-700 transition-colors duration-200 flex items-center text-sm">
+                <button 
+                  style={styles.viewButton}
+                  onMouseOver={(e) => {
+                    e.target.style.color = colors.primary
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.color = colors.secondary
+                  }}
+                >
                   View Project
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </button>
@@ -116,18 +279,20 @@ export default function PortfolioShowcase() {
         </div>
 
         {/* CTA Button */}
-        <div className="text-center mt-12">
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300 font-medium shadow-md hover:shadow-lg">
+        <div style={styles.ctaContainer}>
+          <button 
+            style={styles.ctaButton}
+            onMouseOver={(e) => {
+              e.target.style.backgroundColor = colors.primary
+            }}
+            onMouseOut={(e) => {
+              e.target.style.backgroundColor = colors.secondary
+            }}
+          >
             View All Projects
           </button>
         </div>
       </div>
-
-      <style jsx>{`
-        .container {
-          max-width: 1200px;
-        }
-      `}</style>
     </section>
   )
 }
