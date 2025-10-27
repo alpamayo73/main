@@ -31,7 +31,7 @@ export default function AboutPreview() {
                 </div>
               </div>
 
-              <Link href="/about" className="about-btn">
+              <Link href="/about" className="btn btn-primary">
                 Learn More About Us
               </Link>
             </div>
@@ -113,18 +113,26 @@ export default function AboutPreview() {
           font-size: 0.9rem;
         }
 
-        .about-btn {
-          display: inline-block;
-          background-color: #577D8E;
-          color: white;
+        .btn {
           padding: 0.8rem 1.5rem;
           border-radius: 6px;
           font-weight: bold;
           text-decoration: none;
           transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+          text-align: center;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .about-btn:hover {
+        .btn-primary {
+          background-color: #577D8E;
+          color: white;
+        }
+
+        .btn-primary:hover {
           background-color: #1C2734;
           transform: scale(1.05);
         }
@@ -173,10 +181,12 @@ export default function AboutPreview() {
             max-width: 200px;
           }
           
-          .about-btn {
+          .btn {
             display: block;
             text-align: center;
             margin: 0 auto;
+            width: 100%;
+            max-width: 250px;
           }
           
           .about-img {
