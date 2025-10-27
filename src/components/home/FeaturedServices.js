@@ -368,6 +368,50 @@ export default function FeaturedServices() {
             flex-direction: column;
             gap: 1rem;
           }
+
+
+
+
+          .services-btn {
+  padding: 0.8rem 1.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+}
+
+.services-btn-primary {
+  background-color: #577D8E;
+  color: white;
+}
+
+.services-btn-primary:hover {
+  background-color: #1C2734;
+  transform: scale(1.05);
+}
+
+.services-btn-secondary {
+  border: 2px solid #1C2734;
+  color: #1C2734;
+  background-color: transparent;
+}
+
+.services-btn-secondary:hover {
+  background-color: #1C2734;
+  color: white;
+  transform: scale(1.05);
+}
+
+
+
           
           .btn {
             width: 100%;
