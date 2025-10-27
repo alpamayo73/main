@@ -31,9 +31,9 @@ export default function AboutPreview() {
                 </div>
               </div>
 
-              <Link href="/about" className="btn btn-primary">
-                Learn More About Us
-              </Link>
+<Link href="/about" className="about-btn about-btn-primary">
+  Learn More About Us
+</Link>
             </div>
 
             {/* Image */}
@@ -188,6 +188,35 @@ export default function AboutPreview() {
             width: 100%;
             max-width: 250px;
           }
+
+
+
+
+          .about-btn {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-btn-primary {
+  background-color: #577D8E;
+  color: white;
+}
+
+.about-btn-primary:hover {
+  background-color: #1C2734;
+  transform: scale(1.05);
+}
+
+
           
           .about-img {
             height: 300px;
