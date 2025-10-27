@@ -140,7 +140,8 @@ const navLinkStyle = {
   fontSize: '0.9rem',
   fontWeight: '500',
   transition: 'color 0.3s ease',
-  padding: '0.5rem 0'
+  padding: '0.5rem 0',
+  fontFamily: 'Roboto, sans-serif'
 };
 
 const dropdownLinkStyle = {
@@ -149,5 +150,6 @@ const dropdownLinkStyle = {
   textDecoration: 'none',
   fontSize: '0.9rem',
   padding: '0.4rem 0',
-  transition: 'color 0.3s ease'
+  transition: 'color 0.3s ease',
+  fontFamily: 'Roboto, sans-serif'
 };
