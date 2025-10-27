@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 export default function FeaturedServices() {
   const featuredServices = [
@@ -59,7 +58,7 @@ export default function FeaturedServices() {
                     href={service.link}
                     className="inline-flex items-center text-white font-semibold hover:text-[#577D8E] transition-colors duration-300"
                   >
-                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    Learn More <span className="ml-2">→</span>
                   </Link>
                 </div>
               </div>
@@ -73,7 +72,7 @@ export default function FeaturedServices() {
             className="inline-flex items-center bg-[#1C2734] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#577D8E] transition-all duration-300 transform hover:scale-105"
           >
             View All Services
-            <ArrowRight className="ml-2 w-5 h-5" />
+            <span className="ml-2">→</span>
           </Link>
         </div>
       </div>
