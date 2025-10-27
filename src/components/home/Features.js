@@ -45,7 +45,7 @@ export default function Features() {
             Why Choose Alpamayo
           </h2>
           <p style={{
-            fontSize: '1.25rem',
+            fontSize: '1.125rem',
             color: '#6b7280',
             maxWidth: '600px',
             margin: '0 auto'
@@ -54,6 +54,7 @@ export default function Features() {
           </p>
         </div>
 
+        {/* 4 Columns Grid */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr',
@@ -67,26 +68,27 @@ export default function Features() {
                 padding: '2rem',
                 borderRadius: '12px',
                 textAlign: 'center',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-                transition: 'all 0.3s ease'
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+                transition: 'all 0.3s ease',
+                border: '1px solid rgba(0, 0, 0, 0.05)'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.transform = 'translateY(-5px)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.12)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
               }}
             >
               <div style={{
                 fontSize: '3rem',
-                marginBottom: '1rem'
+                marginBottom: '1.5rem'
               }}>
                 {feature.icon}
               </div>
               <h3 style={{
-                fontSize: '1.5rem',
+                fontSize: '1.25rem',
                 fontWeight: '600',
                 color: '#1C2734',
                 marginBottom: '1rem'
@@ -95,7 +97,8 @@ export default function Features() {
               </h3>
               <p style={{
                 color: '#6b7280',
-                lineHeight: 1.6
+                lineHeight: 1.6,
+                fontSize: '0.95rem'
               }}>
                 {feature.description}
               </p>
@@ -106,13 +109,13 @@ export default function Features() {
 
       <style jsx>{`
         @media (min-width: 768px) {
-          div > div {
+          div > div:last-child {
             grid-template-columns: 1fr 1fr;
           }
         }
         
         @media (min-width: 1024px) {
-          div > div {
+          div > div:last-child {
             grid-template-columns: 1fr 1fr 1fr 1fr;
           }
         }
