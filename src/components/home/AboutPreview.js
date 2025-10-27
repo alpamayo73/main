@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function AboutPreview() {
   return (
     <section style={{
-      padding: '3rem 0',
+      padding: '5rem 0',
       backgroundColor: '#f9fafb'
     }}>
       <div style={{
@@ -13,30 +13,28 @@ export default function AboutPreview() {
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '3rem',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '4rem',
           alignItems: 'center'
         }}>
           
           {/* Content */}
           <div>
             <h2 style={{
-              fontSize: '2rem',
-              fontWeight: '700',
+              fontSize: '2.5rem',
+              fontWeight: 'bold',
               color: '#1C2734',
               marginBottom: '1.5rem',
-              lineHeight: 1.2,
-              textAlign: 'center'
+              lineHeight: 1.2
             }}>
               Luxury Renovation Experts in Dubai
             </h2>
             
             <p style={{
-              fontSize: '1rem',
+              fontSize: '1.125rem',
               color: '#6b7280',
               marginBottom: '2rem',
-              lineHeight: 1.6,
-              textAlign: 'center'
+              lineHeight: 1.6
             }}>
               Alpamayo Technical Services brings unparalleled expertise in luxury renovations 
               and professional AC services to Dubai's most discerning clients. With years of 
@@ -46,23 +44,19 @@ export default function AboutPreview() {
 
             <div style={{
               display: 'flex',
-              flexDirection: 'column',
               gap: '1rem',
-              marginBottom: '2rem',
-              alignItems: 'center'
+              marginBottom: '2rem'
             }}>
               <div style={{
                 backgroundColor: '#577D8E',
                 color: 'white',
                 padding: '1rem 1.5rem',
                 borderRadius: '8px',
-                textAlign: 'center',
-                width: '100%',
-                maxWidth: '200px'
+                textAlign: 'center'
               }}>
                 <div style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '700',
+                  fontSize: '1.5rem',
+                  fontWeight: 'bold',
                   marginBottom: '0.25rem'
                 }}>5+</div>
                 <div style={{ fontSize: '0.9rem' }}>Years Experience</div>
@@ -72,45 +66,40 @@ export default function AboutPreview() {
                 color: 'white',
                 padding: '1rem 1.5rem',
                 borderRadius: '8px',
-                textAlign: 'center',
-                width: '100%',
-                maxWidth: '200px'
+                textAlign: 'center'
               }}>
                 <div style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '700',
+                  fontSize: '1.5rem',
+                  fontWeight: 'bold',
                   marginBottom: '0.25rem'
                 }}>200+</div>
                 <div style={{ fontSize: '0.9rem' }}>Projects Completed</div>
               </div>
             </div>
 
-            <div style={{ textAlign: 'center' }}>
-              <Link 
-                href="/about"
-                style={{
-                  display: 'inline-block',
-                  backgroundColor: '#577D8E',
-                  color: 'white',
-                  padding: '0.8rem 1.5rem',
-                  borderRadius: '6px',
-                  fontWeight: '600',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.3s ease'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#1C2734';
-                  e.target.style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#577D8E';
-                  e.target.style.transform = 'scale(1)';
-                }}
-              >
-                Learn More About Us
-              </Link>
-            </div>
+            <Link 
+              href="/about"
+              style={{
+                display: 'inline-block',
+                backgroundColor: '#577D8E',
+                color: 'white',
+                padding: '0.8rem 1.5rem',
+                borderRadius: '6px',
+                fontWeight: 'bold',
+                textDecoration: 'none',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#1C2734';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#577D8E';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              Learn More About Us
+            </Link>
           </div>
 
           {/* Image */}
@@ -122,10 +111,10 @@ export default function AboutPreview() {
               alt="Luxury renovation in Dubai"
               style={{
                 width: '100%',
-                height: '300px',
+                height: '400px',
                 objectFit: 'cover',
                 borderRadius: '12px',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)'
+                boxShadow: '0 15px 35px rgba(0, 0, 0, 0.1)'
               }}
             />
           </div>
@@ -133,36 +122,38 @@ export default function AboutPreview() {
       </div>
 
       <style jsx>{`
-        @media (min-width: 768px) {
+        @media (max-width: 767px) {
           section {
-            padding: 4rem 0;
+            padding: 3rem 0;
           }
           
           div > div:first-child {
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr;
+            gap: 2rem;
           }
           
           h2 {
-            font-size: 2.5rem;
-            text-align: left;
+            font-size: 2rem;
+            text-align: center;
           }
           
           p {
-            text-align: left;
+            text-align: center;
+            font-size: 1rem;
           }
           
           div > div:first-child > div:first-child > div:nth-child(3) {
-            flex-direction: row;
-            justify-content: flex-start;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
           }
           
           div > div:first-child > div:first-child > div:last-child {
-            text-align: left;
+            text-align: center;
           }
           
           div > div:first-child > div:last-child img {
-            height: 400px;
+            height: 300px;
           }
         }
       `}</style>
