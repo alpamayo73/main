@@ -24,7 +24,7 @@ export default function Features() {
 
   return (
     <section style={{
-      padding: '5rem 0',
+      padding: '4rem 0',
       backgroundColor: '#f9fafb'
     }}>
       <div style={{
@@ -34,10 +34,10 @@ export default function Features() {
       }}>
         <div style={{
           textAlign: 'center',
-          marginBottom: '4rem'
+          marginBottom: '3rem'
         }}>
           <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontSize: '2.5rem',
             fontWeight: 'bold',
             color: '#1C2734',
             marginBottom: '1rem'
@@ -45,7 +45,7 @@ export default function Features() {
             Why Choose Alpamayo
           </h2>
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: '1.1rem',
             color: '#6b7280',
             maxWidth: '600px',
             margin: '0 auto'
@@ -54,51 +54,51 @@ export default function Features() {
           </p>
         </div>
 
-        {/* 4 Columns Grid */}
+        {/* 4 Columns 1 Row Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '2rem'
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          gap: '1.5rem'
         }}>
           {features.map((feature, index) => (
             <div 
               key={index}
               style={{
                 backgroundColor: 'white',
-                padding: '2rem',
+                padding: '2rem 1.5rem',
                 borderRadius: '12px',
                 textAlign: 'center',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
                 transition: 'all 0.3s ease',
                 border: '1px solid rgba(0, 0, 0, 0.05)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.12)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.12)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+                e.currentTarget.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.08)';
               }}
             >
               <div style={{
                 fontSize: '3rem',
-                marginBottom: '1.5rem'
+                marginBottom: '1rem'
               }}>
                 {feature.icon}
               </div>
               <h3 style={{
-                fontSize: '1.25rem',
+                fontSize: '1.2rem',
                 fontWeight: '600',
                 color: '#1C2734',
-                marginBottom: '1rem'
+                marginBottom: '0.8rem'
               }}>
                 {feature.title}
               </h3>
               <p style={{
                 color: '#6b7280',
-                lineHeight: 1.6,
-                fontSize: '0.95rem'
+                lineHeight: 1.5,
+                fontSize: '0.9rem'
               }}>
                 {feature.description}
               </p>
@@ -106,20 +106,6 @@ export default function Features() {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @media (min-width: 768px) {
-          div > div:last-child {
-            grid-template-columns: 1fr 1fr;
-          }
-        }
-        
-        @media (min-width: 1024px) {
-          div > div:last-child {
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-          }
-        }
-      `}</style>
     </section>
   );
 }
