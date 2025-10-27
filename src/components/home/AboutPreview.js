@@ -12,7 +12,7 @@ export default function AboutPreview() {
 
   return (
     <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div>
@@ -45,7 +45,7 @@ export default function AboutPreview() {
 
           {/* Image */}
           <div className="relative">
-            <div className="luxury-shadow rounded-lg overflow-hidden">
+            <div className="shadow-lg rounded-lg overflow-hidden">
               <img 
                 src="https://images.unsplash.com/photo-1558036117-15e82a2c9c7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                 alt="Luxury renovation in Dubai"
@@ -53,7 +53,7 @@ export default function AboutPreview() {
               />
             </div>
             {/* Experience Badge */}
-            <div className="absolute -bottom-6 -right-6 bg-[#1C2734] text-white p-6 rounded-lg luxury-shadow">
+            <div className="absolute -bottom-6 -right-6 bg-[#1C2734] text-white p-6 rounded-lg shadow-lg">
               <div className="text-center">
                 <div className="text-3xl font-bold">5+</div>
                 <div className="text-sm">Years Experience</div>
