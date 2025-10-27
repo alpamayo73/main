@@ -24,7 +24,7 @@ export default function Features() {
 
   return (
     <section style={{
-      padding: '4rem 0',
+      padding: '3rem 0',
       backgroundColor: '#f9fafb'
     }}>
       <div style={{
@@ -37,27 +37,28 @@ export default function Features() {
           marginBottom: '3rem'
         }}>
           <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
+            fontSize: '2rem',
+            fontWeight: '700',
             color: '#1C2734',
             marginBottom: '1rem'
           }}>
             Why Choose Alpamayo
           </h2>
           <p style={{
-            fontSize: '1.1rem',
+            fontSize: '1rem',
             color: '#6b7280',
             maxWidth: '600px',
-            margin: '0 auto'
+            margin: '0 auto',
+            lineHeight: 1.6
           }}>
             We combine luxury design with technical excellence to deliver exceptional results for our clients in Dubai.
           </p>
         </div>
 
-        {/* 4 Columns 1 Row Grid */}
+        {/* Responsive Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          gridTemplateColumns: '1fr',
           gap: '1.5rem'
         }}>
           {features.map((feature, index) => (
@@ -65,7 +66,7 @@ export default function Features() {
               key={index}
               style={{
                 backgroundColor: 'white',
-                padding: '2rem 1.5rem',
+                padding: '1.5rem',
                 borderRadius: '12px',
                 textAlign: 'center',
                 boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
@@ -82,7 +83,7 @@ export default function Features() {
               }}
             >
               <div style={{
-                fontSize: '3rem',
+                fontSize: '2.5rem',
                 marginBottom: '1rem'
               }}>
                 {feature.icon}
@@ -106,6 +107,29 @@ export default function Features() {
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (min-width: 768px) {
+          section {
+            padding: 4rem 0;
+          }
+          
+          h2 {
+            font-size: 2.5rem;
+          }
+          
+          div > div:last-child {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+          }
+        }
+        
+        @media (min-width: 1024px) {
+          div > div:last-child {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+          }
+        }
+      `}</style>
     </section>
   );
 }
