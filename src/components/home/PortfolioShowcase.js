@@ -1,9 +1,10 @@
 // src/components/home/PortfolioShowcase.js
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function PortfolioShowcase() {
   const [activeFilter, setActiveFilter] = useState('all')
+  const [isMobile, setIsMobile] = useState(false)
   
   const projects = [
     {
@@ -29,8 +30,43 @@ export default function PortfolioShowcase() {
       location: "Downtown Dubai",
       image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       description: "Luxury penthouse renovation with premium Italian finishes"
+    },
+    {
+      id: 4,
+      title: "Modern Villa Makeover",
+      category: "villa",
+      location: "Emirates Hills",
+      image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      description: "Contemporary villa renovation with outdoor living space"
+    },
+    {
+      id: 5,
+      title: "Commercial Office",
+      category: "office",
+      location: "Business Bay",
+      image: "https://images.unsplash.com/photo-1564069114553-7215e1ff1890?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      description: "Complete office space transformation for growing business"
+    },
+    {
+      id: 6,
+      title: "Luxury Apartment",
+      category: "apartment",
+      location: "Dubai Marina",
+      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      description: "Premium apartment renovation with sea views"
     }
   ]
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const filteredProjects = activeFilter === 'all' 
     ? projects 
@@ -67,27 +103,30 @@ export default function PortfolioShowcase() {
       fontSize: '1.125rem',
       color: '#6B7280',
       maxWidth: '42rem',
-      margin: '0 auto'
+      margin: '0 auto',
+      lineHeight: '1.6'
     },
     filterContainer: {
       display: 'flex',
       justifyContent: 'center',
       flexWrap: 'wrap',
       gap: '0.5rem',
-      marginBottom: '2rem'
+      marginBottom: '3rem'
     },
     filterButton: {
-      padding: '0.5rem 1rem',
+      padding: '0.75rem 1.5rem',
       borderRadius: '9999px',
       fontSize: '0.875rem',
-      fontWeight: '500',
+      fontWeight: '600',
       border: 'none',
       cursor: 'pointer',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
+      textTransform: 'capitalize'
     },
     filterButtonActive: {
       backgroundColor: colors.secondary,
-      color: colors.white
+      color: colors.white,
+      transform: 'scale(1.05)'
     },
     filterButtonInactive: {
       backgroundColor: '#F3F4F6',
@@ -95,33 +134,35 @@ export default function PortfolioShowcase() {
     },
     grid: {
       display: 'grid',
-      gridTemplateColumns: '1fr',
-      gap: '1.5rem'
+      gap: '2rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)'
     },
     card: {
       backgroundColor: colors.white,
-      borderRadius: '0.5rem',
+      borderRadius: '12px',
       overflow: 'hidden',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
       border: '1px solid #E5E7EB',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
+      height: '100%'
     },
     imageContainer: {
       position: 'relative',
       width: '100%',
-      height: '12rem'
+      height: '250px'
     },
     categoryBadge: {
       position: 'absolute',
-      top: '0.75rem',
-      left: '0.75rem',
+      top: '1rem',
+      left: '1rem',
       backgroundColor: colors.secondary,
       color: colors.white,
-      padding: '0.25rem 0.5rem',
-      borderRadius: '0.25rem',
+      padding: '0.5rem 1rem',
+      borderRadius: '20px',
       fontSize: '0.75rem',
-      fontWeight: '500',
-      textTransform: 'uppercase'
+      fontWeight: '600',
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px'
     },
     cardContent: {
       padding: '1.5rem'
@@ -129,30 +170,35 @@ export default function PortfolioShowcase() {
     location: {
       color: colors.secondary,
       fontSize: '0.875rem',
-      fontWeight: '500',
-      marginBottom: '0.5rem'
+      fontWeight: '600',
+      marginBottom: '0.5rem',
+      display: 'block'
     },
     cardTitle: {
       fontSize: '1.25rem',
       fontWeight: 'bold',
       color: colors.primary,
-      marginBottom: '0.75rem'
+      marginBottom: '0.75rem',
+      lineHeight: '1.4'
     },
     cardDescription: {
       color: '#6B7280',
       fontSize: '0.875rem',
-      marginBottom: '1rem'
+      marginBottom: '1.5rem',
+      lineHeight: '1.5'
     },
     viewButton: {
       color: colors.secondary,
-      fontWeight: '500',
+      fontWeight: '600',
       fontSize: '0.875rem',
       background: 'none',
       border: 'none',
       cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
-      gap: '0.25rem'
+      gap: '0.5rem',
+      padding: '0',
+      transition: 'color 0.3s ease'
     },
     ctaContainer: {
       textAlign: 'center',
@@ -161,23 +207,14 @@ export default function PortfolioShowcase() {
     ctaButton: {
       backgroundColor: colors.secondary,
       color: colors.white,
-      padding: '0.75rem 2rem',
-      borderRadius: '0.5rem',
+      padding: '1rem 2.5rem',
+      borderRadius: '8px',
       border: 'none',
       fontSize: '1rem',
-      fontWeight: '500',
+      fontWeight: '600',
       cursor: 'pointer',
-      transition: 'background-color 0.3s ease'
-    }
-  }
-
-  // Media queries for responsive design
-  if (typeof window !== 'undefined') {
-    if (window.innerWidth >= 768) {
-      styles.grid.gridTemplateColumns = 'repeat(2, 1fr)'
-    }
-    if (window.innerWidth >= 1024) {
-      styles.grid.gridTemplateColumns = 'repeat(3, 1fr)'
+      transition: 'all 0.3s ease',
+      boxShadow: '0 4px 12px rgba(87, 125, 142, 0.2)'
     }
   }
 
@@ -188,7 +225,7 @@ export default function PortfolioShowcase() {
         <div style={styles.header}>
           <h2 style={styles.title}>Our Premium Projects</h2>
           <p style={styles.subtitle}>
-            Discover our exceptional renovation projects that redefine luxury living in Dubai
+            Discover our exceptional renovation projects that redefine luxury living in Dubai's most prestigious locations
           </p>
         </div>
 
@@ -205,11 +242,13 @@ export default function PortfolioShowcase() {
               onMouseOver={(e) => {
                 if (activeFilter !== filter) {
                   e.target.style.backgroundColor = '#E5E7EB'
+                  e.target.style.transform = 'scale(1.05)'
                 }
               }}
               onMouseOut={(e) => {
                 if (activeFilter !== filter) {
                   e.target.style.backgroundColor = styles.filterButtonInactive.backgroundColor
+                  e.target.style.transform = 'scale(1)'
                 }
               }}
             >
@@ -220,15 +259,15 @@ export default function PortfolioShowcase() {
           ))}
         </div>
 
-        {/* Projects Grid */}
+        {/* Projects Grid - 3 columns */}
         <div style={styles.grid}>
           {filteredProjects.map((project) => (
             <div 
               key={project.id} 
               style={styles.card}
               onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+                e.currentTarget.style.transform = 'translateY(-8px)'
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)'
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)'
@@ -250,9 +289,9 @@ export default function PortfolioShowcase() {
               
               {/* Content */}
               <div style={styles.cardContent}>
-                <div style={styles.location}>
+                <span style={styles.location}>
                   {project.location}
-                </div>
+                </span>
                 <h3 style={styles.cardTitle}>
                   {project.title}
                 </h3>
@@ -284,9 +323,13 @@ export default function PortfolioShowcase() {
             style={styles.ctaButton}
             onMouseOver={(e) => {
               e.target.style.backgroundColor = colors.primary
+              e.target.style.transform = 'translateY(-2px)'
+              e.target.style.boxShadow = '0 8px 20px rgba(28, 39, 52, 0.3)'
             }}
             onMouseOut={(e) => {
               e.target.style.backgroundColor = colors.secondary
+              e.target.style.transform = 'translateY(0)'
+              e.target.style.boxShadow = styles.ctaButton.boxShadow
             }}
           >
             View All Projects
