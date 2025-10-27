@@ -3,6 +3,8 @@ import Link from 'next/link'
 
 export default function Header() {
   const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
   return (
     <header style={{
@@ -12,12 +14,13 @@ export default function Header() {
       top: 0,
       zIndex: 1000
     }}>
-      {/* Top Bar */}
+      {/* Top Bar - Hidden on Mobile */}
       <div style={{
         backgroundColor: '#1C2734',
         color: 'white',
         padding: '0.4rem 0',
-        fontSize: '0.8rem'
+        fontSize: '0.8rem',
+        display: { mobile: 'none', desktop: 'block' }
       }}>
         <div style={{
           maxWidth: '1200px',
@@ -25,12 +28,14 @@ export default function Header() {
           padding: '0 20px',
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          flexWrap: 'wrap'
         }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '2rem'
+            gap: '2rem',
+            flexWrap: 'wrap'
           }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <span style={{ marginRight: '0.4rem' }}>📞</span>
@@ -49,7 +54,8 @@ export default function Header() {
       <nav style={{
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '1rem 20px'
+        padding: '1rem 20px',
+        position: 'relative'
       }}>
         <div style={{
           display: 'flex',
@@ -63,12 +69,12 @@ export default function Header() {
             color: '#1C2734',
             textDecoration: 'none'
           }}>
-            Alpamayo Technical Services
+            Alpamayo
           </Link>
 
           {/* Desktop Navigation */}
           <div style={{
-            display: 'flex',
+            display: 'none',
             alignItems: 'center',
             gap: '2rem'
           }}>
@@ -121,10 +127,111 @@ export default function Header() {
             <Link href="/contact" style={navLinkStyle}>Contact</Link>
             <Link href="/faqs" style={navLinkStyle}>FAQs</Link>
           </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            style={{
+              display: 'block',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: '0.5rem',
+              fontSize: '1.5rem'
+            }}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            ☰
+          </button>
         </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <div style={{
+            position: 'absolute',
+            top: '100%',
+            left: 0,
+            right: 0,
+            backgroundColor: 'white',
+            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
+            zIndex: 1000,
+            padding: '1rem'
+          }}>
+            <Link href="/" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>Home</Link>
+            <Link href="/about" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>About</Link>
+            
+            {/* Mobile Services Dropdown */}
+            <div style={mobileNavLinkStyle}>
+              <button 
+                style={{
+                  ...mobileNavLinkStyle,
+                  background: 'none',
+                  border: 'none',
+                  width: '100%',
+                  textAlign: 'left',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  padding: 0
+                }}
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+              >
+                Services
+                <span>{mobileServicesOpen ? '▲' : '▼'}</span>
+              </button>
+              
+              {mobileServicesOpen && (
+                <div style={{
+                  marginTop: '0.5rem',
+                  paddingLeft: '1rem',
+                  borderLeft: '2px solid #577D8E'
+                }}>
+                  <div style={{ fontWeight: '600', color: '#1C2734', marginBottom: '0.5rem' }}>Renovation</div>
+                  <Link href="/services/renovation#villa" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Villa Renovation</Link>
+                  <Link href="/services/renovation#apartment" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Apartment Renovation</Link>
+                  <Link href="/services/renovation#office" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Office Renovation</Link>
+                  
+                  <div style={{ fontWeight: '600', color: '#1C2734', margin: '0.5rem 0' }}>AC Services</div>
+                  <Link href="/services/ac-services#vrf" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>VRF AC Systems</Link>
+                  <Link href="/services/ac-services#split" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Split AC Systems</Link>
+                  <Link href="/services/ac-services#chiller" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Water Chiller FCU</Link>
+                </div>
+              )}
+            </div>
+            
+            <Link href="/contact" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+            <Link href="/faqs" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
+            
+            {/* Mobile Contact Info */}
+            <div style={{
+              marginTop: '1rem',
+              paddingTop: '1rem',
+              borderTop: '1px solid #e5e7eb'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+                <span style={{ marginRight: '0.5rem' }}>📞</span>
+                <span style={{ fontSize: '0.9rem' }}>+971589071754</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+                <span style={{ marginRight: '0.5rem' }}>✉️</span>
+                <span style={{ fontSize: '0.9rem' }}>info@thealpamayo.com</span>
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       <style jsx>{`
+        @media (min-width: 768px) {
+          nav > div > div:first-of-type {
+            display: flex;
+          }
+          
+          button:last-child {
+            display: none;
+          }
+        }
+        
         a:hover {
           color: #577D8E;
         }
@@ -140,8 +247,7 @@ const navLinkStyle = {
   fontSize: '0.9rem',
   fontWeight: '500',
   transition: 'color 0.3s ease',
-  padding: '0.5rem 0',
-  fontFamily: 'Roboto, sans-serif'
+  padding: '0.5rem 0'
 };
 
 const dropdownLinkStyle = {
@@ -150,6 +256,25 @@ const dropdownLinkStyle = {
   textDecoration: 'none',
   fontSize: '0.9rem',
   padding: '0.4rem 0',
-  transition: 'color 0.3s ease',
-  fontFamily: 'Roboto, sans-serif'
+  transition: 'color 0.3s ease'
+};
+
+const mobileNavLinkStyle = {
+  display: 'block',
+  color: '#1C2734',
+  textDecoration: 'none',
+  fontSize: '1rem',
+  fontWeight: '500',
+  padding: '0.8rem 0',
+  borderBottom: '1px solid #f3f4f6',
+  transition: 'color 0.3s ease'
+};
+
+const mobileDropdownLinkStyle = {
+  display: 'block',
+  color: '#6b7280',
+  textDecoration: 'none',
+  fontSize: '0.9rem',
+  padding: '0.6rem 0',
+  transition: 'color 0.3s ease'
 };
