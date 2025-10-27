@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-[#1C2734] to-[#577D8E] text-white">
+    <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-[#1C2734] to-[#577D8E] text-white overflow-hidden">
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
@@ -14,7 +14,7 @@ export default function Hero() {
       </div>
       
       {/* Content */}
-      <div className="container mx-auto text-center relative z-10 px-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
           Luxury Renovation &<br />AC Services in Dubai
         </h1>
@@ -24,7 +24,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Link 
             href="/services" 
-            className="bg-white text-[#1C2734] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg"
+            className="bg-white text-[#1C2734] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg"
           >
             Explore Our Services
           </Link>
