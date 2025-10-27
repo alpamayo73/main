@@ -4,42 +4,42 @@ export default function FeaturedServices() {
   const featuredServices = [
     {
       title: 'Villa Renovation',
-      description: 'Transform your villa into a luxury masterpiece with our comprehensive renovation services. From design to execution, we deliver excellence.',
+      description: 'Transform your villa into a luxury masterpiece with our comprehensive renovation services.',
       image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/renovation#villa',
       icon: '🏠'
     },
     {
       title: 'VRF AC Systems',
-      description: 'Advanced Variable Refrigerant Flow AC solutions for optimal climate control in large residential and commercial spaces.',
+      description: 'Advanced VRF AC solutions for optimal climate control in large spaces.',
       image: 'https://images.unsplash.com/photo-1558618666-fcd25856cd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/ac-services#vrf',
       icon: '❄️'
     },
     {
       title: 'Apartment Renovation',
-      description: 'Modernize your apartment with innovative design solutions that maximize space and enhance functionality.',
+      description: 'Modernize your apartment with innovative design solutions.',
       image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/renovation#apartment',
       icon: '🏢'
     },
     {
       title: 'Split AC Systems',
-      description: 'Efficient and reliable split air conditioner installation and maintenance for optimal cooling performance.',
+      description: 'Efficient split air conditioner installation and maintenance.',
       image: 'https://images.unsplash.com/photo-1581993192008-63fd1ea7de1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/ac-services#split',
       icon: '🌡️'
     },
     {
       title: 'Office Renovation',
-      description: 'Create inspiring, productive workspaces that reflect your brand identity and enhance employee well-being.',
+      description: 'Create inspiring, productive workspaces.',
       image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/renovation#office',
       icon: '💼'
     },
     {
       title: 'Water Chiller FCU',
-      description: 'Professional water chiller fan coil unit installation and maintenance for large-scale cooling requirements.',
+      description: 'Professional water chiller installation for large-scale cooling.',
       image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/ac-services#chiller',
       icon: '🌀'
@@ -48,7 +48,7 @@ export default function FeaturedServices() {
 
   return (
     <section style={{
-      padding: '5rem 0',
+      padding: '3rem 0',
       backgroundColor: '#f8fafc'
     }}>
       <div style={{
@@ -59,7 +59,7 @@ export default function FeaturedServices() {
         {/* Header */}
         <div style={{
           textAlign: 'center',
-          marginBottom: '4rem'
+          marginBottom: '3rem'
         }}>
           <div style={{
             display: 'inline-block',
@@ -74,7 +74,7 @@ export default function FeaturedServices() {
             Our Services
           </div>
           <h2 style={{
-            fontSize: '2.8rem',
+            fontSize: '2rem',
             fontWeight: '700',
             color: '#1C2734',
             marginBottom: '1rem',
@@ -83,42 +83,32 @@ export default function FeaturedServices() {
             Premium Services
           </h2>
           <p style={{
-            fontSize: '1.1rem',
+            fontSize: '1rem',
             color: '#6b7280',
             maxWidth: '600px',
             margin: '0 auto',
             lineHeight: 1.6
           }}>
-            Discover our comprehensive range of luxury renovation and professional AC services 
-            tailored for Dubai's elite properties and commercial spaces.
+            Discover our comprehensive range of luxury renovation and professional AC services.
           </p>
         </div>
 
         {/* Services Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: '2rem',
-          marginBottom: '4rem'
+          gridTemplateColumns: '1fr',
+          gap: '1.5rem',
+          marginBottom: '3rem'
         }}>
           {featuredServices.map((service, index) => (
             <div 
               key={index}
               style={{
                 backgroundColor: 'white',
-                borderRadius: '16px',
+                borderRadius: '12px',
                 overflow: 'hidden',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
-                transition: 'all 0.4s ease',
-                border: '1px solid rgba(0, 0, 0, 0.05)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-10px)';
-                e.currentTarget.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08)';
+                boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
+                transition: 'all 0.3s ease'
               }}
             >
               {/* Image Container */}
@@ -132,14 +122,7 @@ export default function FeaturedServices() {
                     height: '100%',
                     backgroundImage: `url(${service.image})`,
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    transition: 'transform 0.4s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'scale(1.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'scale(1)';
+                    backgroundPosition: 'center'
                   }}
                 ></div>
                 <div style={{
@@ -147,25 +130,17 @@ export default function FeaturedServices() {
                   top: '1rem',
                   left: '1rem',
                   backgroundColor: 'white',
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '12px',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '1.5rem',
+                  fontSize: '1.2rem',
                   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                 }}>
                   {service.icon}
                 </div>
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(to bottom, transparent 0%, rgba(28, 39, 52, 0.1) 100%)'
-                }}></div>
               </div>
 
               {/* Content */}
@@ -173,7 +148,7 @@ export default function FeaturedServices() {
                 padding: '1.5rem'
               }}>
                 <h3 style={{
-                  fontSize: '1.3rem',
+                  fontSize: '1.2rem',
                   fontWeight: '600',
                   color: '#1C2734',
                   marginBottom: '0.8rem',
@@ -197,23 +172,10 @@ export default function FeaturedServices() {
                     color: '#577D8E',
                     fontWeight: '600',
                     textDecoration: 'none',
-                    fontSize: '0.9rem',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.color = '#1C2734';
-                    e.target.style.transform = 'translateX(5px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.color = '#577D8E';
-                    e.target.style.transform = 'translateX(0)';
+                    fontSize: '0.9rem'
                   }}
                 >
-                  Learn More 
-                  <span style={{ 
-                    marginLeft: '0.5rem',
-                    transition: 'transform 0.3s ease'
-                  }}>→</span>
+                  Learn More →
                 </Link>
               </div>
             </div>
@@ -224,13 +186,12 @@ export default function FeaturedServices() {
         <div style={{
           textAlign: 'center',
           backgroundColor: 'white',
-          padding: '3rem 2rem',
-          borderRadius: '16px',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
-          border: '1px solid rgba(0, 0, 0, 0.05)'
+          padding: '2rem 1.5rem',
+          borderRadius: '12px',
+          boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)'
         }}>
           <h3 style={{
-            fontSize: '1.8rem',
+            fontSize: '1.5rem',
             fontWeight: '600',
             color: '#1C2734',
             marginBottom: '1rem'
@@ -239,17 +200,15 @@ export default function FeaturedServices() {
           </h3>
           <p style={{
             color: '#6b7280',
-            marginBottom: '2rem',
-            maxWidth: '500px',
-            margin: '0 auto',
+            marginBottom: '1.5rem',
             lineHeight: 1.6
           }}>
-            Let's discuss your renovation or AC service needs and create a customized solution for your space.
+            Let's discuss your renovation or AC service needs.
           </p>
           <div style={{
             display: 'flex',
+            flexDirection: 'column',
             gap: '1rem',
-            justifyContent: 'center',
             alignItems: 'center'
           }}>
             <Link 
@@ -259,20 +218,14 @@ export default function FeaturedServices() {
                 alignItems: 'center',
                 backgroundColor: '#577D8E',
                 color: 'white',
-                padding: '0.8rem 1.8rem',
+                padding: '0.8rem 1.5rem',
                 borderRadius: '8px',
                 fontWeight: '600',
                 textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                fontSize: '0.9rem'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = '#1C2734';
-                e.target.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = '#577D8E';
-                e.target.style.transform = 'scale(1)';
+                fontSize: '0.9rem',
+                width: '100%',
+                maxWidth: '250px',
+                justifyContent: 'center'
               }}
             >
               Get Free Quote
@@ -284,22 +237,14 @@ export default function FeaturedServices() {
                 alignItems: 'center',
                 border: '2px solid #1C2734',
                 color: '#1C2734',
-                padding: '0.8rem 1.8rem',
+                padding: '0.8rem 1.5rem',
                 borderRadius: '8px',
                 fontWeight: '600',
                 textDecoration: 'none',
-                transition: 'all 0.3s ease',
-                fontSize: '0.9rem'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = '#1C2734';
-                e.target.style.color = 'white';
-                e.target.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = '#1C2734';
-                e.target.style.transform = 'scale(1)';
+                fontSize: '0.9rem',
+                width: '100%',
+                maxWidth: '250px',
+                justifyContent: 'center'
               }}
             >
               View All Services
@@ -307,6 +252,20 @@ export default function FeaturedServices() {
           </div>
         </div>
       </div>
-    </section>
-  );
-}
+
+      <style jsx>{`
+        @media (min-width: 768px) {
+          section {
+            padding: 4rem 0;
+          }
+          
+          h2 {
+            font-size: 2.5rem;
+          }
+          
+          div > div:nth-child(2) {
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+          }
+          
+          div > div
