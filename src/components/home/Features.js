@@ -24,7 +24,7 @@ export default function Features() {
 
   return (
     <section style={{
-      padding: '3rem 0',
+      padding: '5rem 0',
       backgroundColor: '#f9fafb'
     }}>
       <div style={{
@@ -34,39 +34,38 @@ export default function Features() {
       }}>
         <div style={{
           textAlign: 'center',
-          marginBottom: '3rem'
+          marginBottom: '4rem'
         }}>
           <h2 style={{
-            fontSize: '2rem',
-            fontWeight: '700',
+            fontSize: '2.5rem',
+            fontWeight: 'bold',
             color: '#1C2734',
             marginBottom: '1rem'
           }}>
             Why Choose Alpamayo
           </h2>
           <p style={{
-            fontSize: '1rem',
+            fontSize: '1.25rem',
             color: '#6b7280',
             maxWidth: '600px',
-            margin: '0 auto',
-            lineHeight: 1.6
+            margin: '0 auto'
           }}>
             We combine luxury design with technical excellence to deliver exceptional results for our clients in Dubai.
           </p>
         </div>
 
-        {/* Responsive Grid */}
+        {/* 4 Columns Grid - Desktop */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '1.5rem'
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          gap: '2rem'
         }}>
           {features.map((feature, index) => (
             <div 
               key={index}
               style={{
                 backgroundColor: 'white',
-                padding: '1.5rem',
+                padding: '2rem 1.5rem',
                 borderRadius: '12px',
                 textAlign: 'center',
                 boxShadow: '0 5px 15px rgba(0, 0, 0, 0.08)',
@@ -83,7 +82,7 @@ export default function Features() {
               }}
             >
               <div style={{
-                fontSize: '2.5rem',
+                fontSize: '3rem',
                 marginBottom: '1rem'
               }}>
                 {feature.icon}
@@ -109,24 +108,26 @@ export default function Features() {
       </div>
 
       <style jsx>{`
-        @media (min-width: 768px) {
+        @media (max-width: 767px) {
           section {
-            padding: 4rem 0;
+            padding: 3rem 0;
           }
           
           h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
+          }
+          
+          p {
+            font-size: 1rem;
           }
           
           div > div:last-child {
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
           }
-        }
-        
-        @media (min-width: 1024px) {
-          div > div:last-child {
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+          
+          div > div:last-child > div {
+            padding: 1.5rem;
           }
         }
       `}</style>
