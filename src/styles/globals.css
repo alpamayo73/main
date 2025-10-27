@@ -1,5 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --primary-dark: #1C2734;
+  --primary-accent: #577D8E;
+  --primary-light: #FFFFFF;
+}
+
+body {
+  font-family: 'Rakkas', serif;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Luxury styling elements */
+.luxury-border {
+  border: 1px solid rgba(28, 39, 52, 0.1);
+}
+
+.luxury-shadow {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #577D8E 0%, #1C2734 100%);
+}
