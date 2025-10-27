@@ -7,249 +7,256 @@ export default function Header() {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
   return (
-    <header style={{
-      backgroundColor: 'white',
-      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 1000
-    }}>
-      {/* Top Bar - Hidden on Mobile */}
-      <div style={{
-        backgroundColor: '#1C2734',
-        color: 'white',
-        padding: '0.4rem 0',
-        fontSize: '0.8rem'
+    <>
+      <header style={{
+        backgroundColor: 'white',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000
       }}>
-        <div style={{
+        {/* Top Bar */}
+        <div className="top-bar">
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '2rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <span style={{ marginRight: '0.4rem' }}>📞</span>
+                <span>+971589071754</span>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <span style={{ marginRight: '0.4rem' }}>✉️</span>
+                <span>info@thealpamayo.com</span>
+              </div>
+            </div>
+            <div>Al Qouz, Dubai, United Arab Emirates</div>
+          </div>
+        </div>
+
+        {/* Main Navigation */}
+        <nav style={{
           maxWidth: '1200px',
           margin: '0 auto',
-          padding: '0 20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          padding: '1rem 20px',
+          position: 'relative'
         }}>
           <div style={{
             display: 'flex',
-            alignItems: 'center',
-            gap: '2rem'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ marginRight: '0.4rem' }}>📞</span>
-              <span>+971589071754</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ marginRight: '0.4rem' }}>✉️</span>
-              <span>info@thealpamayo.com</span>
-            </div>
-          </div>
-          <div>Al Qouz, Dubai, United Arab Emirates</div>
-        </div>
-      </div>
+            {/* Logo */}
+            <Link href="/" style={{
+              fontSize: '1.4rem',
+              fontWeight: 'bold',
+              color: '#1C2734',
+              textDecoration: 'none'
+            }}>
+              Alpamayo Technical Services
+            </Link>
 
-      {/* Main Navigation */}
-      <nav style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '1rem 20px',
-        position: 'relative'
-      }}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          {/* Logo */}
-          <Link href="/" style={{
-            fontSize: '1.4rem',
-            fontWeight: 'bold',
-            color: '#1C2734',
-            textDecoration: 'none'
-          }}>
-            Alpamayo Technical Services
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '2rem'
-          }}>
-            <Link href="/" style={navLinkStyle}>Home</Link>
-            <Link href="/about" style={navLinkStyle}>About</Link>
-            
-            {/* Services Dropdown */}
-            <div 
-              style={{ position: 'relative' }}
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
-            >
-              <button style={{
-                ...navLinkStyle,
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.3rem'
-              }}>
-                Services ▼
-              </button>
+            {/* Desktop Navigation */}
+            <div className="desktop-nav">
+              <Link href="/" style={navLinkStyle}>Home</Link>
+              <Link href="/about" style={navLinkStyle}>About</Link>
               
-              {servicesOpen && (
-                <div style={{
-                  position: 'absolute',
-                  top: '100%',
-                  left: 0,
-                  backgroundColor: 'white',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
-                  borderRadius: '8px',
-                  padding: '1rem',
-                  minWidth: '200px',
-                  zIndex: 1000
-                }}>
-                  <div style={{ marginBottom: '0.5rem', fontWeight: '600', color: '#1C2734' }}>Renovation</div>
-                  <Link href="/services/renovation#villa" style={dropdownLinkStyle}>Villa Renovation</Link>
-                  <Link href="/services/renovation#apartment" style={dropdownLinkStyle}>Apartment Renovation</Link>
-                  <Link href="/services/renovation#office" style={dropdownLinkStyle}>Office Renovation</Link>
-                  
-                  <div style={{ margin: '0.5rem 0', borderTop: '1px solid #e5e7eb', paddingTop: '0.5rem', fontWeight: '600', color: '#1C2734' }}>AC Services</div>
-                  <Link href="/services/ac-services#vrf" style={dropdownLinkStyle}>VRF AC Systems</Link>
-                  <Link href="/services/ac-services#split" style={dropdownLinkStyle}>Split AC Systems</Link>
-                  <Link href="/services/ac-services#chiller" style={dropdownLinkStyle}>Water Chiller FCU</Link>
-                </div>
-              )}
-            </div>
-            
-            <Link href="/contact" style={navLinkStyle}>Contact</Link>
-            <Link href="/faqs" style={navLinkStyle}>FAQs</Link>
-          </div>
-
-          {/* Mobile Menu Button - Hidden on Desktop */}
-          <button 
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: '0.5rem',
-              fontSize: '1.5rem'
-            }}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            ☰
-          </button>
-        </div>
-
-        {/* Mobile Navigation - Hidden on Desktop */}
-        {mobileMenuOpen && (
-          <div style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            right: 0,
-            backgroundColor: 'white',
-            boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
-            zIndex: 1000,
-            padding: '1rem'
-          }}>
-            <Link href="/" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>Home</Link>
-            <Link href="/about" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>About</Link>
-            
-            {/* Mobile Services Dropdown */}
-            <div style={mobileNavLinkStyle}>
-              <button 
-                style={{
-                  ...mobileNavLinkStyle,
+              {/* Services Dropdown */}
+              <div 
+                style={{ position: 'relative' }}
+                onMouseEnter={() => setServicesOpen(true)}
+                onMouseLeave={() => setServicesOpen(false)}
+              >
+                <button style={{
+                  ...navLinkStyle,
                   background: 'none',
                   border: 'none',
-                  width: '100%',
-                  textAlign: 'left',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
                   cursor: 'pointer',
-                  padding: 0
-                }}
-                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-              >
-                Services
-                <span>{mobileServicesOpen ? '▲' : '▼'}</span>
-              </button>
-              
-              {mobileServicesOpen && (
-                <div style={{
-                  marginTop: '0.5rem',
-                  paddingLeft: '1rem',
-                  borderLeft: '2px solid #577D8E'
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.3rem'
                 }}>
-                  <div style={{ fontWeight: '600', color: '#1C2734', marginBottom: '0.5rem' }}>Renovation</div>
-                  <Link href="/services/renovation#villa" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Villa Renovation</Link>
-                  <Link href="/services/renovation#apartment" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Apartment Renovation</Link>
-                  <Link href="/services/renovation#office" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Office Renovation</Link>
-                  
-                  <div style={{ fontWeight: '600', color: '#1C2734', margin: '0.5rem 0' }}>AC Services</div>
-                  <Link href="/services/ac-services#vrf" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>VRF AC Systems</Link>
-                  <Link href="/services/ac-services#split" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Split AC Systems</Link>
-                  <Link href="/services/ac-services#chiller" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Water Chiller FCU</Link>
-                </div>
-              )}
-            </div>
-            
-            <Link href="/contact" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-            <Link href="/faqs" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
-            
-            {/* Mobile Contact Info */}
-            <div style={{
-              marginTop: '1rem',
-              paddingTop: '1rem',
-              borderTop: '1px solid #e5e7eb'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <span style={{ marginRight: '0.5rem' }}>📞</span>
-                <span style={{ fontSize: '0.9rem' }}>+971589071754</span>
+                  Services ▼
+                </button>
+                
+                {servicesOpen && (
+                  <div style={{
+                    position: 'absolute',
+                    top: '100%',
+                    left: 0,
+                    backgroundColor: 'white',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
+                    borderRadius: '8px',
+                    padding: '1rem',
+                    minWidth: '200px',
+                    zIndex: 1000
+                  }}>
+                    <div style={{ marginBottom: '0.5rem', fontWeight: '600', color: '#1C2734' }}>Renovation</div>
+                    <Link href="/services/renovation#villa" style={dropdownLinkStyle}>Villa Renovation</Link>
+                    <Link href="/services/renovation#apartment" style={dropdownLinkStyle}>Apartment Renovation</Link>
+                    <Link href="/services/renovation#office" style={dropdownLinkStyle}>Office Renovation</Link>
+                    
+                    <div style={{ margin: '0.5rem 0', borderTop: '1px solid #e5e7eb', paddingTop: '0.5rem', fontWeight: '600', color: '#1C2734' }}>AC Services</div>
+                    <Link href="/services/ac-services#vrf" style={dropdownLinkStyle}>VRF AC Systems</Link>
+                    <Link href="/services/ac-services#split" style={dropdownLinkStyle}>Split AC Systems</Link>
+                    <Link href="/services/ac-services#chiller" style={dropdownLinkStyle}>Water Chiller FCU</Link>
+                  </div>
+                )}
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <span style={{ marginRight: '0.5rem' }}>✉️</span>
-                <span style={{ fontSize: '0.9rem' }}>info@thealpamayo.com</span>
-              </div>
+              
+              <Link href="/contact" style={navLinkStyle}>Contact</Link>
+              <Link href="/faqs" style={navLinkStyle}>FAQs</Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="mobile-menu-btn"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              ☰
+            </button>
           </div>
-        )}
-      </nav>
+
+          {/* Mobile Navigation */}
+          {mobileMenuOpen && (
+            <div className="mobile-nav">
+              <Link href="/" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>Home</Link>
+              <Link href="/about" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>About</Link>
+              
+              {/* Mobile Services Dropdown */}
+              <div style={mobileNavLinkStyle}>
+                <button 
+                  style={{
+                    ...mobileNavLinkStyle,
+                    background: 'none',
+                    border: 'none',
+                    width: '100%',
+                    textAlign: 'left',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    padding: 0
+                  }}
+                  onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                >
+                  Services
+                  <span>{mobileServicesOpen ? '▲' : '▼'}</span>
+                </button>
+                
+                {mobileServicesOpen && (
+                  <div style={{
+                    marginTop: '0.5rem',
+                    paddingLeft: '1rem',
+                    borderLeft: '2px solid #577D8E'
+                  }}>
+                    <div style={{ fontWeight: '600', color: '#1C2734', marginBottom: '0.5rem' }}>Renovation</div>
+                    <Link href="/services/renovation#villa" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Villa Renovation</Link>
+                    <Link href="/services/renovation#apartment" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Apartment Renovation</Link>
+                    <Link href="/services/renovation#office" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Office Renovation</Link>
+                    
+                    <div style={{ fontWeight: '600', color: '#1C2734', margin: '0.5rem 0' }}>AC Services</div>
+                    <Link href="/services/ac-services#vrf" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>VRF AC Systems</Link>
+                    <Link href="/services/ac-services#split" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Split AC Systems</Link>
+                    <Link href="/services/ac-services#chiller" style={mobileDropdownLinkStyle} onClick={() => setMobileMenuOpen(false)}>Water Chiller FCU</Link>
+                  </div>
+                )}
+              </div>
+              
+              <Link href="/contact" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+              <Link href="/faqs" style={mobileNavLinkStyle} onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
+              
+              {/* Mobile Contact Info */}
+              <div style={{
+                marginTop: '1rem',
+                paddingTop: '1rem',
+                borderTop: '1px solid #e5e7eb'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <span style={{ marginRight: '0.5rem' }}>📞</span>
+                  <span style={{ fontSize: '0.9rem' }}>+971589071754</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+                  <span style={{ marginRight: '0.5rem' }}>✉️</span>
+                  <span style={{ fontSize: '0.9rem' }}>info@thealpamayo.com</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </nav>
+      </header>
 
       <style jsx>{`
+        .top-bar {
+          background-color: #1C2734;
+          color: white;
+          padding: 0.4rem 0;
+          font-size: 0.8rem;
+        }
+
+        .desktop-nav {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+        }
+
+        .mobile-menu-btn {
+          display: none;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0.5rem;
+          font-size: 1.5rem;
+        }
+
+        .mobile-nav {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+          z-index: 1000;
+          padding: 1rem;
+        }
+
+        a:hover {
+          color: #577D8E;
+        }
+
+        /* Mobile Styles */
         @media (max-width: 767px) {
-          /* Hide top bar on mobile */
-          header > div:first-child {
+          .top-bar {
             display: none;
           }
           
-          /* Show mobile menu button */
-          nav > div > button:last-child {
+          .mobile-menu-btn {
             display: block;
           }
           
-          /* Hide desktop navigation on mobile */
-          nav > div > div:first-of-type {
+          .desktop-nav {
             display: none;
           }
           
-          /* Mobile logo size */
           nav > div > a:first-child {
             font-size: 1.2rem;
           }
         }
-        
-        a:hover {
-          color: #577D8E;
-        }
       `}</style>
-    </header>
+    </>
   );
 }
 
-// Style objects (same as before)
+// Style objects
 const navLinkStyle = {
   color: '#1C2734',
   textDecoration: 'none',
