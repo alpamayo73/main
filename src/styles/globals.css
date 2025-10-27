@@ -1,26 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    font-family: 'Rakkas', serif;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@layer components {
-  .luxury-shadow {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
-  
-  .luxury-shadow-lg {
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-  }
+body {
+  font-family: 'Rakkas', serif;
+  background-color: #ffffff;
+  color: #1C2734;
+  line-height: 1.6;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* Custom scrollbar */
