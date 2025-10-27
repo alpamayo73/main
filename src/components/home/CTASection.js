@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Phone, Mail, MessageCircle } from 'lucide-react';
 
 export default function CTASection() {
   return (
@@ -14,11 +13,11 @@ export default function CTASection() {
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <div className="flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-            <Phone className="w-6 h-6 mr-3" />
+            <span className="text-lg mr-3">📞</span>
             <span className="text-lg">+971589071754</span>
           </div>
           <div className="flex items-center justify-center bg-white/10 backdrop-blur-sm rounded-lg p-4">
-            <Mail className="w-6 h-6 mr-3" />
+            <span className="text-lg mr-3">✉️</span>
             <span className="text-lg">info@thealpamayo.com</span>
           </div>
         </div>
@@ -28,7 +27,7 @@ export default function CTASection() {
             href="/contact"
             className="inline-flex items-center justify-center bg-white text-[#1C2734] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg"
           >
-            <MessageCircle className="w-5 h-5 mr-2" />
+            <span className="mr-2">💬</span>
             Get Free Quote
           </Link>
           <Link 
