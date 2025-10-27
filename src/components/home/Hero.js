@@ -69,10 +69,10 @@ export default function Hero() {
 
               {/* Buttons */}
               <div className="hero-buttons">
-                <Link href="/services" className="btn btn-primary">
+                <Link href="/services" className="hero-btn hero-btn-primary">
                   Explore Services
                 </Link>
-                <Link href="/contact" className="btn btn-secondary">
+                <Link href="/contact" className="hero-btn hero-btn-secondary">
                   Free Consultation
                 </Link>
               </div>
@@ -228,7 +228,7 @@ export default function Hero() {
           margin-bottom: 2.5rem;
         }
 
-        .btn {
+        .hero-btn {
           padding: 0.8rem 1.8rem;
           border-radius: 8px;
           font-weight: 600;
@@ -243,25 +243,25 @@ export default function Hero() {
           justify-content: center;
         }
 
-        .btn-primary {
+        .hero-btn-primary {
           background-color: #577D8E;
           color: white;
           box-shadow: 0 4px 15px rgba(87, 125, 142, 0.3);
         }
 
-        .btn-primary:hover {
+        .hero-btn-primary:hover {
           background-color: #1C2734;
           transform: translateY(-2px);
           box-shadow: 0 8px 25px rgba(28, 39, 52, 0.4);
         }
 
-        .btn-secondary {
+        .hero-btn-secondary {
           border: 2px solid #1C2734;
           color: #1C2734;
           background-color: transparent;
         }
 
-        .btn-secondary:hover {
+        .hero-btn-secondary:hover {
           background-color: #1C2734;
           color: white;
           transform: translateY(-2px);
@@ -444,7 +444,7 @@ export default function Hero() {
             align-items: center;
           }
           
-          .btn {
+          .hero-btn {
             width: 100%;
             max-width: 300px;
             text-align: center;
