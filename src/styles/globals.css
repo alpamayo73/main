@@ -1,45 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Rakkas&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Rakkas', serif;
+  }
 }
 
-:root {
-  --primary-dark: #1C2734;
-  --primary-accent: #577D8E;
-  --primary-light: #FFFFFF;
-}
-
-body {
-  font-family: 'Rakkas', serif;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-/* Luxury styling elements */
-.luxury-border {
-  border: 1px solid rgba(28, 39, 52, 0.1);
-}
-
-.luxury-shadow {
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-.luxury-shadow-lg {
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-}
-
-.gold-gradient {
-  background: linear-gradient(135deg, #577D8E 0%, #1C2734 100%);
+@layer components {
+  .luxury-shadow {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .luxury-shadow-lg {
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  }
 }
 
 /* Custom scrollbar */
@@ -52,34 +33,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-accent);
+  background: #577D8E;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
-  line-height: 1.2;
-}
-
-/* Utility classes */
-.text-balance {
-  text-wrap: balance;
-}
-
-.hover-lift {
-  transition: transform 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
+  background: #1C2734;
 }
