@@ -69,10 +69,10 @@ export default function Hero() {
 
               {/* Buttons */}
               <div className="hero-buttons">
-                <Link href="/services" className="btn-primary">
+                <Link href="/services" className="btn btn-primary">
                   Explore Services
                 </Link>
-                <Link href="/contact" className="btn-secondary">
+                <Link href="/contact" className="btn btn-secondary">
                   Free Consultation
                 </Link>
               </div>
@@ -133,7 +133,7 @@ export default function Hero() {
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 20px;
-          width: 100%;
+          width: '100%';
         }
 
         .hero-grid {
@@ -228,9 +228,7 @@ export default function Hero() {
           margin-bottom: 2.5rem;
         }
 
-        .btn-primary {
-          background-color: #577D8E;
-          color: white;
+        .btn {
           padding: 0.8rem 1.8rem;
           border-radius: 8px;
           font-weight: 600;
@@ -239,6 +237,15 @@ export default function Hero() {
           transition: all 0.3s ease;
           border: none;
           cursor: pointer;
+          text-align: center;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .btn-primary {
+          background-color: #577D8E;
+          color: white;
           box-shadow: 0 4px 15px rgba(87, 125, 142, 0.3);
         }
 
@@ -251,12 +258,6 @@ export default function Hero() {
         .btn-secondary {
           border: 2px solid #1C2734;
           color: #1C2734;
-          padding: 0.8rem 1.8rem;
-          border-radius: 8px;
-          font-weight: 600;
-          text-decoration: none;
-          font-size: 0.9rem;
-          transition: all 0.3s ease;
           background-color: transparent;
         }
 
@@ -443,7 +444,7 @@ export default function Hero() {
             align-items: center;
           }
           
-          .btn-primary, .btn-secondary {
+          .btn {
             width: 100%;
             max-width: 300px;
             text-align: center;
