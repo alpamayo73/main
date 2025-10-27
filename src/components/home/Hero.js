@@ -1,6 +1,17 @@
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 export default function Hero() {
+  const [currentService, setCurrentService] = useState(0);
+  const services = ['Villa Renovation', 'Apartment Renovation', 'Office Renovation'];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentService((prev) => (prev + 1) % services.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section style={{
       position: 'relative',
@@ -8,11 +19,10 @@ export default function Hero() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #1C2734 0%, #577D8E 100%)',
       color: 'white',
       overflow: 'hidden'
     }}>
-      {/* Background Image with Overlay */}
+      {/* Background Image with Theme Overlay */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -23,8 +33,7 @@ export default function Hero() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          backgroundColor: 'black',
-          opacity: 0.5
+          background: 'linear-gradient(135deg, rgba(28, 39, 52, 0.8) 0%, rgba(87, 125, 142, 0.7) 100%)'
         }}></div>
       </div>
       
@@ -38,41 +47,64 @@ export default function Hero() {
         zIndex: 10
       }}>
         <h1 style={{
-          fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
+          fontSize: 'clamp(2rem, 4vw, 3.5rem)',
           fontWeight: 'bold',
-          marginBottom: '1.5rem',
+          marginBottom: '1rem',
           lineHeight: 1.2
         }}>
-          Luxury Renovation &<br />AC Services in Dubai
+          Premium Renovation & AC Services in Dubai
         </h1>
-        <p style={{
-          fontSize: 'clamp(1.125rem, 2vw, 1.5rem)',
+        
+        {/* Animated Services */}
+        <div style={{
+          fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+          fontWeight: '600',
           marginBottom: '2rem',
-          maxWidth: '800px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          lineHeight: 1.6
+          minHeight: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}>
-          Transforming spaces with premium quality, exceptional craftsmanship, and innovative solutions for villas, apartments, and offices.
+          <span style={{
+            opacity: 1,
+            transition: 'opacity 0.5s ease'
+          }}>
+            {services[currentService]}
+          </span>
+        </div>
+
+        <p style={{
+          fontSize: '1.125rem',
+          marginBottom: '2.5rem',
+          maxWidth: '600px',
+          margin: '0 auto',
+          lineHeight: 1.6,
+          opacity: 0.9
+        }}>
+          Transforming spaces with premium quality, exceptional craftsmanship, and innovative solutions.
         </p>
+
+        {/* Inline Buttons */}
         <div style={{
           display: 'flex',
-          flexDirection: 'column',
           gap: '1rem',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          flexWrap: 'wrap'
         }}>
           <Link 
             href="/services" 
             style={{
               backgroundColor: 'white',
               color: '#1C2734',
-              padding: '1rem 2rem',
-              borderRadius: '8px',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '6px',
               fontWeight: 'bold',
               textDecoration: 'none',
-              fontSize: '1.125rem',
-              transition: 'all 0.3s ease'
+              fontSize: '0.875rem',
+              transition: 'all 0.3s ease',
+              border: 'none',
+              cursor: 'pointer'
             }}
             onMouseEnter={(e) => {
               e.target.style.backgroundColor = '#f3f4f6';
@@ -83,19 +115,20 @@ export default function Hero() {
               e.target.style.transform = 'scale(1)';
             }}
           >
-            Explore Our Services
+            Explore Services
           </Link>
           <Link 
             href="/contact" 
             style={{
               border: '2px solid white',
               color: 'white',
-              padding: '1rem 2rem',
-              borderRadius: '8px',
+              padding: '0.75rem 1.5rem',
+              borderRadius: '6px',
               fontWeight: 'bold',
               textDecoration: 'none',
-              fontSize: '1.125rem',
-              transition: 'all 0.3s ease'
+              fontSize: '0.875rem',
+              transition: 'all 0.3s ease',
+              backgroundColor: 'transparent'
             }}
             onMouseEnter={(e) => {
               e.target.style.backgroundColor = 'white';
@@ -106,7 +139,7 @@ export default function Hero() {
               e.target.style.color = 'white';
             }}
           >
-            Get Free Consultation
+            Free Consultation
           </Link>
         </div>
       </div>
@@ -150,10 +183,13 @@ export default function Hero() {
           }
         }
         
-        @media (min-width: 640px) {
-          div > div {
-            flex-direction: row;
-          }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        span {
+          animation: fadeIn 0.5s ease;
         }
       `}</style>
     </section>
