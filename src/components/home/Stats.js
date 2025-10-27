@@ -70,17 +70,153 @@ export default function Stats() {
     animateCounters()
   }, [isVisible])
 
-  const stats = [
-    { number: counters.projects, suffix: '+', label: 'Projects Completed' },
-    { number: counters.clients, suffix: '+', label: 'Happy Clients' },
-    { number: counters.experience, suffix: '+', label: 'Years Experience' },
-    { number: counters.team, suffix: '+', label: 'Expert Team Members' }
-  ]
+  // Your brand colors
+  const colors = {
+    primary: '#1C2734',
+    secondary: '#577D8E',
+    white: '#FFFFFF'
+  }
+
+  const styles = {
+    section: {
+      padding: '5rem 0',
+      backgroundColor: colors.primary,
+      background: `linear-gradient(135deg, ${colors.primary} 0%, #2D3748 100%)`,
+      color: colors.white,
+      position: 'relative',
+      overflow: 'hidden'
+    },
+    container: {
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '0 1rem',
+      position: 'relative',
+      zIndex: 2
+    },
+    header: {
+      textAlign: 'center',
+      marginBottom: '4rem'
+    },
+    title: {
+      fontSize: '2.5rem',
+      fontWeight: 'bold',
+      marginBottom: '1rem',
+      color: colors.white
+    },
+    subtitle: {
+      fontSize: '1.25rem',
+      color: '#CBD5E0',
+      maxWidth: '42rem',
+      margin: '0 auto',
+      lineHeight: '1.6'
+    },
+    statsGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gap: '2rem',
+      marginBottom: '4rem'
+    },
+    statCard: {
+      textAlign: 'center',
+      padding: '2rem 1rem',
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      borderRadius: '12px',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      transition: 'all 0.3s ease'
+    },
+    statNumber: {
+      fontSize: '3rem',
+      fontWeight: 'bold',
+      color: colors.secondary,
+      marginBottom: '0.5rem',
+      lineHeight: '1'
+    },
+    statLabel: {
+      fontSize: '1.125rem',
+      color: '#CBD5E0',
+      fontWeight: '600'
+    },
+    featuresGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(1, 1fr)',
+      gap: '1.5rem'
+    },
+    featureCard: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: '2rem',
+      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+      borderRadius: '12px',
+      backdropFilter: 'blur(10px)',
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      transition: 'all 0.3s ease'
+    },
+    featureIcon: {
+      width: '4rem',
+      height: '4rem',
+      backgroundColor: colors.secondary,
+      borderRadius: '12px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: '1.5rem',
+      flexShrink: 0
+    },
+    featureContent: {
+      flex: '1'
+    },
+    featureTitle: {
+      fontSize: '1.5rem',
+      fontWeight: 'bold',
+      marginBottom: '0.5rem',
+      color: colors.white
+    },
+    featureDescription: {
+      fontSize: '1rem',
+      color: '#CBD5E0',
+      lineHeight: '1.5'
+    },
+    backgroundPattern: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      opacity: 0.03,
+      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+    }
+  }
+
+  // Media queries
+  useEffect(() => {
+    const updateStyles = () => {
+      if (window.innerWidth >= 768) {
+        styles.statsGrid.gridTemplateColumns = 'repeat(4, 1fr)'
+        styles.featuresGrid.gridTemplateColumns = 'repeat(3, 1fr)'
+        styles.featureCard.flexDirection = 'column'
+        styles.featureCard.textAlign = 'center'
+        styles.featureIcon.marginRight = '0'
+        styles.featureIcon.marginBottom = '1rem'
+      } else {
+        styles.statsGrid.gridTemplateColumns = 'repeat(2, 1fr)'
+        styles.featuresGrid.gridTemplateColumns = 'repeat(1, 1fr)'
+        styles.featureCard.flexDirection = 'row'
+        styles.featureCard.textAlign = 'left'
+        styles.featureIcon.marginRight = '1.5rem'
+        styles.featureIcon.marginBottom = '0'
+      }
+    }
+
+    updateStyles()
+    window.addEventListener('resize', updateStyles)
+    return () => window.removeEventListener('resize', updateStyles)
+  }, [])
 
   const features = [
     {
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>
       ),
@@ -89,7 +225,7 @@ export default function Stats() {
     },
     {
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
@@ -98,7 +234,7 @@ export default function Stats() {
     },
     {
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
@@ -107,29 +243,46 @@ export default function Stats() {
     }
   ]
 
+  const stats = [
+    { number: counters.projects, suffix: '+', label: 'Projects Completed' },
+    { number: counters.clients, suffix: '+', label: 'Happy Clients' },
+    { number: counters.experience, suffix: '+', label: 'Years Experience' },
+    { number: counters.team, suffix: '+', label: 'Expert Team Members' }
+  ]
+
   return (
-    <section ref={sectionRef} className="py-16 lg:py-24 bg-gradient-to-br from-primary to-gray-900 text-white overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 lg:mb-20">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-            Why Choose Alpamayo?
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto">
+    <section ref={sectionRef} style={styles.section}>
+      {/* Background Pattern */}
+      <div style={styles.backgroundPattern} />
+      
+      <div style={styles.container}>
+        {/* Header */}
+        <div style={styles.header}>
+          <h2 style={styles.title}>Why Choose Alpamayo?</h2>
+          <p style={styles.subtitle}>
             Trusted by Dubai's elite for premium renovation and AC services with unmatched quality and reliability
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-16 lg:mb-24">
+        <div style={styles.statsGrid}>
           {stats.map((stat, index) => (
             <div 
               key={index} 
-              className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-white/10 transform hover:scale-105 transition-all duration-300 hover:bg-white/10"
+              style={styles.statCard}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-8px)'
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.backgroundColor = styles.statCard.backgroundColor
+              }}
             >
-              <div className="text-2xl lg:text-5xl font-bold text-secondary mb-2 lg:mb-4">
+              <div style={styles.statNumber}>
                 {stat.number}{stat.suffix}
               </div>
-              <div className="text-sm lg:text-lg font-semibold text-gray-300">
+              <div style={styles.statLabel}>
                 {stat.label}
               </div>
             </div>
@@ -137,46 +290,34 @@ export default function Stats() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div style={styles.featuresGrid}>
           {features.map((feature, index) => (
             <div 
               key={index}
-              className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 lg:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:shadow-2xl group"
+              style={styles.featureCard}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)'
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)'
+                e.currentTarget.style.backgroundColor = styles.featureCard.backgroundColor
+              }}
             >
-              <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mb-4 lg:mb-6 group-hover:bg-white group-hover:text-secondary transition-colors duration-300">
+              <div style={styles.featureIcon}>
                 {feature.icon}
               </div>
-              <h3 className="text-xl lg:text-2xl font-bold mb-3 lg:mb-4">
-                {feature.title}
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                {feature.description}
-              </p>
+              <div style={styles.featureContent}>
+                <h3 style={styles.featureTitle}>
+                  {feature.title}
+                </h3>
+                <p style={styles.featureDescription}>
+                  {feature.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-12 lg:mt-16">
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 lg:p-12 border border-white/10">
-            <h3 className="text-2xl lg:text-3xl font-bold mb-4">
-              Ready to Transform Your Space?
-            </h3>
-            <p className="text-gray-300 text-lg mb-6 max-w-2xl mx-auto">
-              Join hundreds of satisfied clients in Dubai who trust Alpamayo for their renovation and AC needs
-            </p>
-            <button className="bg-secondary text-white px-8 py-4 rounded-xl hover:bg-white hover:text-primary transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg">
-              Get Free Consultation
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
       </div>
     </section>
   )
