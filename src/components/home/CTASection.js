@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function CTASection() {
   return (
     <section className="py-20 bg-gradient-to-r from-[#1C2734] to-[#577D8E] text-white">
-      <div className="container mx-auto px-4 text-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl md:text-5xl font-bold mb-6">
           Ready to Transform Your Space?
         </h2>
@@ -25,7 +25,7 @@ export default function CTASection() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link 
             href="/contact"
-            className="inline-flex items-center justify-center bg-white text-[#1C2734] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 text-lg"
+            className="inline-flex items-center justify-center bg-white text-[#1C2734] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 text-lg"
           >
             <span className="mr-2">💬</span>
             Get Free Quote
