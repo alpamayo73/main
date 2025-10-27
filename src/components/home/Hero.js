@@ -133,35 +133,35 @@ export default function Hero() {
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 20px;
-          width: '100%';
+          width: 100%;
         }
 
         .hero-grid {
           display: grid;
-          gridTemplateColumns: 1fr 1fr;
+          grid-template-columns: 1fr 1fr;
           gap: 4rem;
-          alignItems: center;
+          align-items: center;
         }
 
         .hero-badge {
           display: inline-flex;
-          alignItems: center;
-          backgroundColor: rgba(87, 125, 142, 0.1);
+          align-items: center;
+          background-color: rgba(87, 125, 142, 0.1);
           color: #577D8E;
           padding: 0.5rem 1rem;
-          borderRadius: 20px;
-          fontSize: 0.8rem;
-          fontWeight: 600;
-          marginBottom: 1.5rem;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
           border: 1px solid rgba(87, 125, 142, 0.2);
         }
 
         .hero-title {
-          fontSize: 3rem;
-          fontWeight: 700;
+          font-size: 3rem;
+          font-weight: 700;
           color: #1C2734;
-          marginBottom: 1rem;
-          lineHeight: 1.1;
+          margin-bottom: 1rem;
+          line-height: 1.1;
         }
 
         .gradient-text {
@@ -172,13 +172,13 @@ export default function Hero() {
         }
 
         .animated-services {
-          fontSize: 1.5rem;
-          fontWeight: 600;
+          font-size: 1.5rem;
+          font-weight: 600;
           color: #577D8E;
-          marginBottom: 1.5rem;
-          minHeight: 40px;
+          margin-bottom: 1.5rem;
+          min-height: 40px;
           display: flex;
-          alignItems: center;
+          align-items: center;
         }
 
         .service-text {
@@ -187,83 +187,83 @@ export default function Hero() {
         }
 
         .hero-description {
-          fontSize: 1.1rem;
+          font-size: 1.1rem;
           color: #6b7280;
-          marginBottom: 2rem;
-          lineHeight: 1.6;
-          fontWeight: 400;
+          margin-bottom: 2rem;
+          line-height: 1.6;
+          font-weight: 400;
         }
 
         .features-grid {
           display: grid;
-          gridTemplateColumns: 1fr 1fr;
+          grid-template-columns: 1fr 1fr;
           gap: 1rem;
-          marginBottom: 2.5rem;
+          margin-bottom: 2.5rem;
         }
 
         .feature-item {
           display: flex;
-          alignItems: center;
+          align-items: center;
           padding: 0.8rem;
-          backgroundColor: #f8fafc;
-          borderRadius: 8px;
+          background-color: #f8fafc;
+          border-radius: 8px;
           border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .feature-icon {
-          fontSize: 1.2rem;
-          marginRight: 0.8rem;
+          font-size: 1.2rem;
+          margin-right: 0.8rem;
         }
 
         .feature-text {
-          fontSize: 0.9rem;
-          fontWeight: 500;
+          font-size: 0.9rem;
+          font-weight: 500;
           color: #1C2734;
         }
 
         .hero-buttons {
           display: flex;
           gap: 1rem;
-          alignItems: center;
-          marginBottom: 2.5rem;
+          align-items: center;
+          margin-bottom: 2.5rem;
         }
 
         .hero-btn {
           padding: 0.8rem 1.8rem;
-          borderRadius: 8px;
-          fontWeight: 600;
-          textDecoration: none;
-          fontSize: 0.9rem;
+          border-radius: 8px;
+          font-weight: 600;
+          text-decoration: none;
+          font-size: 0.9rem;
           transition: all 0.3s ease;
           border: none;
           cursor: pointer;
-          textAlign: center;
+          text-align: center;
           display: inline-flex;
-          alignItems: center;
-          justifyContent: center;
-          minWidth: 160px;
+          align-items: center;
+          justify-content: center;
+          min-width: 160px;
         }
 
         .hero-btn-primary {
-          backgroundColor: #577D8E;
+          background-color: #577D8E;
           color: white;
-          boxShadow: 0 4px 15px rgba(87, 125, 142, 0.3);
+          box-shadow: 0 4px 15px rgba(87, 125, 142, 0.3);
         }
 
         .hero-btn-primary:hover {
-          backgroundColor: #1C2734;
+          background-color: #1C2734;
           transform: translateY(-2px);
-          boxShadow: 0 8px 25px rgba(28, 39, 52, 0.4);
+          box-shadow: 0 8px 25px rgba(28, 39, 52, 0.4);
         }
 
         .hero-btn-secondary {
           border: 2px solid #1C2734;
           color: #1C2734;
-          backgroundColor: transparent;
+          background-color: transparent;
         }
 
         .hero-btn-secondary:hover {
-          backgroundColor: #1C2734;
+          background-color: #1C2734;
           color: white;
           transform: translateY(-2px);
         }
@@ -271,24 +271,24 @@ export default function Hero() {
         .hero-stats {
           display: flex;
           gap: 2rem;
-          alignItems: center;
+          align-items: center;
         }
 
         .stat-item {
-          textAlign: center;
+          text-align: center;
         }
 
         .stat-number {
-          fontSize: 1.5rem;
-          fontWeight: 700;
+          font-size: 1.5rem;
+          font-weight: 700;
           color: #1C2734;
-          marginBottom: 0.2rem;
+          margin-bottom: 0.2rem;
         }
 
         .stat-label {
-          fontSize: 0.8rem;
+          font-size: 0.8rem;
           color: #6b7280;
-          fontWeight: 500;
+          font-weight: 500;
         }
 
         .hero-image {
@@ -299,16 +299,16 @@ export default function Hero() {
         .image-container {
           width: 100%;
           height: 100%;
-          borderRadius: 20px;
+          border-radius: 20px;
           overflow: hidden;
-          boxShadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
           position: relative;
         }
 
         .main-image {
           width: 100%;
           height: 100%;
-          objectFit: cover;
+          object-fit: cover;
           transition: transform 0.3s ease;
         }
 
@@ -329,40 +329,40 @@ export default function Hero() {
           position: absolute;
           color: white;
           padding: 1rem;
-          borderRadius: 12px;
-          boxShadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
           animation: float 3s ease-in-out infinite;
         }
 
         .experience {
           top: -20px;
           right: -20px;
-          backgroundColor: #577D8E;
-          animationDelay: 0s;
+          background-color: #577D8E;
+          animation-delay: 0s;
         }
 
         .projects {
           bottom: -20px;
           left: -20px;
-          backgroundColor: #1C2734;
-          animationDelay: 1.5s;
+          background-color: #1C2734;
+          animation-delay: 1.5s;
         }
 
         .floating-number {
-          fontSize: 1.2rem;
-          fontWeight: 700;
-          marginBottom: 0.2rem;
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin-bottom: 0.2rem;
         }
 
         .floating-label {
-          fontSize: 0.8rem;
+          font-size: 0.8rem;
           opacity: 0.9;
         }
 
         .decorative-circle {
           position: absolute;
-          borderRadius: 50%;
-          zIndex: -1;
+          border-radius: 50%;
+          z-index: -1;
         }
 
         .circle-1 {
@@ -371,7 +371,7 @@ export default function Hero() {
           transform: translateY(-50%);
           width: 100px;
           height: 100px;
-          backgroundColor: rgba(87, 125, 142, 0.1);
+          background-color: rgba(87, 125, 142, 0.1);
         }
 
         .circle-2 {
@@ -379,7 +379,7 @@ export default function Hero() {
           right: 40px;
           width: 60px;
           height: 60px;
-          backgroundColor: rgba(28, 39, 52, 0.05);
+          background-color: rgba(28, 39, 52, 0.05);
         }
 
         @keyframes fadeIn {
@@ -406,11 +406,11 @@ export default function Hero() {
         @media (max-width: 767px) {
           .hero-section {
             padding: 2rem 0;
-            minHeight: auto;
+            min-height: auto;
           }
           
           .hero-grid {
-            gridTemplateColumns: 1fr;
+            grid-template-columns: 1fr;
             gap: 2rem;
           }
           
@@ -424,35 +424,35 @@ export default function Hero() {
           }
           
           .hero-title {
-            fontSize: 2.2rem;
-            textAlign: center;
+            font-size: 2.2rem;
+            text-align: center;
           }
           
           .animated-services {
-            justifyContent: center;
-            textAlign: center;
-            fontSize: 1.3rem;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.3rem;
           }
           
           .hero-description {
-            textAlign: center;
-            fontSize: 1rem;
+            text-align: center;
+            font-size: 1rem;
           }
           
           .hero-buttons {
-            flexDirection: column;
+            flex-direction: column;
             gap: 1rem;
-            alignItems: center;
+            align-items: center;
           }
           
           .hero-btn {
             width: 100%;
-            maxWidth: 300px;
-            textAlign: center;
+            max-width: 300px;
+            text-align: center;
           }
           
           .hero-stats {
-            justifyContent: space-around;
+            justify-content: space-around;
           }
           
           .floating-element {
