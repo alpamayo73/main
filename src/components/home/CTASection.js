@@ -24,10 +24,10 @@ export default function CTASection() {
           </div>
 
           <div className="cta-buttons">
-            <Link href="/contact" className="cta-btn primary">
+            <Link href="/contact" className="btn btn-primary">
               Get Free Quote
             </Link>
-            <Link href="/services" className="cta-btn secondary">
+            <Link href="/services" className="btn btn-secondary">
               Explore Services
             </Link>
           </div>
@@ -92,36 +92,41 @@ export default function CTASection() {
           justify-content: center;
         }
 
-        .cta-btn {
-          display: inline-flex;
-          align-items: center;
+        .btn {
           padding: 0.8rem 1.5rem;
           border-radius: 6px;
           font-weight: bold;
           text-decoration: none;
           font-size: 0.9rem;
           transition: all 0.3s ease;
+          border: none;
+          cursor: pointer;
+          text-align: center;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
         }
 
-        .cta-btn.primary {
+        .btn-primary {
           background-color: white;
           color: #1C2734;
         }
 
-        .cta-btn.primary:hover {
+        .btn-primary:hover {
           background-color: #f3f4f6;
           transform: scale(1.05);
         }
 
-        .cta-btn.secondary {
+        .btn-secondary {
           border: 2px solid white;
           color: white;
           background-color: transparent;
         }
 
-        .cta-btn.secondary:hover {
+        .btn-secondary:hover {
           background-color: white;
           color: #1C2734;
+          transform: scale(1.05);
         }
 
         .cta-footer {
@@ -162,7 +167,7 @@ export default function CTASection() {
             align-items: center;
           }
           
-          .cta-btn {
+          .btn {
             width: 100%;
             max-width: 250px;
             justify-content: center;
