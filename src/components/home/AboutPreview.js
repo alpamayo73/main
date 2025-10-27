@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { CheckCircle } from 'lucide-react';
 
 export default function AboutPreview() {
   const highlights = [
@@ -30,7 +29,7 @@ export default function AboutPreview() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               {highlights.map((highlight, index) => (
                 <div key={index} className="flex items-center">
-                  <CheckCircle className="w-5 h-5 text-[#577D8E] mr-3 flex-shrink-0" />
+                  <span className="w-2 h-2 bg-[#577D8E] rounded-full mr-3 flex-shrink-0"></span>
                   <span className="text-gray-700">{highlight}</span>
                 </div>
               ))}
