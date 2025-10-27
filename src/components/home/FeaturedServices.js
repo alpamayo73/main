@@ -29,36 +29,114 @@ export default function FeaturedServices() {
   ];
 
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#1C2734] mb-4">
+    <section style={{
+      padding: '5rem 0',
+      backgroundColor: 'white'
+    }}>
+      <div style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 20px'
+      }}>
+        <div style={{
+          textAlign: 'center',
+          marginBottom: '4rem'
+        }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 4vw, 3rem)',
+            fontWeight: 'bold',
+            color: '#1C2734',
+            marginBottom: '1rem'
+          }}>
             Our Premium Services
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p style={{
+            fontSize: '1.25rem',
+            color: '#6b7280',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
             Discover our comprehensive range of luxury renovation and professional AC services tailored for Dubai's elite properties.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          gap: '2rem',
+          marginBottom: '3rem'
+        }}>
           {featuredServices.map((service, index) => (
             <div 
               key={index}
-              className="group relative overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-all duration-500"
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: '12px',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+                transition: 'all 0.5s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.15)';
+                const bg = e.currentTarget.querySelector('div:first-child');
+                bg.style.transform = 'scale(1.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
+                const bg = e.currentTarget.querySelector('div:first-child');
+                bg.style.transform = 'scale(1)';
+              }}
             >
               <div 
-                className="h-80 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                style={{ backgroundImage: `url(${service.image})` }}
+                style={{
+                  height: '320px',
+                  backgroundImage: `url(${service.image})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  transition: 'transform 0.5s ease'
+                }}
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-semibold mb-3">{service.title}</h3>
-                  <p className="text-gray-200 mb-4 leading-relaxed">{service.description}</p>
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)'
+                }}></div>
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: '1.5rem',
+                  color: 'white'
+                }}>
+                  <h3 style={{
+                    fontSize: '1.5rem',
+                    fontWeight: '600',
+                    marginBottom: '0.75rem'
+                  }}>{service.title}</h3>
+                  <p style={{
+                    color: '#e5e7eb',
+                    marginBottom: '1rem',
+                    lineHeight: 1.6
+                  }}>{service.description}</p>
                   <Link 
                     href={service.link}
-                    className="inline-flex items-center text-white font-semibold hover:text-[#577D8E] transition-colors duration-300"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      color: 'white',
+                      fontWeight: '600',
+                      textDecoration: 'none',
+                      transition: 'color 0.3s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#577D8E';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = 'white';
+                    }}
                   >
-                    Learn More <span className="ml-2">→</span>
+                    Learn More <span style={{ marginLeft: '0.5rem' }}>→</span>
                   </Link>
                 </div>
               </div>
@@ -66,16 +144,42 @@ export default function FeaturedServices() {
           ))}
         </div>
 
-        <div className="text-center">
+        <div style={{ textAlign: 'center' }}>
           <Link 
             href="/services"
-            className="inline-flex items-center bg-[#1C2734] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[#577D8E] transition-all duration-300 hover:scale-105"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              backgroundColor: '#1C2734',
+              color: 'white',
+              padding: '1rem 2rem',
+              borderRadius: '8px',
+              fontWeight: 'bold',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#577D8E';
+              e.target.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#1C2734';
+              e.target.style.transform = 'scale(1)';
+            }}
           >
             View All Services
-            <span className="ml-2">→</span>
+            <span style={{ marginLeft: '0.5rem' }}>→</span>
           </Link>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (min-width: 768px) {
+          div > div:first-child {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+      `}</style>
     </section>
   );
 }
