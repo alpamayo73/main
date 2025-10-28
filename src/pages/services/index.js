@@ -1,11 +1,11 @@
-// pages/services.js
+// src/pages/services/index.js
 import Head from 'next/head'
-import ServicesHero from '../components/services/ServicesHero'
-import RenovationServices from '../components/services/RenovationServices'
-import ACServices from '../components/services/ACServices'
-import WhyChooseUs from '../components/services/WhyChooseUs'
-import ProcessOverview from '../components/services/ProcessOverview'
-import ContactCTA from '../components/services/ContactCTA'
+import ServicesHero from '../../components/services/ServicesHero'
+import RenovationServices from '../../components/services/RenovationServices'
+import ACServices from '../../components/services/ACServices'
+import WhyChooseUs from '../../components/services/WhyChooseUs'
+import ProcessOverview from '../../components/services/ProcessOverview'
+import ContactCTA from '../../components/services/ContactCTA'
 
 export default function Services() {
   return (
