@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import VRFHeroSection from '../../../components/services/VRF/VRFHeroSection';
-import OurServices from '../../../components/services/VRF/OurServices';
-import WhyChooseUs from '../../../components/services/VRF/WhyChooseUs';
-import CTASection from '../../../components/services/VRF/CTASection';
+import VRFHeroSection from '../../components/services/VRF/VRFHeroSection';
+import OurServices from '../../components/components/services/VRF/OurServices';
+import WhyChooseUs from '../../components/components/services/VRF/WhyChooseUs';
+import CTASection from '../../components/components/services/VRF/CTASection';
 
 const VRFACSystems = () => {
   const pageStyles = {
@@ -27,11 +27,6 @@ const VRFACSystems = () => {
         <meta property="og:description" content="Professional VRF AC System installation, maintenance & repair services in Dubai. Expert technicians, 24/7 emergency service." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://thealpamayo.com/services/vrf-ac-systems" />
-        
-        {/* Twitter Card Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="VRF AC Systems Services Dubai | Alpamayo Technical Services" />
-        <meta name="twitter:description" content="Professional VRF AC System services in Dubai. Installation, maintenance & repair by expert technicians." />
       </Head>
 
       <div style={pageStyles}>
