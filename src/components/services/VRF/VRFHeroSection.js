@@ -24,21 +24,22 @@ const VRFHeroSection = () => {
       position: 'relative',
       zIndex: 10,
       textAlign: 'center',
-      maxWidth: '800px',
+      maxWidth: '900px',
       margin: '0 auto',
       padding: '0 1rem'
     },
     title: {
       fontSize: '3.5rem',
-      fontWeight: 300,
+      fontWeight: 700,
       marginBottom: '1.5rem',
       letterSpacing: '0.05em',
-      lineHeight: 1.2
+      lineHeight: 1.2,
+      textTransform: 'uppercase'
     },
     subtitle: {
       fontSize: '1.5rem',
       fontWeight: 300,
-      maxWidth: '700px',
+      maxWidth: '800px',
       margin: '0 auto',
       lineHeight: 1.6,
       marginBottom: '2rem'
@@ -55,26 +56,28 @@ const VRFHeroSection = () => {
       color: '#1C2734',
       padding: '0.75rem 2rem',
       border: 'none',
-      fontWeight: 500,
+      fontWeight: 600,
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      fontSize: '1rem'
+      fontSize: '1rem',
+      textTransform: 'uppercase'
     },
     secondaryButton: {
       backgroundColor: 'transparent',
       color: '#FFFFFF',
       padding: '0.75rem 2rem',
       border: '2px solid #FFFFFF',
-      fontWeight: 500,
+      fontWeight: 600,
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      fontSize: '1rem'
+      fontSize: '1rem',
+      textTransform: 'uppercase'
     }
   };
 
   const handlePrimaryClick = () => {
-    // Implement booking functionality
-    console.log('Book Service clicked');
+    // Implement technical assessment functionality
+    console.log('Technical Assessment clicked');
   };
 
   const handleSecondaryClick = () => {
@@ -86,9 +89,9 @@ const VRFHeroSection = () => {
     <section style={styles.heroSection}>
       <div style={styles.overlay}></div>
       <div style={styles.content}>
-        <h1 style={styles.title}>VRF AC Services</h1>
+        <h1 style={styles.title}>VRF AC SYSTEMS</h1>
         <p style={styles.subtitle}>
-          Professional VRF System Installation, Maintenance & Repair Services in Dubai
+          Advanced Variable Refrigerant Flow Technical Services for Commercial and Large-Scale Residential Applications in Dubai
         </p>
         <div style={styles.buttonContainer}>
           <button 
@@ -103,7 +106,7 @@ const VRFHeroSection = () => {
             }}
             onClick={handlePrimaryClick}
           >
-            Book Service Now
+            Request Technical Assessment
           </button>
           <button 
             style={styles.secondaryButton}
@@ -119,7 +122,7 @@ const VRFHeroSection = () => {
             }}
             onClick={handleSecondaryClick}
           >
-            Emergency Repair
+            Emergency VRF Repair
           </button>
         </div>
       </div>
