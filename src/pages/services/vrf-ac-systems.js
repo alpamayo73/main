@@ -1,9 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
 import VRFHeroSection from '@/components/services/VRF/VRFHeroSection';
-import OurServices from '@/components/services/VRF/OurServices';
-import WhyChooseUs from '@/components/services/VRF/WhyChooseUs';
-import CTASection from '@/components/services/VRF/CTASection';
+import TechnicalServices from '@/components/services/VRF/TechnicalServices';
+import SystemAdvantages from '@/components/services/VRF/SystemAdvantages';
+import TechnicalExpertise from '@/components/services/VRF/TechnicalExpertise';
+import VRFCTASection from '@/components/services/VRF/VRFCTASection';
 
 const VRFACSystems = () => {
   const pageStyles = {
@@ -13,27 +14,28 @@ const VRFACSystems = () => {
   return (
     <>
       <Head>
-        <title>VRF AC Systems Services Dubai | Alpamayo Technical Services</title>
+        <title>VRF AC Systems Technical Services Dubai | Alpamayo Technical Services</title>
         <meta 
           name="description" 
-          content="Professional VRF AC System installation, maintenance & repair services in Dubai. Expert technicians, 24/7 emergency service for VRF systems. Contact Alpamayo Technical Services." 
+          content="Professional VRF AC System technical services in Dubai. Expert installation, maintenance & repair for commercial VRF systems. Certified VRF specialists." 
         />
-        <meta name="keywords" content="VRF AC systems Dubai, VRF installation, VRF maintenance, VRF repair, air conditioning services Dubai, Alpamayo Technical Services" />
+        <meta name="keywords" content="VRF AC systems Dubai, VRF installation, VRF maintenance, VRF repair, commercial HVAC, technical services Dubai, Alpamayo" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://thealpamayo.com/services/vrf-ac-systems" />
         
         {/* Open Graph Meta Tags */}
-        <meta property="og:title" content="VRF AC Systems Services Dubai | Alpamayo Technical Services" />
-        <meta property="og:description" content="Professional VRF AC System installation, maintenance & repair services in Dubai. Expert technicians, 24/7 emergency service." />
+        <meta property="og:title" content="VRF AC Systems Technical Services Dubai | Alpamayo Technical Services" />
+        <meta property="og:description" content="Professional VRF AC System technical services in Dubai. Expert installation, maintenance & repair for commercial VRF systems." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://thealpamayo.com/services/vrf-ac-systems" />
       </Head>
 
       <div style={pageStyles}>
         <VRFHeroSection />
-        <OurServices />
-        <WhyChooseUs />
-        <CTASection />
+        <TechnicalServices />
+        <SystemAdvantages />
+        <TechnicalExpertise />
+        <VRFCTASection />
       </div>
     </>
   );
