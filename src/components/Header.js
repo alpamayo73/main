@@ -3,11 +3,32 @@ import Link from 'next/link'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
   return (
     <>
       <header className="header">
+        {/* Top Bar */}
+        <div className="top-bar">
+          <div className="top-bar-content">
+            <div className="contact-info">
+              <div className="contact-item">
+                <span className="contact-icon">📞</span>
+                <a href="tel:+971589071754" className="contact-link">+971 58 907 1754</a>
+              </div>
+              <div className="contact-item">
+                <span className="contact-icon">✉️</span>
+                <a href="mailto:info@thealpamayo.com" className="contact-link">info@thealpamayo.com</a>
+              </div>
+            </div>
+            <div className="address">
+              <span className="address-icon">📍</span>
+              Al Qouz, Dubai, United Arab Emirates
+            </div>
+          </div>
+        </div>
+
         {/* Main Navigation */}
         <nav className="nav">
           <div className="nav-container">
@@ -22,8 +43,66 @@ export default function Header() {
               <Link href="/about" className="nav-link">About</Link>
               
               {/* Services Dropdown */}
-              <div className="services-dropdown">
-                <Link href="/services" className="nav-link">Services</Link>
+              <div 
+                className="services-dropdown"
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+              >
+                <button className="nav-link dropdown-btn">
+                  Services
+                  <span className="dropdown-arrow">▼</span>
+                </button>
+                
+                {servicesDropdownOpen && (
+                  <div className="dropdown-menu">
+                    <div className="dropdown-column">
+                      <h4 className="dropdown-category">Renovation Services</h4>
+                      <Link href="/services/villa-renovation" className="dropdown-link">
+                        <span className="dropdown-icon">🏠</span>
+                        Villa Renovation
+                      </Link>
+                      <Link href="/services/apartment-renovation" className="dropdown-link">
+                        <span className="dropdown-icon">🏢</span>
+                        Apartment Renovation
+                      </Link>
+                      <Link href="/services/office-renovation" className="dropdown-link">
+                        <span className="dropdown-icon">💼</span>
+                        Office Renovation
+                      </Link>
+                    </div>
+                    
+                    <div className="dropdown-column">
+                      <h4 className="dropdown-category">AC Services</h4>
+                      <Link href="/services/vrf-ac-systems" className="dropdown-link">
+                        <span className="dropdown-icon">❄️</span>
+                        VRF AC Systems
+                      </Link>
+                      <Link href="/services/split-ac-systems" className="dropdown-link">
+                        <span className="dropdown-icon">🌬️</span>
+                        Split AC Systems
+                      </Link>
+                      <Link href="/services/water-chiller-fcu" className="dropdown-link">
+                        <span className="dropdown-icon">🏭</span>
+                        Water Chiller FCU
+                      </Link>
+                    </div>
+                    
+                    <div className="dropdown-column">
+                      <h4 className="dropdown-category">All Services</h4>
+                      <Link href="/services" className="dropdown-link view-all">
+                        <span className="dropdown-icon">🔍</span>
+                        View All Services
+                      </Link>
+                      <div className="dropdown-cta">
+                        <p>Need help choosing a service?</p>
+                        <a href="tel:+971589071754" className="cta-button">
+                          <span className="button-icon">📞</span>
+                          Get Free Consultation
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <Link href="/faq" className="nav-link">FAQs</Link>
@@ -41,45 +120,34 @@ export default function Header() {
               className="mobile-menu-btn"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              <span className="menu-bar"></span>
-              <span className="menu-bar"></span>
-              <span className="menu-bar"></span>
+              <span className={`menu-bar ${mobileMenuOpen ? 'active' : ''}`}></span>
+              <span className={`menu-bar ${mobileMenuOpen ? 'active' : ''}`}></span>
+              <span className={`menu-bar ${mobileMenuOpen ? 'active' : ''}`}></span>
             </button>
-          </div>
-
-          {/* Services Sub Menu */}
-          <div className="services-sub-menu">
-            <div className="services-sub-container">
-              <div className="service-category">
-                <h4 className="category-title">Renovation Services</h4>
-                <div className="service-links">
-                  <Link href="/services/villa-renovation" className="service-link">Villa Renovation</Link>
-                  <Link href="/services/apartment-renovation" className="service-link">Apartment Renovation</Link>
-                  <Link href="/services/office-renovation" className="service-link">Office Renovation</Link>
-                </div>
-              </div>
-              
-              <div className="service-category">
-                <h4 className="category-title">AC Services</h4>
-                <div className="service-links">
-                  <Link href="/services/vrf-ac-systems" className="service-link">VRF AC Systems</Link>
-                  <Link href="/services/split-ac-systems" className="service-link">Split Air Conditioner</Link>
-                  <Link href="/services/water-chiller-fcu" className="service-link">Water Chiller FCU</Link>
-                </div>
-              </div>
-            </div>
           </div>
         </nav>
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="mobile-nav">
+            <div className="mobile-nav-header">
+              <h3>Menu</h3>
+              <button 
+                className="mobile-close-btn"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            
             <div className="mobile-nav-content">
               <Link href="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <span className="mobile-nav-icon">🏠</span>
                 Home
               </Link>
               
               <Link href="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <span className="mobile-nav-icon">👥</span>
                 About
               </Link>
               
@@ -89,14 +157,16 @@ export default function Header() {
                   className="mobile-services-btn"
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                 >
-                  <span>Services</span>
-                  <span className="dropdown-arrow">{mobileServicesOpen ? '▲' : '▼'}</span>
+                  <span className="mobile-nav-icon">🛠️</span>
+                  Services
+                  <span className="mobile-dropdown-arrow">
+                    {mobileServicesOpen ? '▲' : '▼'}
+                  </span>
                 </button>
                 
                 {mobileServicesOpen && (
                   <div className="mobile-services-dropdown">
-                    {/* Renovation Services */}
-                    <div className="mobile-service-category">
+                    <div className="mobile-services-category">
                       <h5 className="mobile-category-title">Renovation Services</h5>
                       <Link href="/services/villa-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
                         Villa Renovation
@@ -109,28 +179,33 @@ export default function Header() {
                       </Link>
                     </div>
                     
-                    {/* AC Services */}
-                    <div className="mobile-service-category">
+                    <div className="mobile-services-category">
                       <h5 className="mobile-category-title">AC Services</h5>
                       <Link href="/services/vrf-ac-systems" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
                         VRF AC Systems
                       </Link>
                       <Link href="/services/split-ac-systems" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                        Split Air Conditioner
+                        Split AC Systems
                       </Link>
                       <Link href="/services/water-chiller-fcu" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
                         Water Chiller FCU
                       </Link>
                     </div>
+                    
+                    <Link href="/services" className="mobile-view-all" onClick={() => setMobileMenuOpen(false)}>
+                      View All Services
+                    </Link>
                   </div>
                 )}
               </div>
               
               <Link href="/faq" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <span className="mobile-nav-icon">❓</span>
                 FAQs
               </Link>
               
               <Link href="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <span className="mobile-nav-icon">📞</span>
                 Contact
               </Link>
               
@@ -149,8 +224,12 @@ export default function Header() {
               {/* Mobile Contact Info */}
               <div className="mobile-contact-info">
                 <div className="mobile-contact-item">
+                  <span className="contact-icon">📞</span>
+                  <a href="tel:+971589071754" className="contact-link">+971 58 907 1754</a>
+                </div>
+                <div className="mobile-contact-item">
                   <span className="contact-icon">✉️</span>
-                  <span>info@thealpamayo.com</span>
+                  <a href="mailto:info@thealpamayo.com" className="contact-link">info@thealpamayo.com</a>
                 </div>
                 <div className="mobile-contact-item">
                   <span className="contact-icon">📍</span>
@@ -169,6 +248,53 @@ export default function Header() {
           position: sticky;
           top: 0;
           z-index: 1000;
+        }
+
+        .top-bar {
+          background-color: #1C2734;
+          color: white;
+          padding: 0.4rem 0;
+          font-size: 0.8rem;
+        }
+
+        .top-bar-content {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .contact-info {
+          display: flex;
+          align-items: center;
+          gap: 2rem;
+        }
+
+        .contact-item {
+          display: flex;
+          align-items: center;
+        }
+
+        .contact-icon, .address-icon {
+          margin-right: 0.4rem;
+          font-size: 0.9rem;
+        }
+
+        .contact-link {
+          color: white;
+          text-decoration: none;
+          transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+          color: #577D8E;
+        }
+
+        .address {
+          display: flex;
+          align-items: center;
         }
 
         .nav {
@@ -213,19 +339,131 @@ export default function Header() {
           color: #577D8E;
         }
 
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 0;
-          height: 2px;
-          background-color: #577D8E;
-          transition: width 0.3s ease;
+        /* Services Dropdown */
+        .services-dropdown {
+          position: relative;
         }
 
-        .nav-link:hover::after {
-          width: 100%;
+        .dropdown-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          color: #1C2734;
+          font-size: 0.95rem;
+          font-weight: 600;
+          padding: 0.5rem 0;
+          transition: color 0.3s ease;
+        }
+
+        .dropdown-btn:hover {
+          color: #577D8E;
+        }
+
+        .dropdown-arrow {
+          font-size: 0.7rem;
+          transition: transform 0.3s ease;
+        }
+
+        .services-dropdown:hover .dropdown-arrow {
+          transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: -100px;
+          background-color: white;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          border-radius: 12px;
+          padding: 2rem;
+          min-width: 600px;
+          z-index: 1000;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1.2fr;
+          gap: 2rem;
+        }
+
+        .dropdown-column {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .dropdown-category {
+          font-size: 0.9rem;
+          font-weight: 700;
+          color: #1C2734;
+          margin-bottom: 1rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          border-bottom: 2px solid #577D8E;
+          padding-bottom: 0.5rem;
+        }
+
+        .dropdown-link {
+          display: flex;
+          align-items: center;
+          color: #6b7280;
+          text-decoration: none;
+          font-size: 0.9rem;
+          padding: 0.6rem 0;
+          transition: all 0.3s ease;
+          border-radius: 6px;
+        }
+
+        .dropdown-link:hover {
+          color: #577D8E;
+          background-color: #f8f9fa;
+          padding-left: 0.5rem;
+        }
+
+        .dropdown-icon {
+          margin-right: 0.8rem;
+          font-size: 1.1rem;
+          width: 20px;
+          text-align: center;
+        }
+
+        .view-all {
+          font-weight: 600;
+          color: #577D8E !important;
+        }
+
+        .dropdown-cta {
+          margin-top: auto;
+          padding-top: 1rem;
+          border-top: 1px solid #e5e7eb;
+        }
+
+        .dropdown-cta p {
+          font-size: 0.8rem;
+          color: #6b7280;
+          margin-bottom: 1rem;
+        }
+
+        .cta-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: linear-gradient(135deg, #577D8E, #1C2734);
+          color: white;
+          text-decoration: none;
+          padding: 0.7rem 1rem;
+          border-radius: 6px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(87, 125, 142, 0.3);
+        }
+
+        .button-icon {
+          font-size: 0.9rem;
         }
 
         .call-button {
@@ -252,54 +490,6 @@ export default function Header() {
           font-size: 1rem;
         }
 
-        /* Services Sub Menu */
-        .services-sub-menu {
-          background-color: #f8f9fa;
-          border-top: 1px solid #e9ecef;
-          border-bottom: 1px solid #e9ecef;
-        }
-
-        .services-sub-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 1rem 20px;
-          display: flex;
-          gap: 3rem;
-        }
-
-        .service-category {
-          flex: 1;
-        }
-
-        .category-title {
-          color: #1C2734;
-          font-size: 0.9rem;
-          font-weight: 700;
-          margin-bottom: 0.8rem;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .service-links {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        .service-link {
-          color: #577D8E;
-          text-decoration: none;
-          font-size: 0.85rem;
-          font-weight: 500;
-          transition: all 0.3s ease;
-          padding: 0.3rem 0;
-        }
-
-        .service-link:hover {
-          color: #1C2734;
-          transform: translateX(5px);
-        }
-
         /* Mobile Menu Button */
         .mobile-menu-btn {
           display: none;
@@ -309,6 +499,9 @@ export default function Header() {
           padding: 0.5rem;
           flex-direction: column;
           gap: 4px;
+          width: 30px;
+          height: 30px;
+          justify-content: center;
         }
 
         .menu-bar {
@@ -316,10 +509,19 @@ export default function Header() {
           height: 3px;
           background-color: #1C2734;
           transition: all 0.3s ease;
+          transform-origin: center;
         }
 
-        .mobile-menu-btn:hover .menu-bar {
-          background-color: #577D8E;
+        .menu-bar.active:nth-child(1) {
+          transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-bar.active:nth-child(2) {
+          opacity: 0;
+        }
+
+        .menu-bar.active:nth-child(3) {
+          transform: rotate(-45deg) translate(6px, -6px);
         }
 
         /* Mobile Navigation */
@@ -334,12 +536,37 @@ export default function Header() {
           overflow-y: auto;
         }
 
+        .mobile-nav-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.5rem 20px;
+          border-bottom: 1px solid #e5e7eb;
+          background-color: #1C2734;
+          color: white;
+        }
+
+        .mobile-nav-header h3 {
+          margin: 0;
+          font-size: 1.2rem;
+        }
+
+        .mobile-close-btn {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+          padding: 0.5rem;
+        }
+
         .mobile-nav-content {
-          padding: 2rem 20px;
+          padding: 1rem 20px 2rem;
         }
 
         .mobile-nav-link {
-          display: block;
+          display: flex;
+          align-items: center;
           color: #1C2734;
           text-decoration: none;
           font-size: 1.1rem;
@@ -351,6 +578,13 @@ export default function Header() {
 
         .mobile-nav-link:hover {
           color: #577D8E;
+        }
+
+        .mobile-nav-icon {
+          margin-right: 1rem;
+          font-size: 1.2rem;
+          width: 24px;
+          text-align: center;
         }
 
         .mobile-services-section {
@@ -372,27 +606,27 @@ export default function Header() {
           font-weight: 600;
         }
 
-        .dropdown-arrow {
+        .mobile-dropdown-arrow {
           font-size: 0.9rem;
           color: #577D8E;
         }
 
         .mobile-services-dropdown {
-          padding: 0.5rem 0 1rem 1rem;
+          padding: 1rem 0 1rem 2rem;
           background-color: #f8f9fa;
           margin: 0 -20px;
-          padding-left: 20px;
+          padding-left: 40px;
         }
 
-        .mobile-service-category {
-          margin-bottom: 1rem;
+        .mobile-services-category {
+          margin-bottom: 1.5rem;
         }
 
         .mobile-category-title {
           color: #1C2734;
           font-size: 0.9rem;
           font-weight: 700;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.8rem;
           text-transform: uppercase;
         }
 
@@ -402,12 +636,35 @@ export default function Header() {
           text-decoration: none;
           font-size: 0.95rem;
           font-weight: 500;
-          padding: 0.6rem 0;
+          padding: 0.7rem 0;
           transition: color 0.3s ease;
+          border-bottom: 1px solid #e5e7eb;
         }
 
         .mobile-service-link:hover {
           color: #1C2734;
+        }
+
+        .mobile-service-link:last-child {
+          border-bottom: none;
+        }
+
+        .mobile-view-all {
+          display: block;
+          text-align: center;
+          color: #577D8E;
+          text-decoration: none;
+          font-weight: 600;
+          padding: 1rem;
+          border: 2px solid #577D8E;
+          border-radius: 8px;
+          margin-top: 1rem;
+          transition: all 0.3s ease;
+        }
+
+        .mobile-view-all:hover {
+          background-color: #577D8E;
+          color: white;
         }
 
         .mobile-call-buttons {
@@ -459,22 +716,17 @@ export default function Header() {
           font-size: 0.9rem;
         }
 
-        .contact-icon {
-          margin-right: 0.8rem;
-          font-size: 1rem;
-        }
-
         /* Mobile Styles */
         @media (max-width: 768px) {
+          .top-bar {
+            display: none;
+          }
+          
           .mobile-menu-btn {
             display: flex;
           }
           
           .desktop-nav {
-            display: none;
-          }
-          
-          .services-sub-menu {
             display: none;
           }
           
@@ -491,6 +743,14 @@ export default function Header() {
         @media (min-width: 769px) {
           .mobile-nav {
             display: none;
+          }
+        }
+
+        /* Tablet Styles for Dropdown */
+        @media (max-width: 1024px) and (min-width: 769px) {
+          .dropdown-menu {
+            min-width: 500px;
+            left: -150px;
           }
         }
       `}</style>
