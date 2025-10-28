@@ -65,7 +65,7 @@ export default function Header() {
               </div>
               
               <Link href="/contact" className="nav-link">Contact</Link>
-              <Link href="/faqs" className="nav-link">FAQs</Link>
+              <Link href="/faq" className="nav-link">FAQs</Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -109,7 +109,7 @@ export default function Header() {
               </div>
               
               <Link href="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
-              <Link href="/faqs" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
+              <Link href="/faq" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>FAQs</Link>
               
               {/* Mobile Contact Info */}
               <div className="mobile-contact-info">
