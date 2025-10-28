@@ -1,9 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
-import VRFHeroSection from '../../components/services/VRF/VRFHeroSection';
-import OurServices from '../../components/components/services/VRF/OurServices';
-import WhyChooseUs from '../../components/components/services/VRF/WhyChooseUs';
-import CTASection from '../../components/components/services/VRF/CTASection';
+import VRFHeroSection from '@/components/services/VRF/VRFHeroSection';
+import OurServices from '@/components/services/VRF/OurServices';
+import WhyChooseUs from '@/components/services/VRF/WhyChooseUs';
+import CTASection from '@/components/services/VRF/CTASection';
 
 const VRFACSystems = () => {
   const pageStyles = {
