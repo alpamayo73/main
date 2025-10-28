@@ -199,4 +199,23 @@ export default function VillaPricing() {
               </ul>
 
               <button 
-                style={styles.button
+                style={styles.button}
+                onClick={handleConsultation}
+                onMouseOver={(e) => {
+                  e.target.style.backgroundColor = colors.primary
+                  e.target.style.transform = 'translateY(-2px)'
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.backgroundColor = colors.secondary
+                  e.target.style.transform = 'translateY(0)'
+                }}
+              >
+                Get Free Quote
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
