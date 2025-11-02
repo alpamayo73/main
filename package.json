@@ -18,3 +18,9 @@
     "eslint-config-next": "14.0.0"
   }
 }
+{
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "axios": "^1.6.2"
+  }
+}
