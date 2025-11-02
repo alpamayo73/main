@@ -11,7 +11,7 @@ export default function Booking() {
     area: '',
     date: '',
     time: '',
-    duration: 2,
+    duration: 1, // Changed default to 1 hour
     description: ''
   });
 
@@ -36,19 +36,22 @@ export default function Booking() {
       name: 'Handyman',
       price: 100,
       description: 'Furniture assembly, moving help, general repairs',
-      icon: '🔨'
+      icon: '🔨',
+      features: ['Furniture Assembly', 'Moving Help', 'General Repairs', 'Mounting']
     },
     plumber: {
       name: 'Plumber',
       price: 100,
       description: 'Pipe repairs, leak fixes, installation',
-      icon: '🔧'
+      icon: '🔧',
+      features: ['Leak Repairs', 'Pipe Installation', 'Drain Cleaning', 'Fixture Installation']
     },
     electrician: {
       name: 'Electrician',
       price: 125,
       description: 'Wiring, repairs, installations',
-      icon: '⚡'
+      icon: '⚡',
+      features: ['Wiring', 'Socket Installation', 'Lighting', 'Safety Checks']
     }
   };
 
@@ -102,7 +105,7 @@ export default function Booking() {
           area: '',
           date: '',
           time: '',
-          duration: 2,
+          duration: 1, // Reset to 1 hour
           description: ''
         });
       } else {
@@ -180,16 +183,16 @@ export default function Booking() {
     },
     serviceGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-      gap: '1rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: '1.5rem',
       marginBottom: '1rem'
     },
     serviceCard: {
-      border: '2px solid #e2e8f0',
-      borderRadius: '15px',
-      padding: '1.5rem',
+      border: '3px solid #f1f5f9',
+      borderRadius: '20px',
+      padding: '2rem 1.5rem',
       cursor: 'pointer',
-      transition: 'all 0.3s ease',
+      transition: 'all 0.4s ease',
       backgroundColor: 'white',
       textAlign: 'center',
       position: 'relative',
@@ -198,29 +201,64 @@ export default function Booking() {
     serviceCardSelected: {
       borderColor: '#577D8E',
       backgroundColor: '#f8fafc',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 8px 25px rgba(87, 125, 142, 0.15)'
+      transform: 'translateY(-5px)',
+      boxShadow: '0 20px 40px rgba(87, 125, 142, 0.2)'
     },
     serviceIcon: {
-      fontSize: '2.5rem',
-      marginBottom: '1rem'
+      fontSize: '3.5rem',
+      marginBottom: '1.5rem',
+      display: 'block'
     },
     serviceName: {
-      fontSize: '1.1rem',
-      fontWeight: '700',
-      color: '#1C2734',
-      marginBottom: '0.5rem'
-    },
-    servicePrice: {
       fontSize: '1.3rem',
       fontWeight: '800',
+      color: '#1C2734',
+      marginBottom: '1rem',
+      textTransform: 'uppercase'
+    },
+    servicePrice: {
+      fontSize: '2rem',
+      fontWeight: '900',
       color: '#577D8E',
-      marginBottom: '0.5rem'
+      marginBottom: '1rem',
+      background: 'linear-gradient(135deg, #577D8E, #1C2734)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent'
     },
     serviceDescription: {
-      fontSize: '0.85rem',
+      fontSize: '0.95rem',
       color: '#64748b',
-      lineHeight: '1.4'
+      lineHeight: '1.5',
+      marginBottom: '1.5rem'
+    },
+    serviceFeatures: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.5rem',
+      marginTop: '1rem'
+    },
+    serviceFeature: {
+      fontSize: '0.85rem',
+      color: '#577D8E',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '0.5rem'
+    },
+    featureIcon: {
+      fontSize: '0.8rem'
+    },
+    selectedBadge: {
+      position: 'absolute',
+      top: '15px',
+      right: '15px',
+      backgroundColor: '#577D8E',
+      color: 'white',
+      padding: '0.4rem 1rem',
+      borderRadius: '20px',
+      fontSize: '0.8rem',
+      fontWeight: '700',
+      textTransform: 'uppercase'
     },
     formGrid: {
       display: 'grid',
@@ -362,6 +400,13 @@ export default function Booking() {
       backgroundColor: '#fee2e2',
       color: '#dc2626',
       border: '2px solid #fecaca'
+    },
+    durationNote: {
+      fontSize: '0.85rem',
+      color: '#577D8E',
+      textAlign: 'center',
+      marginTop: '0.5rem',
+      fontStyle: 'italic'
     }
   };
 
@@ -383,7 +428,7 @@ export default function Booking() {
           {/* Main Form */}
           <div style={styles.formSection}>
             <form onSubmit={handleSubmit}>
-              {/* Service Selection */}
+              {/* Service Selection - IMPROVED DESIGN */}
               <div style={styles.section}>
                 <h2 style={styles.sectionTitle}>Choose Your Service</h2>
                 <div style={styles.serviceGrid}>
@@ -395,11 +440,35 @@ export default function Booking() {
                         ...(formData.serviceType === key ? styles.serviceCardSelected : {})
                       }}
                       onClick={() => setFormData({...formData, serviceType: key})}
+                      onMouseOver={(e) => {
+                        if (formData.serviceType !== key) {
+                          e.currentTarget.style.transform = 'translateY(-3px)';
+                          e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                        }
+                      }}
+                      onMouseOut={(e) => {
+                        if (formData.serviceType !== key) {
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.boxShadow = 'none';
+                        }
+                      }}
                     >
+                      {formData.serviceType === key && (
+                        <div style={styles.selectedBadge}>Selected</div>
+                      )}
                       <div style={styles.serviceIcon}>{service.icon}</div>
                       <div style={styles.serviceName}>{service.name}</div>
                       <div style={styles.servicePrice}>{service.price} AED/hr</div>
                       <div style={styles.serviceDescription}>{service.description}</div>
+                      
+                      <div style={styles.serviceFeatures}>
+                        {service.features.map((feature, index) => (
+                          <div key={index} style={styles.serviceFeature}>
+                            <span style={styles.featureIcon}>✓</span>
+                            {feature}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -539,6 +608,7 @@ export default function Booking() {
                         <option key={hours} value={hours}>{hours} hour{hours > 1 ? 's' : ''}</option>
                       ))}
                     </select>
+                    <div style={styles.durationNote}>Minimum booking: 1 hour</div>
                   </div>
                 </div>
               </div>
