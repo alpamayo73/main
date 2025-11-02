@@ -136,6 +136,17 @@ export default function Booking() {
     return today.toISOString().split('T')[0];
   };
 
+  // Get input styles with focus handling
+  const getInputStyles = (baseStyle) => ({
+    ...baseStyle,
+    ':focus': {
+      ...baseStyle,
+      borderColor: '#577D8E',
+      backgroundColor: 'white',
+      boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)'
+    }
+  });
+
   const styles = {
     container: {
       maxWidth: '1200px',
@@ -199,7 +210,7 @@ export default function Booking() {
     },
     serviceGrid: {
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
       gap: isMobile ? '1rem' : '1.5rem',
       marginBottom: '1rem'
     },
@@ -212,7 +223,12 @@ export default function Booking() {
       backgroundColor: 'white',
       textAlign: 'center',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: isMobile ? '120px' : '140px'
     },
     serviceCardSelected: {
       borderColor: '#577D8E',
@@ -221,58 +237,34 @@ export default function Booking() {
       boxShadow: '0 20px 40px rgba(87, 125, 142, 0.2)'
     },
     serviceIcon: {
-      fontSize: isMobile ? '2.5rem' : '3.5rem',
-      marginBottom: isMobile ? '1rem' : '1.5rem',
+      fontSize: isMobile ? '2.5rem' : '3rem',
+      marginBottom: isMobile ? '0.75rem' : '1rem',
       display: 'block'
     },
     serviceName: {
       fontSize: isMobile ? '1.1rem' : '1.3rem',
       fontWeight: '800',
       color: '#1C2734',
-      marginBottom: isMobile ? '0.75rem' : '1rem',
+      marginBottom: isMobile ? '0.5rem' : '0.75rem',
       textTransform: 'uppercase'
     },
     servicePrice: {
-      fontSize: isMobile ? '1.5rem' : '2rem',
+      fontSize: isMobile ? '1.3rem' : '1.6rem',
       fontWeight: '900',
       color: '#577D8E',
-      marginBottom: isMobile ? '0.75rem' : '1rem',
       background: 'linear-gradient(135deg, #577D8E, #1C2734)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent'
     },
-    serviceDescription: {
-      fontSize: isMobile ? '0.9rem' : '0.95rem',
-      color: '#64748b',
-      lineHeight: '1.5',
-      marginBottom: isMobile ? '1rem' : '1.5rem'
-    },
-    serviceFeatures: {
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '0.5rem',
-      marginTop: '1rem'
-    },
-    serviceFeature: {
-      fontSize: isMobile ? '0.8rem' : '0.85rem',
-      color: '#577D8E',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '0.5rem'
-    },
-    featureIcon: {
-      fontSize: '0.8rem'
-    },
     selectedBadge: {
       position: 'absolute',
-      top: '15px',
-      right: '15px',
+      top: '10px',
+      right: '10px',
       backgroundColor: '#577D8E',
       color: 'white',
-      padding: '0.4rem 1rem',
-      borderRadius: '20px',
-      fontSize: '0.8rem',
+      padding: '0.3rem 0.8rem',
+      borderRadius: '15px',
+      fontSize: '0.7rem',
       fontWeight: '700',
       textTransform: 'uppercase'
     },
@@ -299,7 +291,14 @@ export default function Booking() {
       borderRadius: isMobile ? '10px' : '12px',
       fontSize: isMobile ? '0.95rem' : '1rem',
       transition: 'all 0.3s ease',
-      backgroundColor: '#f8fafc'
+      backgroundColor: '#f8fafc',
+      boxSizing: 'border-box'
+    },
+    inputFocus: {
+      borderColor: '#577D8E',
+      backgroundColor: 'white',
+      boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)',
+      outline: 'none'
     },
     select: {
       width: '100%',
@@ -308,7 +307,14 @@ export default function Booking() {
       borderRadius: isMobile ? '10px' : '12px',
       fontSize: isMobile ? '0.95rem' : '1rem',
       backgroundColor: '#f8fafc',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
+      boxSizing: 'border-box'
+    },
+    selectFocus: {
+      borderColor: '#577D8E',
+      backgroundColor: 'white',
+      boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)',
+      outline: 'none'
     },
     textarea: {
       width: '100%',
@@ -319,12 +325,15 @@ export default function Booking() {
       minHeight: '120px',
       resize: 'vertical',
       backgroundColor: '#f8fafc',
-      transition: 'all 0.3s ease'
+      transition: 'all 0.3s ease',
+      boxSizing: 'border-box',
+      fontFamily: 'inherit'
     },
-    focus: {
+    textareaFocus: {
       borderColor: '#577D8E',
       backgroundColor: 'white',
-      boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)'
+      boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)',
+      outline: 'none'
     },
     summaryTitle: {
       fontSize: isMobile ? '1.3rem' : '1.5rem',
@@ -448,7 +457,7 @@ export default function Booking() {
           {/* Main Form */}
           <div style={styles.formSection}>
             <form onSubmit={handleSubmit}>
-              {/* Service Selection */}
+              {/* Service Selection - SIMPLIFIED DESIGN */}
               <div style={styles.section}>
                 <h2 style={styles.sectionTitle}>Choose Your Service</h2>
                 <div style={styles.serviceGrid}>
@@ -479,16 +488,6 @@ export default function Booking() {
                       <div style={styles.serviceIcon}>{service.icon}</div>
                       <div style={styles.serviceName}>{service.name}</div>
                       <div style={styles.servicePrice}>{service.price} AED/hr</div>
-                      <div style={styles.serviceDescription}>{service.description}</div>
-                      
-                      <div style={styles.serviceFeatures}>
-                        {service.features.map((feature, index) => (
-                          <div key={index} style={styles.serviceFeature}>
-                            <span style={styles.featureIcon}>✓</span>
-                            {feature}
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   ))}
                 </div>
@@ -507,8 +506,18 @@ export default function Booking() {
                       onChange={handleChange}
                       style={styles.input}
                       required
-                      onFocus={(e) => e.target.style = {...styles.input, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.input}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.inputFocus.borderColor;
+                        e.target.style.backgroundColor = styles.inputFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.inputFocus.boxShadow;
+                        e.target.style.outline = styles.inputFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.input.border;
+                        e.target.style.backgroundColor = styles.input.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     />
                   </div>
                   <div style={styles.formGroup}>
@@ -520,8 +529,18 @@ export default function Booking() {
                       onChange={handleChange}
                       style={styles.input}
                       required
-                      onFocus={(e) => e.target.style = {...styles.input, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.input}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.inputFocus.borderColor;
+                        e.target.style.backgroundColor = styles.inputFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.inputFocus.boxShadow;
+                        e.target.style.outline = styles.inputFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.input.border;
+                        e.target.style.backgroundColor = styles.input.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     />
                   </div>
                   <div style={styles.formGroup}>
@@ -533,8 +552,18 @@ export default function Booking() {
                       onChange={handleChange}
                       style={styles.input}
                       required
-                      onFocus={(e) => e.target.style = {...styles.input, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.input}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.inputFocus.borderColor;
+                        e.target.style.backgroundColor = styles.inputFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.inputFocus.boxShadow;
+                        e.target.style.outline = styles.inputFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.input.border;
+                        e.target.style.backgroundColor = styles.input.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     />
                   </div>
                 </div>
@@ -552,8 +581,18 @@ export default function Booking() {
                       onChange={handleChange}
                       style={styles.select}
                       required
-                      onFocus={(e) => e.target.style = {...styles.select, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.select}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.selectFocus.borderColor;
+                        e.target.style.backgroundColor = styles.selectFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.selectFocus.boxShadow;
+                        e.target.style.outline = styles.selectFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.select.border;
+                        e.target.style.backgroundColor = styles.select.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     >
                       <option value="">Select your area</option>
                       {dubaiAreas.map(area => (
@@ -571,8 +610,18 @@ export default function Booking() {
                       style={styles.input}
                       placeholder="Building, apartment, street details"
                       required
-                      onFocus={(e) => e.target.style = {...styles.input, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.input}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.inputFocus.borderColor;
+                        e.target.style.backgroundColor = styles.inputFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.inputFocus.boxShadow;
+                        e.target.style.outline = styles.inputFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.input.border;
+                        e.target.style.backgroundColor = styles.input.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     />
                   </div>
                 </div>
@@ -592,8 +641,18 @@ export default function Booking() {
                       style={styles.input}
                       min={getMinDate()}
                       required
-                      onFocus={(e) => e.target.style = {...styles.input, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.input}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.inputFocus.borderColor;
+                        e.target.style.backgroundColor = styles.inputFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.inputFocus.boxShadow;
+                        e.target.style.outline = styles.inputFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.input.border;
+                        e.target.style.backgroundColor = styles.input.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     />
                   </div>
                   <div style={styles.formGroup}>
@@ -604,8 +663,18 @@ export default function Booking() {
                       onChange={handleChange}
                       style={styles.select}
                       required
-                      onFocus={(e) => e.target.style = {...styles.select, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.select}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.selectFocus.borderColor;
+                        e.target.style.backgroundColor = styles.selectFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.selectFocus.boxShadow;
+                        e.target.style.outline = styles.selectFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.select.border;
+                        e.target.style.backgroundColor = styles.select.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     >
                       <option value="">Select time</option>
                       {timeSlots.map(time => (
@@ -621,8 +690,18 @@ export default function Booking() {
                       onChange={handleChange}
                       style={styles.select}
                       required
-                      onFocus={(e) => e.target.style = {...styles.select, ...styles.focus}}
-                      onBlur={(e) => e.target.style = styles.select}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = styles.selectFocus.borderColor;
+                        e.target.style.backgroundColor = styles.selectFocus.backgroundColor;
+                        e.target.style.boxShadow = styles.selectFocus.boxShadow;
+                        e.target.style.outline = styles.selectFocus.outline;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = styles.select.border;
+                        e.target.style.backgroundColor = styles.select.backgroundColor;
+                        e.target.style.boxShadow = 'none';
+                        e.target.style.outline = 'none';
+                      }}
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map(hours => (
                         <option key={hours} value={hours}>{hours} hour{hours > 1 ? 's' : ''}</option>
@@ -645,8 +724,18 @@ export default function Booking() {
                     style={styles.textarea}
                     placeholder="Please describe the work needed in detail. The more information you provide, the better we can serve you."
                     required
-                    onFocus={(e) => e.target.style = {...styles.textarea, ...styles.focus}}
-                    onBlur={(e) => e.target.style = styles.textarea}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = styles.textareaFocus.borderColor;
+                      e.target.style.backgroundColor = styles.textareaFocus.backgroundColor;
+                      e.target.style.boxShadow = styles.textareaFocus.boxShadow;
+                      e.target.style.outline = styles.textareaFocus.outline;
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = styles.textarea.border;
+                      e.target.style.backgroundColor = styles.textarea.backgroundColor;
+                      e.target.style.boxShadow = 'none';
+                      e.target.style.outline = 'none';
+                    }}
                   />
                 </div>
               </div>
