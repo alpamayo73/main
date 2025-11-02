@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 
 export default function Booking() {
@@ -11,12 +11,13 @@ export default function Booking() {
     area: '',
     date: '',
     time: '',
-    duration: 1, // Changed default to 1 hour
+    duration: 1,
     description: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
 
   const dubaiAreas = [
     'Downtown Dubai', 'Dubai Marina', 'Jumeirah', 'Al Barsha', 'Al Quoz',
@@ -62,6 +63,18 @@ export default function Booking() {
     '17:00', '17:30', '18:00', '18:30', '19:00', '19:30'
   ];
 
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -105,7 +118,7 @@ export default function Booking() {
           area: '',
           date: '',
           time: '',
-          duration: 1, // Reset to 1 hour
+          duration: 1,
           description: ''
         });
       } else {
@@ -127,70 +140,73 @@ export default function Booking() {
     container: {
       maxWidth: '1200px',
       margin: '0 auto',
-      padding: '2rem 1rem',
+      padding: isMobile ? '1rem 0.5rem' : '2rem 1rem',
       fontFamily: 'Roboto, sans-serif',
       backgroundColor: '#f8fafc'
     },
     header: {
       textAlign: 'center',
-      marginBottom: '3rem',
-      padding: '3rem 1rem',
+      marginBottom: isMobile ? '2rem' : '3rem',
+      padding: isMobile ? '2rem 1rem' : '3rem 1rem',
       background: 'linear-gradient(135deg, #1C2734 0%, #577D8E 100%)',
-      borderRadius: '20px',
+      borderRadius: isMobile ? '15px' : '20px',
       color: 'white'
     },
     title: {
-      fontSize: '3rem',
+      fontSize: isMobile ? '2rem' : '3rem',
       fontWeight: '700',
       marginBottom: '1rem',
       textTransform: 'uppercase'
     },
     subtitle: {
-      fontSize: '1.3rem',
+      fontSize: isMobile ? '1.1rem' : '1.3rem',
       opacity: 0.9,
       marginBottom: '0'
     },
     content: {
       display: 'grid',
-      gridTemplateColumns: '1fr 400px',
-      gap: '2rem',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 400px',
+      gap: isMobile ? '1rem' : '2rem',
       alignItems: 'start'
     },
     formSection: {
       backgroundColor: 'white',
-      padding: '2.5rem',
-      borderRadius: '20px',
-      boxShadow: '0 10px 40px rgba(0,0,0,0.08)'
+      padding: isMobile ? '1.5rem' : '2.5rem',
+      borderRadius: isMobile ? '15px' : '20px',
+      boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+      order: isMobile ? 1 : 'unset'
     },
     summarySection: {
       backgroundColor: 'white',
-      padding: '2rem',
-      borderRadius: '20px',
+      padding: isMobile ? '1.5rem' : '2rem',
+      borderRadius: isMobile ? '15px' : '20px',
       boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
-      position: 'sticky',
-      top: '2rem'
+      position: isMobile ? 'static' : 'sticky',
+      top: isMobile ? 'unset' : '2rem',
+      order: isMobile ? 2 : 'unset',
+      marginBottom: isMobile ? '1rem' : '0'
     },
     section: {
-      marginBottom: '2.5rem'
+      marginBottom: isMobile ? '2rem' : '2.5rem'
     },
     sectionTitle: {
-      fontSize: '1.4rem',
+      fontSize: isMobile ? '1.2rem' : '1.4rem',
       fontWeight: '700',
       color: '#1C2734',
-      marginBottom: '1.5rem',
+      marginBottom: isMobile ? '1rem' : '1.5rem',
       paddingBottom: '0.75rem',
       borderBottom: '3px solid #577D8E'
     },
     serviceGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-      gap: '1.5rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+      gap: isMobile ? '1rem' : '1.5rem',
       marginBottom: '1rem'
     },
     serviceCard: {
       border: '3px solid #f1f5f9',
-      borderRadius: '20px',
-      padding: '2rem 1.5rem',
+      borderRadius: isMobile ? '15px' : '20px',
+      padding: isMobile ? '1.5rem 1rem' : '2rem 1.5rem',
       cursor: 'pointer',
       transition: 'all 0.4s ease',
       backgroundColor: 'white',
@@ -201,35 +217,35 @@ export default function Booking() {
     serviceCardSelected: {
       borderColor: '#577D8E',
       backgroundColor: '#f8fafc',
-      transform: 'translateY(-5px)',
+      transform: isMobile ? 'translateY(-2px)' : 'translateY(-5px)',
       boxShadow: '0 20px 40px rgba(87, 125, 142, 0.2)'
     },
     serviceIcon: {
-      fontSize: '3.5rem',
-      marginBottom: '1.5rem',
+      fontSize: isMobile ? '2.5rem' : '3.5rem',
+      marginBottom: isMobile ? '1rem' : '1.5rem',
       display: 'block'
     },
     serviceName: {
-      fontSize: '1.3rem',
+      fontSize: isMobile ? '1.1rem' : '1.3rem',
       fontWeight: '800',
       color: '#1C2734',
-      marginBottom: '1rem',
+      marginBottom: isMobile ? '0.75rem' : '1rem',
       textTransform: 'uppercase'
     },
     servicePrice: {
-      fontSize: '2rem',
+      fontSize: isMobile ? '1.5rem' : '2rem',
       fontWeight: '900',
       color: '#577D8E',
-      marginBottom: '1rem',
+      marginBottom: isMobile ? '0.75rem' : '1rem',
       background: 'linear-gradient(135deg, #577D8E, #1C2734)',
       WebkitBackgroundClip: 'text',
       WebkitTextFillColor: 'transparent'
     },
     serviceDescription: {
-      fontSize: '0.95rem',
+      fontSize: isMobile ? '0.9rem' : '0.95rem',
       color: '#64748b',
       lineHeight: '1.5',
-      marginBottom: '1.5rem'
+      marginBottom: isMobile ? '1rem' : '1.5rem'
     },
     serviceFeatures: {
       display: 'flex',
@@ -238,7 +254,7 @@ export default function Booking() {
       marginTop: '1rem'
     },
     serviceFeature: {
-      fontSize: '0.85rem',
+      fontSize: isMobile ? '0.8rem' : '0.85rem',
       color: '#577D8E',
       display: 'flex',
       alignItems: 'center',
@@ -262,44 +278,44 @@ export default function Booking() {
     },
     formGrid: {
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      gap: '1.5rem',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
+      gap: isMobile ? '1rem' : '1.5rem',
       marginBottom: '1rem'
     },
     formGroup: {
-      marginBottom: '1.5rem'
+      marginBottom: isMobile ? '1rem' : '1.5rem'
     },
     label: {
       display: 'block',
       marginBottom: '0.5rem',
       fontWeight: '600',
       color: '#1C2734',
-      fontSize: '0.95rem'
+      fontSize: isMobile ? '0.9rem' : '0.95rem'
     },
     input: {
       width: '100%',
-      padding: '1rem',
+      padding: isMobile ? '0.875rem' : '1rem',
       border: '2px solid #e2e8f0',
-      borderRadius: '12px',
-      fontSize: '1rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      fontSize: isMobile ? '0.95rem' : '1rem',
       transition: 'all 0.3s ease',
       backgroundColor: '#f8fafc'
     },
     select: {
       width: '100%',
-      padding: '1rem',
+      padding: isMobile ? '0.875rem' : '1rem',
       border: '2px solid #e2e8f0',
-      borderRadius: '12px',
-      fontSize: '1rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      fontSize: isMobile ? '0.95rem' : '1rem',
       backgroundColor: '#f8fafc',
       transition: 'all 0.3s ease'
     },
     textarea: {
       width: '100%',
-      padding: '1rem',
+      padding: isMobile ? '0.875rem' : '1rem',
       border: '2px solid #e2e8f0',
-      borderRadius: '12px',
-      fontSize: '1rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      fontSize: isMobile ? '0.95rem' : '1rem',
       minHeight: '120px',
       resize: 'vertical',
       backgroundColor: '#f8fafc',
@@ -311,85 +327,88 @@ export default function Booking() {
       boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)'
     },
     summaryTitle: {
-      fontSize: '1.5rem',
+      fontSize: isMobile ? '1.3rem' : '1.5rem',
       fontWeight: '700',
       color: '#1C2734',
-      marginBottom: '1.5rem',
+      marginBottom: isMobile ? '1rem' : '1.5rem',
       textAlign: 'center'
     },
     summaryItem: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '1rem 0',
+      padding: isMobile ? '0.75rem 0' : '1rem 0',
       borderBottom: '1px solid #e2e8f0'
     },
     summaryLabel: {
       color: '#64748b',
-      fontWeight: '500'
+      fontWeight: '500',
+      fontSize: isMobile ? '0.9rem' : '1rem'
     },
     summaryValue: {
       color: '#1C2734',
-      fontWeight: '600'
+      fontWeight: '600',
+      fontSize: isMobile ? '0.9rem' : '1rem'
     },
     total: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '1.5rem 0',
+      padding: isMobile ? '1rem 0' : '1.5rem 0',
       borderTop: '2px solid #e2e8f0',
       marginTop: '1rem'
     },
     totalLabel: {
-      fontSize: '1.2rem',
+      fontSize: isMobile ? '1.1rem' : '1.2rem',
       fontWeight: '700',
       color: '#1C2734'
     },
     totalValue: {
-      fontSize: '1.5rem',
+      fontSize: isMobile ? '1.3rem' : '1.5rem',
       fontWeight: '800',
       color: '#577D8E'
     },
     features: {
       backgroundColor: '#f0f7ff',
-      padding: '1.5rem',
-      borderRadius: '12px',
-      marginTop: '2rem'
+      padding: isMobile ? '1rem' : '1.5rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      marginTop: isMobile ? '1.5rem' : '2rem'
     },
     feature: {
       display: 'flex',
       alignItems: 'center',
-      marginBottom: '0.75rem',
-      fontSize: '0.9rem',
+      marginBottom: isMobile ? '0.5rem' : '0.75rem',
+      fontSize: isMobile ? '0.85rem' : '0.9rem',
       color: '#1C2734'
     },
     featureIcon: {
       color: '#577D8E',
-      marginRight: '0.75rem',
-      fontSize: '1.1rem'
+      marginRight: isMobile ? '0.5rem' : '0.75rem',
+      fontSize: isMobile ? '1rem' : '1.1rem',
+      flexShrink: 0
     },
     submitButton: {
       width: '100%',
       background: 'linear-gradient(135deg, #577D8E 0%, #1C2734 100%)',
       color: 'white',
-      padding: '1.25rem 2rem',
+      padding: isMobile ? '1.1rem 1.5rem' : '1.25rem 2rem',
       border: 'none',
-      borderRadius: '12px',
-      fontSize: '1.1rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      fontSize: isMobile ? '1rem' : '1.1rem',
       fontWeight: '700',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
-      marginTop: '2rem',
+      marginTop: isMobile ? '1.5rem' : '2rem',
       textTransform: 'uppercase',
       letterSpacing: '0.5px'
     },
     message: {
-      padding: '1.25rem',
-      borderRadius: '12px',
-      marginTop: '1.5rem',
+      padding: isMobile ? '1rem' : '1.25rem',
+      borderRadius: isMobile ? '10px' : '12px',
+      marginTop: isMobile ? '1rem' : '1.5rem',
       textAlign: 'center',
       fontWeight: '600',
-      fontSize: '1rem'
+      fontSize: isMobile ? '0.95rem' : '1rem'
     },
     success: {
       backgroundColor: '#dcfce7',
@@ -402,7 +421,7 @@ export default function Booking() {
       border: '2px solid #fecaca'
     },
     durationNote: {
-      fontSize: '0.85rem',
+      fontSize: isMobile ? '0.8rem' : '0.85rem',
       color: '#577D8E',
       textAlign: 'center',
       marginTop: '0.5rem',
@@ -415,6 +434,7 @@ export default function Booking() {
       <Head>
         <title>Book Service | Alpamayo Technical Services</title>
         <meta name="description" content="Book Handyman, Plumber, or Electrician services in Dubai. Professional technicians available per hour." />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
       <div style={styles.container}>
@@ -428,7 +448,7 @@ export default function Booking() {
           {/* Main Form */}
           <div style={styles.formSection}>
             <form onSubmit={handleSubmit}>
-              {/* Service Selection - IMPROVED DESIGN */}
+              {/* Service Selection */}
               <div style={styles.section}>
                 <h2 style={styles.sectionTitle}>Choose Your Service</h2>
                 <div style={styles.serviceGrid}>
@@ -441,13 +461,13 @@ export default function Booking() {
                       }}
                       onClick={() => setFormData({...formData, serviceType: key})}
                       onMouseOver={(e) => {
-                        if (formData.serviceType !== key) {
+                        if (formData.serviceType !== key && !isMobile) {
                           e.currentTarget.style.transform = 'translateY(-3px)';
                           e.currentTarget.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
                         }
                       }}
                       onMouseOut={(e) => {
-                        if (formData.serviceType !== key) {
+                        if (formData.serviceType !== key && !isMobile) {
                           e.currentTarget.style.transform = 'translateY(0)';
                           e.currentTarget.style.boxShadow = 'none';
                         }
@@ -638,8 +658,8 @@ export default function Booking() {
                   ...(isSubmitting && { opacity: 0.7, cursor: 'not-allowed' })
                 }}
                 disabled={isSubmitting}
-                onMouseOver={(e) => !isSubmitting && (e.target.style.transform = 'translateY(-2px)')}
-                onMouseOut={(e) => !isSubmitting && (e.target.style.transform = 'translateY(0)')}
+                onMouseOver={(e) => !isSubmitting && !isMobile && (e.target.style.transform = 'translateY(-2px)')}
+                onMouseOut={(e) => !isSubmitting && !isMobile && (e.target.style.transform = 'translateY(0)')}
               >
                 {isSubmitting ? 'Booking Your Service...' : 'Confirm & Book Now'}
               </button>
@@ -655,7 +675,7 @@ export default function Booking() {
             </form>
           </div>
 
-          {/* Booking Summary */}
+          {/* Booking Summary - Now appears at bottom on mobile */}
           <div style={styles.summarySection}>
             <h3 style={styles.summaryTitle}>Booking Summary</h3>
             
