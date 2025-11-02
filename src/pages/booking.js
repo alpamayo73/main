@@ -37,21 +37,21 @@ export default function Booking() {
       name: 'Handyman',
       price: 100,
       description: 'Furniture assembly, moving help, general repairs',
-      icon: '🔨',
+      image: '/images/handyman-service.jpg',
       features: ['Furniture Assembly', 'Moving Help', 'General Repairs', 'Mounting']
     },
     plumber: {
       name: 'Plumber',
       price: 100,
       description: 'Pipe repairs, leak fixes, installation',
-      icon: '🔧',
+      image: '/images/plumber-service.jpg',
       features: ['Leak Repairs', 'Pipe Installation', 'Drain Cleaning', 'Fixture Installation']
     },
     electrician: {
       name: 'Electrician',
       price: 125,
       description: 'Wiring, repairs, installations',
-      icon: '⚡',
+      image: '/images/electrician-service.jpg',
       features: ['Wiring', 'Socket Installation', 'Lighting', 'Safety Checks']
     }
   };
@@ -136,17 +136,6 @@ export default function Booking() {
     return today.toISOString().split('T')[0];
   };
 
-  // Get input styles with focus handling
-  const getInputStyles = (baseStyle) => ({
-    ...baseStyle,
-    ':focus': {
-      ...baseStyle,
-      borderColor: '#577D8E',
-      backgroundColor: 'white',
-      boxShadow: '0 0 0 3px rgba(87, 125, 142, 0.1)'
-    }
-  });
-
   const styles = {
     container: {
       maxWidth: '1200px',
@@ -215,12 +204,12 @@ export default function Booking() {
       marginBottom: '1rem'
     },
     serviceCard: {
-      border: '3px solid #f1f5f9',
-      borderRadius: isMobile ? '15px' : '20px',
+      border: 'none',
+      borderRadius: isMobile ? '20px' : '25px',
       padding: isMobile ? '1.5rem 1rem' : '2rem 1.5rem',
       cursor: 'pointer',
       transition: 'all 0.4s ease',
-      backgroundColor: 'white',
+      backgroundColor: 'transparent',
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden',
@@ -228,18 +217,25 @@ export default function Booking() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      minHeight: isMobile ? '120px' : '140px'
+      minHeight: isMobile ? '140px' : '160px'
     },
     serviceCardSelected: {
-      borderColor: '#577D8E',
-      backgroundColor: '#f8fafc',
+      backgroundColor: 'white',
       transform: isMobile ? 'translateY(-2px)' : 'translateY(-5px)',
-      boxShadow: '0 20px 40px rgba(87, 125, 142, 0.2)'
+      boxShadow: '0 20px 40px rgba(87, 125, 142, 0.15)'
     },
-    serviceIcon: {
-      fontSize: isMobile ? '2.5rem' : '3rem',
+    serviceImage: {
+      width: isMobile ? '80px' : '100px',
+      height: isMobile ? '80px' : '100px',
+      borderRadius: '50%',
+      objectFit: 'cover',
       marginBottom: isMobile ? '0.75rem' : '1rem',
-      display: 'block'
+      border: '3px solid #f1f5f9',
+      transition: 'all 0.3s ease'
+    },
+    serviceImageSelected: {
+      borderColor: '#577D8E',
+      boxShadow: '0 8px 20px rgba(87, 125, 142, 0.3)'
     },
     serviceName: {
       fontSize: isMobile ? '1.1rem' : '1.3rem',
@@ -457,7 +453,7 @@ export default function Booking() {
           {/* Main Form */}
           <div style={styles.formSection}>
             <form onSubmit={handleSubmit}>
-              {/* Service Selection - SIMPLIFIED DESIGN */}
+              {/* Service Selection - UPDATED WITH IMAGES AND NO BORDERS */}
               <div style={styles.section}>
                 <h2 style={styles.sectionTitle}>Choose Your Service</h2>
                 <div style={styles.serviceGrid}>
@@ -485,7 +481,31 @@ export default function Booking() {
                       {formData.serviceType === key && (
                         <div style={styles.selectedBadge}>Selected</div>
                       )}
-                      <div style={styles.serviceIcon}>{service.icon}</div>
+                      <img
+                        src={service.image}
+                        alt={service.name}
+                        style={{
+                          ...styles.serviceImage,
+                          ...(formData.serviceType === key ? styles.serviceImageSelected : {})
+                        }}
+                        onError={(e) => {
+                          // Fallback to a colored background with service icon if image fails to load
+                          e.target.style.display = 'none';
+                          const fallbackDiv = document.createElement('div');
+                          fallbackDiv.style.width = styles.serviceImage.width;
+                          fallbackDiv.style.height = styles.serviceImage.height;
+                          fallbackDiv.style.borderRadius = styles.serviceImage.borderRadius;
+                          fallbackDiv.style.backgroundColor = '#577D8E';
+                          fallbackDiv.style.display = 'flex';
+                          fallbackDiv.style.alignItems = 'center';
+                          fallbackDiv.style.justifyContent = 'center';
+                          fallbackDiv.style.color = 'white';
+                          fallbackDiv.style.fontSize = '1.5rem';
+                          fallbackDiv.style.marginBottom = styles.serviceImage.marginBottom;
+                          fallbackDiv.textContent = service.name.charAt(0);
+                          e.target.parentNode.insertBefore(fallbackDiv, e.target);
+                        }}
+                      />
                       <div style={styles.serviceName}>{service.name}</div>
                       <div style={styles.servicePrice}>{service.price} AED/hr</div>
                     </div>
