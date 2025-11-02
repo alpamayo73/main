@@ -51,7 +51,7 @@ export default function Booking() {
       name: 'Electrician',
       price: 125,
       description: 'Wiring, repairs, installations',
-      image: '/images/electrician-service.jpg',
+      image: '/images/electrician-service.jpeg',
       features: ['Wiring', 'Socket Installation', 'Lighting', 'Safety Checks']
     }
   };
