@@ -2,7 +2,8 @@
 import Head from 'next/head'
 import ServicesHero from '../../components/services/ServicesHero'
 import RenovationServices from '../../components/services/RenovationServices'
-import ACServices from '../../components/services/ACServices'
+import OtherServices from '@/components/services/OtherServices'
+
 import WhyChooseUs from '../../components/services/WhyChooseUs'
 import ProcessOverview from '../../components/services/ProcessOverview'
 import ContactCTA from '../../components/services/ContactCTA'
@@ -18,7 +19,7 @@ export default function Services() {
 
       <ServicesHero />
       <RenovationServices />
-      <ACServices />
+    <OtherServices />
       <WhyChooseUs />
       <ProcessOverview />
       <ContactCTA />
