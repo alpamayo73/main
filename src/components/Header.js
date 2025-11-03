@@ -37,7 +37,7 @@ export default function Header() {
               ALPAMAYO TECHNICAL SERVICES
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - UNCHANGED */}
             <div className="desktop-nav">
               <Link href="/" className="nav-link">Home</Link>
               <Link href="/about" className="nav-link">About</Link>
@@ -134,7 +134,7 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - UPDATED */}
         {mobileMenuOpen && (
           <div className="mobile-nav">
             <div className="mobile-nav-header">
@@ -148,16 +148,21 @@ export default function Header() {
             </div>
             
             <div className="mobile-nav-content">
-              <Link href="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                Home
-              </Link>
+              {/* Each main menu link on its own line */}
+              <div className="mobile-nav-item">
+                <Link href="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                  Home
+                </Link>
+              </div>
               
-              <Link href="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                About
-              </Link>
+              <div className="mobile-nav-item">
+                <Link href="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+              </div>
               
-              {/* Mobile Services Dropdown */}
-              <div className="mobile-services-section">
+              {/* Mobile Services Dropdown - each link on its own line */}
+              <div className="mobile-nav-item">
                 <button 
                   className="mobile-services-btn"
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
@@ -170,54 +175,82 @@ export default function Header() {
                 
                 {mobileServicesOpen && (
                   <div className="mobile-services-dropdown">
-                    <Link href="/services/villa-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Villa Renovation
-                    </Link>
-                    <Link href="/services/apartment-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Apartment Renovation
-                    </Link>
-                    <Link href="/services/office-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Office Renovation
-                    </Link>
-                    <Link href="/services/tiles-installation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Tiles Installation
-                    </Link>
-                    <Link href="/services/false-ceiling-partitions" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      False Ceiling & Partitions
-                    </Link>
-                    <Link href="/services/painting" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Painting
-                    </Link>
-                    <Link href="/services/carpentry" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Carpentry
-                    </Link>
-                    <Link href="/services/electrical" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Electrical
-                    </Link>
-                    <Link href="/services/air-conditioning" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Air Conditioning
-                    </Link>
-                    <Link href="/services/handyman" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                      Handyman
-                    </Link>
-                    <Link href="/services" className="mobile-service-link view-all" onClick={() => setMobileMenuOpen(false)}>
-                      View All Services
-                    </Link>
+                    <div className="mobile-service-item">
+                      <Link href="/services/villa-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Villa Renovation
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/apartment-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Apartment Renovation
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/office-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Office Renovation
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/tiles-installation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Tiles Installation
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/false-ceiling-partitions" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        False Ceiling & Partitions
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/painting" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Painting
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/carpentry" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Carpentry
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/electrical" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Electrical
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/air-conditioning" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Air Conditioning
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services/handyman" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Handyman
+                      </Link>
+                    </div>
+                    <div className="mobile-service-item">
+                      <Link href="/services" className="mobile-service-link view-all" onClick={() => setMobileMenuOpen(false)}>
+                        View All Services
+                      </Link>
+                    </div>
                   </div>
                 )}
               </div>
               
-              <Link href="/faq" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                FAQs
-              </Link>
+              <div className="mobile-nav-item">
+                <Link href="/faq" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                  FAQs
+                </Link>
+              </div>
               
-              <Link href="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
-                Contact
-              </Link>
+              <div className="mobile-nav-item">
+                <Link href="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
+              </div>
               
-              <Link href="/booking" className="mobile-book-button" onClick={() => setMobileMenuOpen(false)}>
-                Book Service
-              </Link>
+              <div className="mobile-nav-item">
+                <Link href="/booking" className="mobile-book-button" onClick={() => setMobileMenuOpen(false)}>
+                  Book Service
+                </Link>
+              </div>
             </div>
           </div>
         )}
@@ -322,7 +355,7 @@ export default function Header() {
           color: #577D8E;
         }
 
-        /* Enhanced Services Dropdown */
+        /* Enhanced Services Dropdown - UNCHANGED */
         .services-dropdown {
           position: relative;
         }
@@ -495,7 +528,7 @@ export default function Header() {
           transform: rotate(-45deg) translate(6px, -6px);
         }
 
-        /* Mobile Navigation */
+        /* Mobile Navigation - UPDATED */
         .mobile-nav {
           position: fixed;
           top: 0;
@@ -535,6 +568,13 @@ export default function Header() {
           padding: 1rem 20px 2rem;
         }
 
+        /* Each mobile nav item on its own line */
+        .mobile-nav-item {
+          display: block;
+          width: 100%;
+          border-bottom: 1px solid #f3f4f6;
+        }
+
         .mobile-nav-link {
           display: block;
           color: #1C2734;
@@ -542,19 +582,13 @@ export default function Header() {
           font-size: 1.1rem;
           font-weight: 600;
           padding: 1rem 0;
-          border-bottom: 1px solid #f3f4f6;
           transition: color 0.3s ease;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          width: 100%;
+          text-align: left;
         }
 
         .mobile-nav-link:hover {
           color: #577D8E;
-        }
-
-        .mobile-services-section {
-          border-bottom: 1px solid #f3f4f6;
         }
 
         .mobile-services-btn {
@@ -579,7 +613,21 @@ export default function Header() {
         }
 
         .mobile-services-dropdown {
-          padding: 0.5rem 0;
+          padding: 0.5rem 0 0.5rem 1rem;
+          background-color: #f8f9fa;
+          margin: 0 -20px;
+          padding-left: 2rem;
+        }
+
+        /* Each service item on its own line */
+        .mobile-service-item {
+          display: block;
+          width: 100%;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mobile-service-item:last-child {
+          border-bottom: none;
         }
 
         .mobile-service-link {
@@ -590,18 +638,12 @@ export default function Header() {
           font-weight: 500;
           padding: 0.8rem 0;
           transition: color 0.3s ease;
-          border-bottom: 1px solid #f3f4f6;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
+          width: 100%;
+          text-align: left;
         }
 
         .mobile-service-link:hover {
           color: #1C2734;
-        }
-
-        .mobile-service-link:last-child {
-          border-bottom: none;
         }
 
         .mobile-service-link.view-all {
@@ -622,9 +664,10 @@ export default function Header() {
           border-radius: 8px;
           font-weight: 600;
           font-size: 1.1rem;
-          margin: 1.5rem 0;
+          margin: 0;
           transition: all 0.3s ease;
           white-space: nowrap;
+          width: 100%;
         }
 
         .mobile-book-button:hover {
