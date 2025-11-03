@@ -108,7 +108,8 @@ export default function Booking() {
       const data = await response.json();
 
       if (response.ok) {
-        setSubmitMessage('Booking confirmed! Our team will contact you within 30 minutes.');
+        setSubmitMessage('Booking confirmed! Confirmation email has been sent to your email. Our team will contact you within 30 minutes.');
+
         setFormData({
           serviceType: 'handyman',
           name: '',
