@@ -36,30 +36,24 @@ export default async function handler(req, res) {
     console.log('Total:', totalAmount + ' AED');
     console.log('Description:', description);
 
-    // Send confirmation emails with timeout
+    // Try to send emails (but don't block the booking if it fails)
     try {
-      await Promise.race([
-        sendConfirmationEmails({
-          bookingId,
-          serviceName,
-          name,
-          email,
-          phone,
-          address,
-          area,
-          date,
-          time,
-          duration,
-          description,
-          totalAmount
-        }),
-        new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Email timeout after 10 seconds')), 10000)
-        )
-      ]);
-      console.log('✅ Emails sent successfully');
+      await sendConfirmationEmails({
+        bookingId,
+        serviceName,
+        name,
+        email,
+        phone,
+        address,
+        area,
+        date,
+        time,
+        duration,
+        description,
+        totalAmount
+      });
     } catch (emailError) {
-      console.log('⚠️ Email sending failed, but booking will continue:', emailError.message);
+      console.log('⚠️ Email sending failed:', emailError.message);
       // Continue with booking even if email fails
     }
 
@@ -90,17 +84,22 @@ export default async function handler(req, res) {
   }
 }
 
-// Email configuration
+// Email configuration with alternative settings
 const createTransporter = () => {
   console.log('🔧 Creating email transporter...');
+  console.log('GMAIL_USER:', process.env.GMAIL_USER);
   
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // Use TLS
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_APP_PASSWORD
     },
-    // Add timeout settings
+    tls: {
+      rejectUnauthorized: false
+    },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 10000
@@ -114,15 +113,52 @@ async function sendConfirmationEmails(bookingData) {
   try {
     transporter = createTransporter();
     
-    // Test transporter with timeout
     console.log('🔐 Verifying email transporter...');
     await transporter.verify();
     console.log('✅ Email transporter verified successfully');
 
-    // User confirmation email template
-    const userEmailTemplate = createUserEmailTemplate(bookingData);
-    // Admin email template
-    const adminEmailTemplate = createAdminEmailTemplate(bookingData);
+    // Simple text email for testing
+    const userEmailText = `
+Booking Confirmed - ${bookingData.bookingId}
+
+Dear ${bookingData.name},
+
+Your booking has been confirmed with Alpamayo Technical Services.
+
+Booking Details:
+- Service: ${bookingData.serviceName}
+- Date & Time: ${bookingData.date} at ${bookingData.time}
+- Duration: ${bookingData.duration} hour${bookingData.duration > 1 ? 's' : ''}
+- Total Amount: ${bookingData.totalAmount} AED
+- Address: ${bookingData.address}, ${bookingData.area}, Dubai
+- Phone: ${bookingData.phone}
+
+Service Description:
+${bookingData.description}
+
+Our team will contact you within 30 minutes to confirm your appointment.
+
+Thank you for choosing Alpamayo Technical Services!
+Phone: +971 50 123 4567
+Email: support@alpamayoservices.com
+    `;
+
+    const adminEmailText = `
+NEW BOOKING ALERT - ${bookingData.bookingId}
+
+Customer: ${bookingData.name}
+Email: ${bookingData.email}
+Phone: ${bookingData.phone}
+Service: ${bookingData.serviceName}
+Date & Time: ${bookingData.date} at ${bookingData.time}
+Duration: ${bookingData.duration} hours
+Total: ${bookingData.totalAmount} AED
+Address: ${bookingData.address}, ${bookingData.area}, Dubai
+
+Description: ${bookingData.description}
+
+Contact customer within 30 minutes!
+    `;
 
     // Send email to user
     console.log('📧 Sending email to user:', bookingData.email);
@@ -130,201 +166,58 @@ async function sendConfirmationEmails(bookingData) {
       from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
       to: bookingData.email,
       subject: `Booking Confirmed - ${bookingData.bookingId}`,
-      html: userEmailTemplate
+      text: userEmailText,
+      html: createSimpleEmailTemplate(bookingData)
     });
-    console.log('✅ User email sent:', userEmailResult.messageId);
+    console.log('✅ User email sent successfully');
 
     // Send email to admin
     const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER;
     console.log('📧 Sending email to admin:', adminEmail);
-    const adminEmailResult = await transporter.sendMail({
+    await transporter.sendMail({
       from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
       to: adminEmail,
-      subject: `🚨 NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
-      html: adminEmailTemplate
+      subject: `NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
+      text: adminEmailText
     });
-    console.log('✅ Admin email sent:', adminEmailResult.messageId);
+    console.log('✅ Admin email sent successfully');
 
-    return {
-      userEmail: userEmailResult.messageId,
-      adminEmail: adminEmailResult.messageId
-    };
+    return { success: true };
 
   } catch (emailError) {
     console.error('❌ Email sending failed:', emailError.message);
-    
-    // Close transporter if it exists
+    throw emailError;
+  } finally {
     if (transporter) {
       transporter.close();
     }
-    
-    throw emailError;
   }
 }
 
-// Separate template functions for better organization
-function createUserEmailTemplate(bookingData) {
+function createSimpleEmailTemplate(bookingData) {
   return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #f8f9fa; }
-        .header { background: linear-gradient(135deg, #1C2734 0%, #577D8E 100%); color: white; padding: 30px; text-align: center; }
-        .content { padding: 30px; }
-        .booking-details { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
-        .detail-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding: 8px 0; border-bottom: 1px solid #eee; }
-        .detail-label { font-weight: bold; color: #1C2734; }
-        .total { background: #577D8E; color: white; padding: 15px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: bold; }
-        .footer { text-align: center; margin-top: 20px; color: #666; font-size: 0.9em; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="header">
-          <h1>Booking Confirmed!</h1>
-          <p>Thank you for choosing Alpamayo Technical Services</p>
-        </div>
-        <div class="content">
-          <p>Dear ${bookingData.name},</p>
-          <p>Your booking has been confirmed. Our team will contact you within 30 minutes to finalize the details.</p>
-          
-          <div class="booking-details">
-            <h3>Booking Details</h3>
-            <div class="detail-row">
-              <span class="detail-label">Booking ID:</span>
-              <span>${bookingData.bookingId}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Service:</span>
-              <span>${bookingData.serviceName}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Date & Time:</span>
-              <span>${bookingData.date} at ${bookingData.time}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Duration:</span>
-              <span>${bookingData.duration} hour${bookingData.duration > 1 ? 's' : ''}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Address:</span>
-              <span>${bookingData.address}, ${bookingData.area}, Dubai</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Phone:</span>
-              <span>${bookingData.phone}</span>
-            </div>
-          </div>
-
-          <div class="total">
-            Total Amount: ${bookingData.totalAmount} AED
-          </div>
-
-          <p><strong>Service Description:</strong><br>${bookingData.description}</p>
-          
-          <p><strong>What's Next?</strong></p>
-          <ul>
-            <li>Our team will call you within 30 minutes to confirm</li>
-            <li>Please keep your phone accessible</li>
-            <li>Have any necessary access codes or building permissions ready</li>
-          </ul>
-
-          <p>For any questions, please contact us at +971 50 123 4567</p>
-        </div>
-        <div class="footer">
-          <p>Alpamayo Technical Services<br>
-          Dubai, United Arab Emirates<br>
-          Email: support@alpamayoservices.com | Phone: +971 50 123 4567</p>
-        </div>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: linear-gradient(135deg, #1C2734 0%, #577D8E 100%); color: white; padding: 30px; text-align: center;">
+        <h1>Booking Confirmed!</h1>
+        <p>Thank you for choosing Alpamayo Technical Services</p>
       </div>
-    </body>
-    </html>
-  `;
-}
-
-function createAdminEmailTemplate(bookingData) {
-  return `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: #f8f9fa; }
-        .header { background: #dc3545; color: white; padding: 20px; text-align: center; }
-        .content { padding: 20px; }
-        .booking-details { background: white; padding: 15px; border-radius: 8px; margin: 15px 0; }
-        .detail-row { display: flex; justify-content: space-between; margin-bottom: 8px; padding: 6px 0; border-bottom: 1px solid #eee; }
-        .detail-label { font-weight: bold; color: #1C2734; }
-        .urgent { color: #dc3545; font-weight: bold; }
-      </style>
-    </head>
-    <body>
-      <div class="container">
-        <div class="header">
-          <h2>🚨 NEW BOOKING ALERT</h2>
-          <p>Immediate Action Required - Contact within 30 minutes</p>
+      <div style="padding: 20px; background: #f8f9fa;">
+        <p>Dear ${bookingData.name},</p>
+        <p>Your booking has been confirmed. Our team will contact you within 30 minutes.</p>
+        
+        <div style="background: white; padding: 20px; margin: 20px 0; border-radius: 8px;">
+          <h3>Booking Details</h3>
+          <p><strong>Booking ID:</strong> ${bookingData.bookingId}</p>
+          <p><strong>Service:</strong> ${bookingData.serviceName}</p>
+          <p><strong>Date & Time:</strong> ${bookingData.date} at ${bookingData.time}</p>
+          <p><strong>Duration:</strong> ${bookingData.duration} hour${bookingData.duration > 1 ? 's' : ''}</p>
+          <p><strong>Total Amount:</strong> ${bookingData.totalAmount} AED</p>
+          <p><strong>Address:</strong> ${bookingData.address}, ${bookingData.area}, Dubai</p>
         </div>
-        <div class="content">
-          <p class="urgent">A new booking has been received and requires confirmation.</p>
-          
-          <div class="booking-details">
-            <h3>Customer Details</h3>
-            <div class="detail-row">
-              <span class="detail-label">Booking ID:</span>
-              <span>${bookingData.bookingId}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Customer:</span>
-              <span>${bookingData.name}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Email:</span>
-              <span>${bookingData.email}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Phone:</span>
-              <span>${bookingData.phone}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Service:</span>
-              <span>${bookingData.serviceName}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Date & Time:</span>
-              <span>${bookingData.date} at ${bookingData.time}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Duration:</span>
-              <span>${bookingData.duration} hours</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Total Amount:</span>
-              <span>${bookingData.totalAmount} AED</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Address:</span>
-              <span>${bookingData.address}, ${bookingData.area}, Dubai</span>
-            </div>
-          </div>
-
-          <div class="booking-details">
-            <h3>Service Description</h3>
-            <p>${bookingData.description}</p>
-          </div>
-
-          <p><strong>Action Required:</strong></p>
-          <ul>
-            <li>Contact customer within 30 minutes at <strong>${bookingData.phone}</strong></li>
-            <li>Confirm appointment details</li>
-            <li>Assign technician</li>
-          </ul>
-
-          <p><strong>Booking Received:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })}</p>
-        </div>
+        
+        <p>Our team will contact you at <strong>${bookingData.phone}</strong> within 30 minutes.</p>
+        <p>For questions: +971 50 123 4567</p>
       </div>
-    </body>
-    </html>
+    </div>
   `;
 }
