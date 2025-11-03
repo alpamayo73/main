@@ -84,12 +84,13 @@ export default async function handler(req, res) {
   }
 }
 
-// Email configuration
+// Email configuration - FIXED VERSION
 const createTransporter = () => {
   console.log('🔧 Creating email transporter...');
   console.log('GMAIL_USER:', process.env.GMAIL_USER ? 'Set' : 'Not set');
   
-  return nodemailer.createTransporter({
+  // FIXED: Use createTransport instead of createTransporter
+  return nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
@@ -107,7 +108,7 @@ async function sendConfirmationEmails(bookingData) {
     await transporter.verify();
     console.log('✅ Email transporter verified successfully');
 
-    // User confirmation email template (same as above)
+    // User confirmation email template
     const userEmailTemplate = `
     <!DOCTYPE html>
     <html>
@@ -187,7 +188,7 @@ async function sendConfirmationEmails(bookingData) {
     </html>
     `;
 
-    // Admin email template (same as above)
+    // Admin email template
     const adminEmailTemplate = `
     <!DOCTYPE html>
     <html>
