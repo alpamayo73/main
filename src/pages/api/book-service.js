@@ -35,31 +35,38 @@ export default async function handler(req, res) {
     console.log('Duration:', duration + ' hours');
     console.log('Total:', totalAmount + ' AED');
     console.log('Description:', description);
-    console.log('Environment GMAIL_USER exists:', !!process.env.GMAIL_USER);
-    console.log('Environment GMAIL_APP_PASSWORD exists:', !!process.env.GMAIL_APP_PASSWORD);
 
-    // Send confirmation emails
-    const emailResult = await sendConfirmationEmails({
-      bookingId,
-      serviceName,
-      name,
-      email,
-      phone,
-      address,
-      area,
-      date,
-      time,
-      duration,
-      description,
-      totalAmount
-    });
-
-    console.log('✅ Email sending result:', emailResult);
+    // Send confirmation emails with timeout
+    try {
+      await Promise.race([
+        sendConfirmationEmails({
+          bookingId,
+          serviceName,
+          name,
+          email,
+          phone,
+          address,
+          area,
+          date,
+          time,
+          duration,
+          description,
+          totalAmount
+        }),
+        new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Email timeout after 10 seconds')), 10000)
+        )
+      ]);
+      console.log('✅ Emails sent successfully');
+    } catch (emailError) {
+      console.log('⚠️ Email sending failed, but booking will continue:', emailError.message);
+      // Continue with booking even if email fails
+    }
 
     // Success response
     res.status(200).json({ 
       success: true,
-      message: 'Booking confirmed successfully! Confirmation email has been sent to your email.',
+      message: 'Booking confirmed successfully! Our team will contact you within 30 minutes.',
       bookingId: bookingId,
       summary: {
         service: serviceName,
@@ -74,50 +81,98 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('❌ Booking error:', error);
     
-    // Even if email fails, still confirm the booking but show different message
     res.status(200).json({ 
       success: true,
-      message: 'Booking received! Our team will contact you shortly to confirm. (Email notification failed)',
+      message: 'Booking received! Our team will contact you shortly to confirm.',
       bookingId: 'BK' + Date.now(),
       note: 'Please save your booking details'
     });
   }
 }
 
-// Email configuration - FIXED VERSION
+// Email configuration
 const createTransporter = () => {
   console.log('🔧 Creating email transporter...');
-  console.log('GMAIL_USER:', process.env.GMAIL_USER ? 'Set' : 'Not set');
   
-  // FIXED: Use createTransport instead of createTransporter
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_APP_PASSWORD
-    }
+    },
+    // Add timeout settings
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000
   });
 };
 
 // Function to send emails to both user and admin
 async function sendConfirmationEmails(bookingData) {
+  let transporter;
+  
   try {
-    const transporter = createTransporter();
+    transporter = createTransporter();
     
-    // Test transporter
+    // Test transporter with timeout
+    console.log('🔐 Verifying email transporter...');
     await transporter.verify();
     console.log('✅ Email transporter verified successfully');
 
     // User confirmation email template
-    const userEmailTemplate = `
+    const userEmailTemplate = createUserEmailTemplate(bookingData);
+    // Admin email template
+    const adminEmailTemplate = createAdminEmailTemplate(bookingData);
+
+    // Send email to user
+    console.log('📧 Sending email to user:', bookingData.email);
+    const userEmailResult = await transporter.sendMail({
+      from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
+      to: bookingData.email,
+      subject: `Booking Confirmed - ${bookingData.bookingId}`,
+      html: userEmailTemplate
+    });
+    console.log('✅ User email sent:', userEmailResult.messageId);
+
+    // Send email to admin
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER;
+    console.log('📧 Sending email to admin:', adminEmail);
+    const adminEmailResult = await transporter.sendMail({
+      from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
+      to: adminEmail,
+      subject: `🚨 NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
+      html: adminEmailTemplate
+    });
+    console.log('✅ Admin email sent:', adminEmailResult.messageId);
+
+    return {
+      userEmail: userEmailResult.messageId,
+      adminEmail: adminEmailResult.messageId
+    };
+
+  } catch (emailError) {
+    console.error('❌ Email sending failed:', emailError.message);
+    
+    // Close transporter if it exists
+    if (transporter) {
+      transporter.close();
+    }
+    
+    throw emailError;
+  }
+}
+
+// Separate template functions for better organization
+function createUserEmailTemplate(bookingData) {
+  return `
     <!DOCTYPE html>
     <html>
     <head>
       <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #1C2734 0%, #577D8E 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: #f8f9fa; }
+        .header { background: linear-gradient(135deg, #1C2734 0%, #577D8E 100%); color: white; padding: 30px; text-align: center; }
+        .content { padding: 30px; }
         .booking-details { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding: 8px 0; border-bottom: 1px solid #eee; }
         .detail-label { font-weight: bold; color: #1C2734; }
@@ -176,7 +231,7 @@ async function sendConfirmationEmails(bookingData) {
             <li>Have any necessary access codes or building permissions ready</li>
           </ul>
 
-          <p>For any questions, please contact us at <a href="tel:+971501234567">+971 50 123 4567</a></p>
+          <p>For any questions, please contact us at +971 50 123 4567</p>
         </div>
         <div class="footer">
           <p>Alpamayo Technical Services<br>
@@ -186,18 +241,19 @@ async function sendConfirmationEmails(bookingData) {
       </div>
     </body>
     </html>
-    `;
+  `;
+}
 
-    // Admin email template
-    const adminEmailTemplate = `
+function createAdminEmailTemplate(bookingData) {
+  return `
     <!DOCTYPE html>
     <html>
     <head>
       <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #dc3545; color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f8f9fa; padding: 20px; border-radius: 0 0 10px 10px; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: #f8f9fa; }
+        .header { background: #dc3545; color: white; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
         .booking-details { background: white; padding: 15px; border-radius: 8px; margin: 15px 0; }
         .detail-row { display: flex; justify-content: space-between; margin-bottom: 8px; padding: 6px 0; border-bottom: 1px solid #eee; }
         .detail-label { font-weight: bold; color: #1C2734; }
@@ -229,7 +285,7 @@ async function sendConfirmationEmails(bookingData) {
             </div>
             <div class="detail-row">
               <span class="detail-label">Phone:</span>
-              <span><a href="tel:${bookingData.phone}">${bookingData.phone}</a></span>
+              <span>${bookingData.phone}</span>
             </div>
             <div class="detail-row">
               <span class="detail-label">Service:</span>
@@ -263,7 +319,6 @@ async function sendConfirmationEmails(bookingData) {
             <li>Contact customer within 30 minutes at <strong>${bookingData.phone}</strong></li>
             <li>Confirm appointment details</li>
             <li>Assign technician</li>
-            <li>Send final confirmation</li>
           </ul>
 
           <p><strong>Booking Received:</strong> ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })}</p>
@@ -271,36 +326,5 @@ async function sendConfirmationEmails(bookingData) {
       </div>
     </body>
     </html>
-    `;
-
-    // Send email to user
-    console.log('📧 Sending email to user:', bookingData.email);
-    const userEmailResult = await transporter.sendMail({
-      from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
-      to: bookingData.email,
-      subject: `Booking Confirmed - ${bookingData.bookingId}`,
-      html: userEmailTemplate
-    });
-    console.log('✅ User email sent:', userEmailResult.messageId);
-
-    // Send email to admin
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER;
-    console.log('📧 Sending email to admin:', adminEmail);
-    const adminEmailResult = await transporter.sendMail({
-      from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
-      to: adminEmail,
-      subject: `🚨 NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
-      html: adminEmailTemplate
-    });
-    console.log('✅ Admin email sent:', adminEmailResult.messageId);
-
-    return {
-      userEmail: userEmailResult.messageId,
-      adminEmail: adminEmailResult.messageId
-    };
-
-  } catch (emailError) {
-    console.error('❌ Email sending failed:', emailError);
-    throw emailError;
-  }
+  `;
 }
