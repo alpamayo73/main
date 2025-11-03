@@ -12,7 +12,7 @@ export default function Footer() {
               <div className="company-info">
                 <h3 className="company-name">ALPAMAYO TECHNICAL SERVICES</h3>
                 <p className="company-description">
-                  Premium renovation and AC technical services in Dubai. Transforming spaces with luxury 
+                  Premium renovation and technical services in Dubai. Transforming spaces with luxury 
                   and precision for villas, apartments, offices, and commercial establishments.
                 </p>
                 <div className="contact-details">
@@ -71,14 +71,18 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* AC Services */}
+              {/* Specialized Services */}
               <div className="footer-section">
-                <h4 className="footer-title">AC SERVICES</h4>
+                <h4 className="footer-title">SPECIALIZED SERVICES</h4>
                 <ul className="footer-links">
-                  <li><Link href="/services/vrf-ac-systems" className="footer-link">VRF AC Systems</Link></li>
-                  <li><Link href="/services/split-ac-systems" className="footer-link">Split AC Systems</Link></li>
-                  <li><Link href="/services/water-chiller-fcu" className="footer-link">Water Chiller FCU</Link></li>
-                  <li><Link href="/services/ac-services" className="footer-link">All AC Services</Link></li>
+                  <li><Link href="/services/tiles-installation" className="footer-link">Tiles Installation</Link></li>
+                  <li><Link href="/services/false-ceiling-partitions" className="footer-link">False Ceiling & Partitions</Link></li>
+                  <li><Link href="/services/painting" className="footer-link">Painting</Link></li>
+                  <li><Link href="/services/carpentry" className="footer-link">Carpentry</Link></li>
+                  <li><Link href="/services/electrical" className="footer-link">Electrical</Link></li>
+                  <li><Link href="/services/air-conditioning" className="footer-link">Air Conditioning</Link></li>
+                  <li><Link href="/services/handyman" className="footer-link">Handyman</Link></li>
+                  <li><Link href="/services/specialized" className="footer-link">All Specialized Services</Link></li>
                 </ul>
               </div>
             </div>
@@ -89,7 +93,7 @@ export default function Footer() {
             <div className="cta-content">
               <div className="cta-text">
                 <h4 className="cta-title">Ready to Transform Your Space?</h4>
-                <p className="cta-description">Get professional renovation and AC services in Dubai</p>
+                <p className="cta-description">Get professional renovation and technical services in Dubai</p>
               </div>
               <div className="cta-buttons">
                 <a href="tel:+971589071754" className="cta-button primary">
