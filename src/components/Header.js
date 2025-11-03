@@ -72,18 +72,34 @@ export default function Header() {
                     </div>
                     
                     <div className="dropdown-column">
-                      <h4 className="dropdown-category">AC Services</h4>
-                      <Link href="/services/vrf-ac-systems" className="dropdown-link">
+                      <h4 className="dropdown-category">Other Services</h4>
+                      <Link href="/services/tiles-installation" className="dropdown-link">
+                        <span className="dropdown-icon">🧱</span>
+                        Tiles Installation
+                      </Link>
+                      <Link href="/services/false-ceiling-partitions" className="dropdown-link">
+                        <span className="dropdown-icon">🏗️</span>
+                        False Ceiling & Partitions
+                      </Link>
+                      <Link href="/services/painting" className="dropdown-link">
+                        <span className="dropdown-icon">🎨</span>
+                        Painting
+                      </Link>
+                      <Link href="/services/carpentry" className="dropdown-link">
+                        <span className="dropdown-icon">🪚</span>
+                        Carpentry
+                      </Link>
+                      <Link href="/services/electrical" className="dropdown-link">
+                        <span className="dropdown-icon">⚡</span>
+                        Electrical
+                      </Link>
+                      <Link href="/services/air-conditioning" className="dropdown-link">
                         <span className="dropdown-icon">❄️</span>
-                        VRF AC Systems
+                        Air Conditioning
                       </Link>
-                      <Link href="/services/split-ac-systems" className="dropdown-link">
-                        <span className="dropdown-icon">🌬️</span>
-                        Split AC Systems
-                      </Link>
-                      <Link href="/services/water-chiller-fcu" className="dropdown-link">
-                        <span className="dropdown-icon">🏭</span>
-                        Water Chiller FCU
+                      <Link href="/services/handyman" className="dropdown-link">
+                        <span className="dropdown-icon">🔨</span>
+                        Handyman
                       </Link>
                     </div>
                     
@@ -180,15 +196,27 @@ export default function Header() {
                     </div>
                     
                     <div className="mobile-services-category">
-                      <h5 className="mobile-category-title">AC Services</h5>
-                      <Link href="/services/vrf-ac-systems" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                        VRF AC Systems
+                      <h5 className="mobile-category-title">Other Services</h5>
+                      <Link href="/services/tiles-installation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Tiles Installation
                       </Link>
-                      <Link href="/services/split-ac-systems" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                        Split AC Systems
+                      <Link href="/services/false-ceiling-partitions" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        False Ceiling & Partitions
                       </Link>
-                      <Link href="/services/water-chiller-fcu" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
-                        Water Chiller FCU
+                      <Link href="/services/painting" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Painting
+                      </Link>
+                      <Link href="/services/carpentry" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Carpentry
+                      </Link>
+                      <Link href="/services/electrical" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Electrical
+                      </Link>
+                      <Link href="/services/air-conditioning" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Air Conditioning
+                      </Link>
+                      <Link href="/services/handyman" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                        Handyman
                       </Link>
                     </div>
                     
