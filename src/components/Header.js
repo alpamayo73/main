@@ -42,7 +42,7 @@ export default function Header() {
               <Link href="/" className="nav-link">Home</Link>
               <Link href="/about" className="nav-link">About</Link>
               
-              {/* Simple Services Dropdown */}
+              {/* Enhanced Services Dropdown */}
               <div 
                 className="services-dropdown"
                 onMouseEnter={() => setServicesDropdownOpen(true)}
@@ -55,39 +55,59 @@ export default function Header() {
                 
                 {servicesDropdownOpen && (
                   <div className="dropdown-menu">
-                    <Link href="/services/villa-renovation" className="dropdown-link">
-                      Villa Renovation
-                    </Link>
-                    <Link href="/services/apartment-renovation" className="dropdown-link">
-                      Apartment Renovation
-                    </Link>
-                    <Link href="/services/office-renovation" className="dropdown-link">
-                      Office Renovation
-                    </Link>
-                    <Link href="/services/tiles-installation" className="dropdown-link">
-                      Tiles Installation
-                    </Link>
-                    <Link href="/services/false-ceiling-partitions" className="dropdown-link">
-                      False Ceiling & Partitions
-                    </Link>
-                    <Link href="/services/painting" className="dropdown-link">
-                      Painting
-                    </Link>
-                    <Link href="/services/carpentry" className="dropdown-link">
-                      Carpentry
-                    </Link>
-                    <Link href="/services/electrical" className="dropdown-link">
-                      Electrical
-                    </Link>
-                    <Link href="/services/air-conditioning" className="dropdown-link">
-                      Air Conditioning
-                    </Link>
-                    <Link href="/services/handyman" className="dropdown-link">
-                      Handyman
-                    </Link>
-                    <Link href="/services" className="dropdown-link view-all">
-                      View All Services
-                    </Link>
+                    <div className="dropdown-section">
+                      <h4 className="dropdown-title">Renovation Services</h4>
+                      <Link href="/services/villa-renovation" className="dropdown-link">
+                        <span className="service-icon">🏠</span>
+                        Villa Renovation
+                      </Link>
+                      <Link href="/services/apartment-renovation" className="dropdown-link">
+                        <span className="service-icon">🏢</span>
+                        Apartment Renovation
+                      </Link>
+                      <Link href="/services/office-renovation" className="dropdown-link">
+                        <span className="service-icon">💼</span>
+                        Office Renovation
+                      </Link>
+                    </div>
+                    
+                    <div className="dropdown-section">
+                      <h4 className="dropdown-title">Specialized Services</h4>
+                      <Link href="/services/tiles-installation" className="dropdown-link">
+                        <span className="service-icon">🧱</span>
+                        Tiles Installation
+                      </Link>
+                      <Link href="/services/false-ceiling-partitions" className="dropdown-link">
+                        <span className="service-icon">🏗️</span>
+                        False Ceiling & Partitions
+                      </Link>
+                      <Link href="/services/painting" className="dropdown-link">
+                        <span className="service-icon">🎨</span>
+                        Painting
+                      </Link>
+                      <Link href="/services/carpentry" className="dropdown-link">
+                        <span className="service-icon">🪚</span>
+                        Carpentry
+                      </Link>
+                      <Link href="/services/electrical" className="dropdown-link">
+                        <span className="service-icon">⚡</span>
+                        Electrical
+                      </Link>
+                      <Link href="/services/air-conditioning" className="dropdown-link">
+                        <span className="service-icon">❄️</span>
+                        Air Conditioning
+                      </Link>
+                      <Link href="/services/handyman" className="dropdown-link">
+                        <span className="service-icon">🔨</span>
+                        Handyman
+                      </Link>
+                    </div>
+                    
+                    <div className="dropdown-cta">
+                      <Link href="/services" className="view-all-btn">
+                        View All Services
+                      </Link>
+                    </div>
                   </div>
                 )}
               </div>
@@ -136,7 +156,7 @@ export default function Header() {
                 About
               </Link>
               
-              {/* Simple Mobile Services Dropdown */}
+              {/* Mobile Services Dropdown */}
               <div className="mobile-services-section">
                 <button 
                   className="mobile-services-btn"
@@ -295,13 +315,14 @@ export default function Header() {
           transition: all 0.3s ease;
           padding: 0.5rem 0;
           position: relative;
+          white-space: nowrap;
         }
 
         .nav-link:hover {
           color: #577D8E;
         }
 
-        /* Simple Services Dropdown */
+        /* Enhanced Services Dropdown */
         .services-dropdown {
           position: relative;
         }
@@ -318,6 +339,7 @@ export default function Header() {
           font-weight: 600;
           padding: 0.5rem 0;
           transition: color 0.3s ease;
+          white-space: nowrap;
         }
 
         .dropdown-btn:hover {
@@ -336,38 +358,81 @@ export default function Header() {
         .dropdown-menu {
           position: absolute;
           top: 100%;
-          left: -20px;
+          left: -50px;
           background-color: white;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          border-radius: 8px;
-          padding: 1rem 0;
-          min-width: 220px;
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          border-radius: 12px;
+          padding: 1.5rem;
+          min-width: 320px;
           z-index: 1000;
           display: flex;
           flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .dropdown-section {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .dropdown-title {
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: #1C2734;
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          border-bottom: 2px solid #577D8E;
+          padding-bottom: 0.3rem;
         }
 
         .dropdown-link {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
           color: #6b7280;
           text-decoration: none;
           font-size: 0.9rem;
-          padding: 0.6rem 1.5rem;
+          padding: 0.6rem 0.8rem;
           transition: all 0.3s ease;
-          border-left: 3px solid transparent;
+          border-radius: 6px;
+          white-space: nowrap;
         }
 
         .dropdown-link:hover {
           color: #577D8E;
           background-color: #f8f9fa;
-          border-left-color: #577D8E;
+          transform: translateX(5px);
         }
 
-        .dropdown-link.view-all {
-          font-weight: 600;
-          color: #577D8E;
+        .service-icon {
+          font-size: 1.1rem;
+          width: 20px;
+          text-align: center;
+        }
+
+        .dropdown-cta {
+          padding-top: 0.5rem;
           border-top: 1px solid #e5e7eb;
-          margin-top: 0.5rem;
-          padding-top: 0.8rem;
+        }
+
+        .view-all-btn {
+          display: block;
+          text-align: center;
+          background: linear-gradient(135deg, #577D8E, #1C2734);
+          color: white;
+          text-decoration: none;
+          padding: 0.7rem 1rem;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          font-weight: 600;
+          transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(87, 125, 142, 0.3);
         }
 
         /* Book Now Button */
@@ -384,6 +449,7 @@ export default function Header() {
           gap: 0.5rem;
           transition: all 0.3s ease;
           box-shadow: 0 2px 10px rgba(87, 125, 142, 0.3);
+          white-space: nowrap;
         }
 
         .book-button:hover {
@@ -478,6 +544,9 @@ export default function Header() {
           padding: 1rem 0;
           border-bottom: 1px solid #f3f4f6;
           transition: color 0.3s ease;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .mobile-nav-link:hover {
@@ -501,6 +570,7 @@ export default function Header() {
           color: #1C2734;
           font-size: 1.1rem;
           font-weight: 600;
+          white-space: nowrap;
         }
 
         .mobile-dropdown-arrow {
@@ -510,7 +580,6 @@ export default function Header() {
 
         .mobile-services-dropdown {
           padding: 0.5rem 0;
-          background-color: #f8f9fa;
         }
 
         .mobile-service-link {
@@ -519,14 +588,16 @@ export default function Header() {
           text-decoration: none;
           font-size: 0.95rem;
           font-weight: 500;
-          padding: 0.7rem 1rem;
+          padding: 0.8rem 0;
           transition: color 0.3s ease;
-          border-bottom: 1px solid #e5e7eb;
+          border-bottom: 1px solid #f3f4f6;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .mobile-service-link:hover {
           color: #1C2734;
-          background-color: #f0f7ff;
         }
 
         .mobile-service-link:last-child {
@@ -536,7 +607,9 @@ export default function Header() {
         .mobile-service-link.view-all {
           font-weight: 600;
           color: #1C2734;
-          background-color: #e5e7eb;
+          margin-top: 0.5rem;
+          padding-top: 1rem;
+          border-top: 2px solid #e5e7eb;
         }
 
         .mobile-book-button {
@@ -551,6 +624,7 @@ export default function Header() {
           font-size: 1.1rem;
           margin: 1.5rem 0;
           transition: all 0.3s ease;
+          white-space: nowrap;
         }
 
         .mobile-book-button:hover {
