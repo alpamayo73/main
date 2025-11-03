@@ -35,10 +35,11 @@ export default async function handler(req, res) {
     console.log('Duration:', duration + ' hours');
     console.log('Total:', totalAmount + ' AED');
     console.log('Description:', description);
-    console.log('Timestamp:', new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' }));
+    console.log('Environment GMAIL_USER exists:', !!process.env.GMAIL_USER);
+    console.log('Environment GMAIL_APP_PASSWORD exists:', !!process.env.GMAIL_APP_PASSWORD);
 
     // Send confirmation emails
-    await sendConfirmationEmails({
+    const emailResult = await sendConfirmationEmails({
       bookingId,
       serviceName,
       name,
@@ -52,6 +53,8 @@ export default async function handler(req, res) {
       description,
       totalAmount
     });
+
+    console.log('✅ Email sending result:', emailResult);
 
     // Success response
     res.status(200).json({ 
@@ -71,7 +74,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('❌ Booking error:', error);
     
-    // Even if email fails, still confirm the booking
+    // Even if email fails, still confirm the booking but show different message
     res.status(200).json({ 
       success: true,
       message: 'Booking received! Our team will contact you shortly to confirm. (Email notification failed)',
@@ -83,21 +86,29 @@ export default async function handler(req, res) {
 
 // Email configuration
 const createTransporter = () => {
+  console.log('🔧 Creating email transporter...');
+  console.log('GMAIL_USER:', process.env.GMAIL_USER ? 'Set' : 'Not set');
+  
   return nodemailer.createTransporter({
     service: 'gmail',
     auth: {
       user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASSWORD // Use App Password, not regular password
+      pass: process.env.GMAIL_APP_PASSWORD
     }
   });
 };
 
 // Function to send emails to both user and admin
 async function sendConfirmationEmails(bookingData) {
-  const transporter = createTransporter();
-  
-  // User confirmation email
-  const userEmailTemplate = `
+  try {
+    const transporter = createTransporter();
+    
+    // Test transporter
+    await transporter.verify();
+    console.log('✅ Email transporter verified successfully');
+
+    // User confirmation email template (same as above)
+    const userEmailTemplate = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -174,10 +185,10 @@ async function sendConfirmationEmails(bookingData) {
       </div>
     </body>
     </html>
-  `;
+    `;
 
-  // Admin notification email
-  const adminEmailTemplate = `
+    // Admin email template (same as above)
+    const adminEmailTemplate = `
     <!DOCTYPE html>
     <html>
     <head>
@@ -259,26 +270,34 @@ async function sendConfirmationEmails(bookingData) {
       </div>
     </body>
     </html>
-  `;
+    `;
 
-  try {
     // Send email to user
-    await transporter.sendMail({
+    console.log('📧 Sending email to user:', bookingData.email);
+    const userEmailResult = await transporter.sendMail({
       from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
       to: bookingData.email,
       subject: `Booking Confirmed - ${bookingData.bookingId}`,
       html: userEmailTemplate
     });
+    console.log('✅ User email sent:', userEmailResult.messageId);
 
     // Send email to admin
-    await transporter.sendMail({
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER;
+    console.log('📧 Sending email to admin:', adminEmail);
+    const adminEmailResult = await transporter.sendMail({
       from: `"Alpamayo Technical Services" <${process.env.GMAIL_USER}>`,
-      to: process.env.ADMIN_EMAIL || process.env.GMAIL_USER, // Fallback to GMAIL_USER if ADMIN_EMAIL not set
+      to: adminEmail,
       subject: `🚨 NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
       html: adminEmailTemplate
     });
+    console.log('✅ Admin email sent:', adminEmailResult.messageId);
 
-    console.log('✅ Confirmation emails sent successfully');
+    return {
+      userEmail: userEmailResult.messageId,
+      adminEmail: adminEmailResult.messageId
+    };
+
   } catch (emailError) {
     console.error('❌ Email sending failed:', emailError);
     throw emailError;
