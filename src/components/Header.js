@@ -3,6 +3,7 @@ import Link from 'next/link'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
 
   return (
@@ -41,52 +42,54 @@ export default function Header() {
               <Link href="/" className="nav-link">Home</Link>
               <Link href="/about" className="nav-link">About</Link>
               
-              {/* Simple Services Menu */}
-              <div className="services-menu">
-                <Link href="/services" className="nav-link">
+              {/* Simple Services Dropdown */}
+              <div 
+                className="services-dropdown"
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+              >
+                <button className="nav-link dropdown-btn">
                   Services
-                </Link>
-                <div className="services-submenu">
-                  <div className="submenu-column">
-                    <Link href="/services/villa-renovation" className="submenu-link">
+                  <span className="dropdown-arrow">▼</span>
+                </button>
+                
+                {servicesDropdownOpen && (
+                  <div className="dropdown-menu">
+                    <Link href="/services/villa-renovation" className="dropdown-link">
                       Villa Renovation
                     </Link>
-                    <Link href="/services/apartment-renovation" className="submenu-link">
+                    <Link href="/services/apartment-renovation" className="dropdown-link">
                       Apartment Renovation
                     </Link>
-                    <Link href="/services/office-renovation" className="submenu-link">
+                    <Link href="/services/office-renovation" className="dropdown-link">
                       Office Renovation
                     </Link>
-                  </div>
-                  <div className="submenu-column">
-                    <Link href="/services/tiles-installation" className="submenu-link">
+                    <Link href="/services/tiles-installation" className="dropdown-link">
                       Tiles Installation
                     </Link>
-                    <Link href="/services/false-ceiling-partitions" className="submenu-link">
+                    <Link href="/services/false-ceiling-partitions" className="dropdown-link">
                       False Ceiling & Partitions
                     </Link>
-                    <Link href="/services/painting" className="submenu-link">
+                    <Link href="/services/painting" className="dropdown-link">
                       Painting
                     </Link>
-                    <Link href="/services/carpentry" className="submenu-link">
+                    <Link href="/services/carpentry" className="dropdown-link">
                       Carpentry
                     </Link>
-                  </div>
-                  <div className="submenu-column">
-                    <Link href="/services/electrical" className="submenu-link">
+                    <Link href="/services/electrical" className="dropdown-link">
                       Electrical
                     </Link>
-                    <Link href="/services/air-conditioning" className="submenu-link">
+                    <Link href="/services/air-conditioning" className="dropdown-link">
                       Air Conditioning
                     </Link>
-                    <Link href="/services/handyman" className="submenu-link">
+                    <Link href="/services/handyman" className="dropdown-link">
                       Handyman
                     </Link>
-                    <Link href="/services" className="submenu-link view-all">
+                    <Link href="/services" className="dropdown-link view-all">
                       View All Services
                     </Link>
                   </div>
-                </div>
+                )}
               </div>
               
               <Link href="/faq" className="nav-link">FAQs</Link>
@@ -195,18 +198,6 @@ export default function Header() {
               <Link href="/booking" className="mobile-book-button" onClick={() => setMobileMenuOpen(false)}>
                 Book Service
               </Link>
-              
-              {/* Mobile Contact Info */}
-              <div className="mobile-contact-info">
-                <div className="mobile-contact-item">
-                  <span className="contact-icon">📞</span>
-                  <a href="tel:+971589071754" className="contact-link">+971 58 907 1754</a>
-                </div>
-                <div className="mobile-contact-item">
-                  <span className="contact-icon">✉️</span>
-                  <a href="mailto:info@thealpamayo.com" className="contact-link">info@thealpamayo.com</a>
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -310,61 +301,73 @@ export default function Header() {
           color: #577D8E;
         }
 
-        /* Simple Services Menu */
-        .services-menu {
+        /* Simple Services Dropdown */
+        .services-dropdown {
           position: relative;
         }
 
-        .services-menu:hover .services-submenu {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
+        .dropdown-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          color: #1C2734;
+          font-size: 0.95rem;
+          font-weight: 600;
+          padding: 0.5rem 0;
+          transition: color 0.3s ease;
         }
 
-        .services-submenu {
+        .dropdown-btn:hover {
+          color: #577D8E;
+        }
+
+        .dropdown-arrow {
+          font-size: 0.7rem;
+          transition: transform 0.3s ease;
+        }
+
+        .services-dropdown:hover .dropdown-arrow {
+          transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
           position: absolute;
           top: 100%;
-          left: -50px;
+          left: -20px;
           background-color: white;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
           border-radius: 8px;
-          padding: 1.5rem;
-          min-width: 500px;
+          padding: 1rem 0;
+          min-width: 220px;
           z-index: 1000;
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 1rem;
-          opacity: 0;
-          visibility: hidden;
-          transform: translateY(-10px);
-          transition: all 0.3s ease;
-        }
-
-        .submenu-column {
           display: flex;
           flex-direction: column;
-          gap: 0.5rem;
         }
 
-        .submenu-link {
+        .dropdown-link {
           color: #6b7280;
           text-decoration: none;
-          font-size: 0.85rem;
-          padding: 0.4rem 0;
+          font-size: 0.9rem;
+          padding: 0.6rem 1.5rem;
           transition: all 0.3s ease;
-          border-radius: 4px;
+          border-left: 3px solid transparent;
         }
 
-        .submenu-link:hover {
+        .dropdown-link:hover {
           color: #577D8E;
           background-color: #f8f9fa;
-          padding-left: 0.5rem;
+          border-left-color: #577D8E;
         }
 
-        .submenu-link.view-all {
+        .dropdown-link.view-all {
           font-weight: 600;
           color: #577D8E;
+          border-top: 1px solid #e5e7eb;
           margin-top: 0.5rem;
+          padding-top: 0.8rem;
         }
 
         /* Book Now Button */
@@ -508,8 +511,6 @@ export default function Header() {
         .mobile-services-dropdown {
           padding: 0.5rem 0;
           background-color: #f8f9fa;
-          margin: 0 -20px;
-          padding-left: 20px;
         }
 
         .mobile-service-link {
@@ -557,20 +558,6 @@ export default function Header() {
           box-shadow: 0 4px 12px rgba(87, 125, 142, 0.3);
         }
 
-        .mobile-contact-info {
-          margin-top: 2rem;
-          padding-top: 2rem;
-          border-top: 1px solid #e5e7eb;
-        }
-
-        .mobile-contact-item {
-          display: flex;
-          align-items: center;
-          margin-bottom: 1rem;
-          color: #6b7280;
-          font-size: 0.9rem;
-        }
-
         /* Mobile Styles */
         @media (max-width: 768px) {
           .top-bar {
@@ -598,14 +585,6 @@ export default function Header() {
         @media (min-width: 769px) {
           .mobile-nav {
             display: none;
-          }
-        }
-
-        /* Tablet Styles for Submenu */
-        @media (max-width: 1024px) and (min-width: 769px) {
-          .services-submenu {
-            min-width: 450px;
-            left: -80px;
           }
         }
       `}</style>
