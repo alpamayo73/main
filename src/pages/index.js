@@ -29,7 +29,7 @@ export default function Home() {
       <Stats />
       <LuxuryServices />
       <Process />
-      <PortfolioShowcase />
+      
       <Testimonials />
       <CTASection />
       <ContactPreview />
