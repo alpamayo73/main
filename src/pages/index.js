@@ -4,7 +4,7 @@ import Hero from '../components/home/Hero'
 import FeaturedServices from '../components/home/FeaturedServices'
 import Features from '../components/home/Features'
 import AboutPreview from '../components/home/AboutPreview'
-import CTASection from '../components/home/CTASection'
+
 import PortfolioShowcase from '../components/home/PortfolioShowcase'
 import Stats from '../components/home/Stats'
 import Testimonials from '../components/home/Testimonials'
@@ -31,7 +31,7 @@ export default function Home() {
       <Process />
       
       <Testimonials />
-      <CTASection />
+      
       <ContactPreview />
     </>
   )
