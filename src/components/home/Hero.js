@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentService, setCurrentService] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const sliderRef = useRef(null);
   
   const slides = [
@@ -49,25 +48,21 @@ export default function Hero() {
     { number: '98%', label: 'Client Satisfaction' }
   ];
 
-  // Auto-rotate slides with pause on hover
+  // Auto-rotate slides every 12 seconds
   useEffect(() => {
-    if (isPaused) return;
-    
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 12000); // 12 seconds
     return () => clearInterval(slideInterval);
-  }, [isPaused, slides.length]);
+  }, [slides.length]);
 
   // Auto-rotate services for current slide
   useEffect(() => {
-    if (isPaused) return;
-    
     const serviceInterval = setInterval(() => {
       setCurrentService((prev) => (prev + 1) % slides[currentSlide].services.length);
     }, 2000);
     return () => clearInterval(serviceInterval);
-  }, [currentSlide, isPaused, slides]);
+  }, [currentSlide, slides]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -77,20 +72,10 @@ export default function Hero() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  const handleMouseEnter = () => {
-    setIsPaused(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsPaused(false);
-  };
-
   return (
     <>
       <section 
         className="hero-section"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         ref={sliderRef}
       >
         {/* Slides */}
