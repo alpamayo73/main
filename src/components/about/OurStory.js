@@ -66,39 +66,8 @@ export default function OurStory() {
       paddingLeft: '1.5rem',
       margin: '2rem 0',
       lineHeight: '1.6'
-    },
-    milestones: {
-      display: 'grid',
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gap: '1.5rem',
-      marginTop: '2rem'
-    },
-    milestone: {
-      textAlign: 'center',
-      padding: '1.5rem',
-      backgroundColor: '#F8FAFC',
-      borderRadius: '12px',
-      border: `1px solid #E5E7EB`
-    },
-    milestoneYear: {
-      fontSize: '1.5rem',
-      fontWeight: 'bold',
-      color: colors.secondary,
-      marginBottom: '0.5rem'
-    },
-    milestoneText: {
-      fontSize: '0.875rem',
-      color: '#6B7280',
-      fontWeight: '500'
     }
   }
-
-  const milestones = [
-    { year: '2016', text: 'Company Founded' },
-    { year: '2018', text: 'Expanded to AC Services' },
-    { year: '2020', text: '100+ Projects Completed' },
-    { year: '2024', text: 'Dubai Market Leader' }
-  ]
 
   return (
     <section style={styles.section}>
@@ -123,15 +92,6 @@ export default function OurStory() {
             <p style={styles.text}>
               Today, we serve clients across Dubai's most prestigious communities, from Palm Jumeirah to Emirates Hills, bringing innovative solutions and unparalleled craftsmanship to every project.
             </p>
-
-            <div style={styles.milestones}>
-              {milestones.map((milestone, index) => (
-                <div key={index} style={styles.milestone}>
-                  <div style={styles.milestoneYear}>{milestone.year}</div>
-                  <div style={styles.milestoneText}>{milestone.text}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
