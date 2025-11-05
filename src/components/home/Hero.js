@@ -20,7 +20,7 @@ export default function Hero() {
         { icon: '🏢', text: 'Apartment Renovation' },
         { icon: '💼', text: 'Office Renovation' }
       ],
-      badge: '🏆 Premium Renovation Services',
+      badge: 'Premium Renovation Services',
       backgroundImage: '/images/luxury-renovation-room.jpg'
     },
     {
@@ -38,7 +38,7 @@ export default function Hero() {
         { icon: '🔧', text: 'Maintenance' },
         { icon: '💡', text: 'Lighting' }
       ],
-      badge: '🔧 Professional Technical Services',
+      badge: 'Professional Technical Services',
       backgroundImage: '/images/technical-services.jpg'
     }
   ];
