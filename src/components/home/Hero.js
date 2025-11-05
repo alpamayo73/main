@@ -22,8 +22,8 @@ export default function Hero() {
   ];
 
   const stats = [
-    { number: '5+', label: 'Years Experience' },
-    { number: '200+', label: 'Projects Completed' },
+    { number: '2+', label: 'Years Experience' },
+    { number: '70+', label: 'Projects Completed' },
     { number: '98%', label: 'Client Satisfaction' }
   ];
 
