@@ -2,23 +2,46 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
 export default function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [currentService, setCurrentService] = useState(0);
-  const services = ['Villa Renovation', 'Apartment Renovation', 'Office Renovation'];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentService((prev) => (prev + 1) % services.length);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const features = [
-    { icon: '🏠', text: 'Villa Renovation' },
-    { icon: '🏢', text: 'Apartment Renovation' },
-    { icon: '💼', text: 'Office Renovation' },
-    { icon: '🧱', text: 'Tiles Installation' },
-    { icon: '🏗️', text: 'False Ceiling' },
-    { icon: '🎨', text: 'Painting' }
+  
+  const slides = [
+    {
+      type: 'renovation',
+      title: 'Luxury',
+      highlighted: 'Renovation',
+      subtitle: 'Services',
+      services: ['Villa Renovation', 'Apartment Renovation', 'Office Renovation'],
+      description: 'Transforming Dubai\'s spaces with premium quality, exceptional craftsmanship, and innovative renovation solutions. We deliver excellence in every project.',
+      features: [
+        { icon: '🏠', text: 'Villa Renovation' },
+        { icon: '🏢', text: 'Apartment Renovation' },
+        { icon: '💼', text: 'Office Renovation' },
+        { icon: '🧱', text: 'Tiles Installation' },
+        { icon: '🏗️', text: 'False Ceiling' },
+        { icon: '🎨', text: 'Painting' }
+      ],
+      badge: '🏆 Premium Renovation Services'
+    },
+    {
+      type: 'technical',
+      title: 'Expert',
+      highlighted: 'Technical',
+      subtitle: 'Services',
+      services: ['Tiles Installation', 'False Ceiling & Partitions', 'Painting', 'Carpentry', 'Electrical', 'Air Conditioning', 'Handyman'],
+      description: 'Professional technical services with precision engineering, skilled craftsmanship, and reliable solutions for all your maintenance and installation needs.',
+      features: [
+        { icon: '🧱', text: 'Tiles Installation' },
+        { icon: '🏗️', text: 'False Ceiling & Partitions' },
+        { icon: '🎨', text: 'Painting' },
+        { icon: '🪚', text: 'Carpentry' },
+        { icon: '⚡', text: 'Electrical' },
+        { icon: '❄️', text: 'Air Conditioning' },
+        { icon: '🔨', text: 'Handyman' },
+        { icon: '🔧', text: 'Maintenance' }
+      ],
+      badge: '🔧 Professional Technical Services'
+    }
   ];
 
   const stats = [
@@ -26,6 +49,34 @@ export default function Hero() {
     { number: '70+', label: 'Projects Completed' },
     { number: '98%', label: 'Client Satisfaction' }
   ];
+
+  // Auto-rotate slides
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(slideInterval);
+  }, []);
+
+  // Auto-rotate services for current slide
+  useEffect(() => {
+    const serviceInterval = setInterval(() => {
+      setCurrentService((prev) => (prev + 1) % slides[currentSlide].services.length);
+    }, 2000);
+    return () => clearInterval(serviceInterval);
+  }, [currentSlide]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
 
   return (
     <>
@@ -36,61 +87,97 @@ export default function Hero() {
           <div className="background-overlay"></div>
         </div>
 
-        <div className="hero-container">
-          <div className="hero-content">
-            {/* Badge */}
-            <div className="hero-badge">
-              <span style={{ marginRight: '0.5rem' }}>🏆</span>
-              Premium Services in Dubai
-            </div>
+        {/* Slider Container */}
+        <div className="slider-container">
+          {/* Navigation Arrows */}
+          <button className="slider-arrow slider-arrow-left" onClick={prevSlide}>
+            ‹
+          </button>
+          <button className="slider-arrow slider-arrow-right" onClick={nextSlide}>
+            ›
+          </button>
 
-            <h1 className="hero-title">
-              Luxury
-              <span className="gradient-text"> Renovation </span>
-              & Technical Services
-            </h1>
+          {/* Slide Indicator Dots */}
+          <div className="slide-indicators">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                className={`slide-indicator ${currentSlide === index ? 'active' : ''}`}
+                onClick={() => goToSlide(index)}
+              />
+            ))}
+          </div>
 
-            {/* Animated Services */}
-            <div className="animated-services">
-              <span key={currentService} className="service-text">
-                {services[currentService]}
-              </span>
-            </div>
+          {/* Slides */}
+          <div className="slides-wrapper">
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className={`slide ${currentSlide === index ? 'active' : ''}`}
+              >
+                <div className="hero-container">
+                  <div className="hero-content">
+                    {/* Badge */}
+                    <div className="hero-badge">
+                      <span style={{ marginRight: '0.5rem' }}>
+                        {slide.type === 'renovation' ? '🏆' : '🔧'}
+                      </span>
+                      {slide.badge}
+                    </div>
 
-            <p className="hero-description">
-              Transforming Dubai's spaces with premium quality, exceptional craftsmanship, 
-              and innovative renovation solutions. We deliver excellence in every project.
-            </p>
+                    <h1 className="hero-title">
+                      {slide.title}
+                      <span className="gradient-text"> {slide.highlighted} </span>
+                      {slide.subtitle}
+                    </h1>
 
-            {/* Features Grid */}
-            <div className="features-grid">
-              {features.map((feature, index) => (
-                <div key={index} className="feature-item">
-                  <span className="feature-icon">{feature.icon}</span>
-                  <span className="feature-text">{feature.text}</span>
+                    {/* Animated Services */}
+                    <div className="animated-services">
+                      <span key={currentService} className="service-text">
+                        {slide.services[currentService]}
+                      </span>
+                    </div>
+
+                    <p className="hero-description">
+                      {slide.description}
+                    </p>
+
+                    {/* Features Grid */}
+                    <div className="features-grid">
+                      {slide.features.map((feature, featureIndex) => (
+                        <div key={featureIndex} className="feature-item">
+                          <span className="feature-icon">{feature.icon}</span>
+                          <span className="feature-text">{feature.text}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Buttons */}
+                    <div className="hero-buttons">
+                      <Link 
+                        href={slide.type === 'renovation' ? '/services' : '/technical-services'} 
+                        className="hero-btn hero-btn-primary"
+                      >
+                        {slide.type === 'renovation' ? 'Explore Services' : 'View Technical Services'}
+                      </Link>
+                      <Link href="/contact" className="hero-btn hero-btn-secondary">
+                        Free Consultation
+                      </Link>
+                    </div>
+
+                    {/* Stats */}
+                    <div className="hero-stats">
+                      {stats.map((stat, statIndex) => (
+                        <div key={statIndex} className="stat-item">
+                          <div className="stat-number">{stat.number}</div>
+                          <div className="stat-label">{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Buttons */}
-            <div className="hero-buttons">
-              <Link href="/services" className="hero-btn hero-btn-primary">
-                Explore Services
-              </Link>
-              <Link href="/contact" className="hero-btn hero-btn-secondary">
-                Free Consultation
-              </Link>
-            </div>
-
-            {/* Stats */}
-            <div className="hero-stats">
-              {stats.map((stat, index) => (
-                <div key={index} className="stat-item">
-                  <div className="stat-number">{stat.number}</div>
-                  <div className="stat-label">{stat.label}</div>
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -142,13 +229,47 @@ export default function Hero() {
           );
         }
 
+        .slider-container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .slides-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .slide {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0;
+          transform: translateX(50px);
+          transition: all 0.8s ease-in-out;
+          pointer-events: none;
+        }
+
+        .slide.active {
+          opacity: 1;
+          transform: translateX(0);
+          pointer-events: all;
+        }
+
         .hero-container {
           max-width: 1200px;
           margin: 0 auto;
           padding: 0 20px;
           width: 100%;
+          height: 100%;
           position: relative;
           z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .hero-content {
@@ -336,6 +457,65 @@ export default function Hero() {
           letter-spacing: 0.5px;
         }
 
+        /* Slider Navigation */
+        .slider-arrow {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: white;
+          font-size: 2rem;
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          cursor: pointer;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        .slider-arrow:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-arrow-left {
+          left: 20px;
+        }
+
+        .slider-arrow-right {
+          right: 20px;
+        }
+
+        .slide-indicators {
+          position: absolute;
+          bottom: 30px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 10px;
+          z-index: 10;
+        }
+
+        .slide-indicator {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          border: 2px solid white;
+          background: transparent;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .slide-indicator.active {
+          background: white;
+          transform: scale(1.2);
+        }
+
         @keyframes fadeIn {
           from { 
             opacity: 0; 
@@ -355,15 +535,6 @@ export default function Hero() {
           to {
             opacity: 1;
             transform: translateY(0);
-          }
-        }
-
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-10px);
           }
         }
 
@@ -434,6 +605,24 @@ export default function Hero() {
 
           .stat-label {
             font-size: 0.8rem;
+          }
+
+          .slider-arrow {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+          }
+
+          .slider-arrow-left {
+            left: 10px;
+          }
+
+          .slider-arrow-right {
+            right: 10px;
+          }
+
+          .slide-indicators {
+            bottom: 20px;
           }
         }
 
