@@ -10,12 +10,12 @@ export default function AboutPreview() {
             {/* Content */}
             <div className="about-content">
               <h2 className="about-title">
-                Luxury Renovation Experts in Dubai
+                Luxury Renovation Experts in UAE
               </h2>
               
               <p className="about-description">
                 Alpamayo Technical Services brings unparalleled expertise in luxury renovations 
-                and professional AC services to Dubai's most discerning clients. With years of 
+                and professional AC services to UAE's most discerning clients. With years of 
                 experience and a commitment to excellence, we transform spaces into exceptional 
                 living and working environments.
               </p>
@@ -40,7 +40,7 @@ export default function AboutPreview() {
             <div className="about-image">
               <img 
                 src="https://images.unsplash.com/photo-1558036117-15e82a2c9c7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-                alt="Luxury renovation in Dubai"
+                alt="Luxury renovation in UAE"
                 className="about-img"
               />
             </div>
