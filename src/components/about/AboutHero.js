@@ -72,10 +72,10 @@ export default function AboutHero() {
   }
 
   const stats = [
-    { number: '8+', label: 'Years Experience' },
-    { number: '250+', label: 'Projects Completed' },
-    { number: '180+', label: 'Happy Clients' },
-    { number: '45+', label: 'Team Members' }
+    { number: '2+', label: 'Years Experience' },
+    { number: '70+', label: 'Projects Completed' },
+    { number: '50+', label: 'Happy Clients' },
+    
   ]
 
   return (
