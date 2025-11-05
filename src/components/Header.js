@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false)
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
+  const router = useRouter()
+
+  const isActiveLink = (path) => router.pathname === path
+  const isActiveService = (servicePath) => router.pathname.startsWith(servicePath)
 
   return (
     <>
@@ -39,8 +44,18 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <div className="desktop-nav">
-              <Link href="/" className="nav-link">Home</Link>
-              <Link href="/about" className="nav-link">About</Link>
+              <Link 
+                href="/" 
+                className={`nav-link ${isActiveLink('/') ? 'active' : ''}`}
+              >
+                Home
+              </Link>
+              <Link 
+                href="/about" 
+                className={`nav-link ${isActiveLink('/about') ? 'active' : ''}`}
+              >
+                About
+              </Link>
               
               {/* Enhanced Services Dropdown */}
               <div 
@@ -48,7 +63,7 @@ export default function Header() {
                 onMouseEnter={() => setServicesDropdownOpen(true)}
                 onMouseLeave={() => setServicesDropdownOpen(false)}
               >
-                <button className="nav-link dropdown-btn">
+                <button className={`nav-link dropdown-btn ${isActiveService('/services') ? 'active' : ''}`}>
                   Services
                   <span className="dropdown-arrow">▼</span>
                 </button>
@@ -57,47 +72,77 @@ export default function Header() {
                   <div className="dropdown-menu">
                     <div className="dropdown-section">
                       <h4 className="dropdown-title">Renovation Services</h4>
-                      <Link href="/services/villa-renovation" className="dropdown-link">
+                      <Link 
+                        href="/services/villa-renovation" 
+                        className={`dropdown-link ${isActiveLink('/services/villa-renovation') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🏠</span>
                         Villa Renovation
                       </Link>
-                      <Link href="/services/apartment-renovation" className="dropdown-link">
+                      <Link 
+                        href="/services/apartment-renovation" 
+                        className={`dropdown-link ${isActiveLink('/services/apartment-renovation') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🏢</span>
                         Apartment Renovation
                       </Link>
-                      <Link href="/services/office-renovation" className="dropdown-link">
+                      <Link 
+                        href="/services/office-renovation" 
+                        className={`dropdown-link ${isActiveLink('/services/office-renovation') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">💼</span>
                         Office Renovation
                       </Link>
                     </div>
                     
                     <div className="dropdown-section">
-                      <h4 className="dropdown-title">Specialized Services</h4>
-                      <Link href="/services/tiles-installation" className="dropdown-link">
+                      <h4 className="dropdown-title">Technical Services</h4>
+                      <Link 
+                        href="/services/tiles-installation" 
+                        className={`dropdown-link ${isActiveLink('/services/tiles-installation') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🧱</span>
                         Tiles Installation
                       </Link>
-                      <Link href="/services/false-ceiling-partitions" className="dropdown-link">
+                      <Link 
+                        href="/services/false-ceiling-partitions" 
+                        className={`dropdown-link ${isActiveLink('/services/false-ceiling-partitions') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🏗️</span>
                         False Ceiling & Partitions
                       </Link>
-                      <Link href="/services/painting" className="dropdown-link">
+                      <Link 
+                        href="/services/painting" 
+                        className={`dropdown-link ${isActiveLink('/services/painting') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🎨</span>
                         Painting
                       </Link>
-                      <Link href="/services/carpentry" className="dropdown-link">
+                      <Link 
+                        href="/services/carpentry" 
+                        className={`dropdown-link ${isActiveLink('/services/carpentry') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🪚</span>
                         Carpentry
                       </Link>
-                      <Link href="/services/electrical" className="dropdown-link">
+                      <Link 
+                        href="/services/electrical" 
+                        className={`dropdown-link ${isActiveLink('/services/electrical') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">⚡</span>
                         Electrical
                       </Link>
-                      <Link href="/services/air-conditioning" className="dropdown-link">
+                      <Link 
+                        href="/services/air-conditioning" 
+                        className={`dropdown-link ${isActiveLink('/services/air-conditioning') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">❄️</span>
                         Air Conditioning
                       </Link>
-                      <Link href="/services/handyman" className="dropdown-link">
+                      <Link 
+                        href="/services/handyman" 
+                        className={`dropdown-link ${isActiveLink('/services/handyman') ? 'active' : ''}`}
+                      >
                         <span className="service-icon">🔨</span>
                         Handyman
                       </Link>
@@ -112,8 +157,18 @@ export default function Header() {
                 )}
               </div>
               
-              <Link href="/faq" className="nav-link">FAQs</Link>
-              <Link href="/contact" className="nav-link">Contact</Link>
+              <Link 
+                href="/faq" 
+                className={`nav-link ${isActiveLink('/faq') ? 'active' : ''}`}
+              >
+                FAQs
+              </Link>
+              <Link 
+                href="/contact" 
+                className={`nav-link ${isActiveLink('/contact') ? 'active' : ''}`}
+              >
+                Contact
+              </Link>
               
               {/* Hourly Services Button */}
               <Link href="/booking" className="hourly-services-button">
@@ -150,13 +205,21 @@ export default function Header() {
             <div className="mobile-nav-content">
               {/* Each main menu link on its own line */}
               <div className="mobile-nav-item">
-                <Link href="/" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <Link 
+                  href="/" 
+                  className={`mobile-nav-link ${isActiveLink('/') ? 'active' : ''}`} 
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   Home
                 </Link>
               </div>
               
               <div className="mobile-nav-item">
-                <Link href="/about" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <Link 
+                  href="/about" 
+                  className={`mobile-nav-link ${isActiveLink('/about') ? 'active' : ''}`} 
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   About
                 </Link>
               </div>
@@ -164,7 +227,7 @@ export default function Header() {
               {/* Mobile Services Dropdown - each link on its own line */}
               <div className="mobile-nav-item">
                 <button 
-                  className="mobile-services-btn"
+                  className={`mobile-services-btn ${isActiveService('/services') ? 'active' : ''}`}
                   onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                 >
                   Services
@@ -176,52 +239,92 @@ export default function Header() {
                 {mobileServicesOpen && (
                   <div className="mobile-services-dropdown">
                     <div className="mobile-service-item">
-                      <Link href="/services/villa-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/villa-renovation" 
+                        className={`mobile-service-link ${isActiveLink('/services/villa-renovation') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Villa Renovation
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/apartment-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/apartment-renovation" 
+                        className={`mobile-service-link ${isActiveLink('/services/apartment-renovation') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Apartment Renovation
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/office-renovation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/office-renovation" 
+                        className={`mobile-service-link ${isActiveLink('/services/office-renovation') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Office Renovation
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/tiles-installation" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/tiles-installation" 
+                        className={`mobile-service-link ${isActiveLink('/services/tiles-installation') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Tiles Installation
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/false-ceiling-partitions" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/false-ceiling-partitions" 
+                        className={`mobile-service-link ${isActiveLink('/services/false-ceiling-partitions') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         False Ceiling & Partitions
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/painting" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/painting" 
+                        className={`mobile-service-link ${isActiveLink('/services/painting') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Painting
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/carpentry" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/carpentry" 
+                        className={`mobile-service-link ${isActiveLink('/services/carpentry') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Carpentry
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/electrical" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/electrical" 
+                        className={`mobile-service-link ${isActiveLink('/services/electrical') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Electrical
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/air-conditioning" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/air-conditioning" 
+                        className={`mobile-service-link ${isActiveLink('/services/air-conditioning') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Air Conditioning
                       </Link>
                     </div>
                     <div className="mobile-service-item">
-                      <Link href="/services/handyman" className="mobile-service-link" onClick={() => setMobileMenuOpen(false)}>
+                      <Link 
+                        href="/services/handyman" 
+                        className={`mobile-service-link ${isActiveLink('/services/handyman') ? 'active' : ''}`} 
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
                         Handyman
                       </Link>
                     </div>
@@ -235,13 +338,21 @@ export default function Header() {
               </div>
               
               <div className="mobile-nav-item">
-                <Link href="/faq" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <Link 
+                  href="/faq" 
+                  className={`mobile-nav-link ${isActiveLink('/faq') ? 'active' : ''}`} 
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   FAQs
                 </Link>
               </div>
               
               <div className="mobile-nav-item">
-                <Link href="/contact" className="mobile-nav-link" onClick={() => setMobileMenuOpen(false)}>
+                <Link 
+                  href="/contact" 
+                  className={`mobile-nav-link ${isActiveLink('/contact') ? 'active' : ''}`} 
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   Contact
                 </Link>
               </div>
@@ -344,15 +455,23 @@ export default function Header() {
           color: #1C2734;
           text-decoration: none;
           font-size: 0.95rem;
-          font-weight: 600;
+          font-weight: 500;
           transition: all 0.3s ease;
-          padding: 0.5rem 0;
+          padding: 0.5rem 0.8rem;
           position: relative;
           white-space: nowrap;
+          border-radius: 4px;
         }
 
         .nav-link:hover {
           color: #577D8E;
+          background-color: rgba(87, 125, 142, 0.1);
+        }
+
+        .nav-link.active {
+          color: #577D8E;
+          font-weight: 700;
+          background-color: rgba(87, 125, 142, 0.15);
         }
 
         /* Enhanced Services Dropdown */
@@ -369,14 +488,23 @@ export default function Header() {
           gap: 0.3rem;
           color: #1C2734;
           font-size: 0.95rem;
-          font-weight: 600;
-          padding: 0.5rem 0;
-          transition: color 0.3s ease;
+          font-weight: 500;
+          padding: 0.5rem 0.8rem;
+          transition: all 0.3s ease;
           white-space: nowrap;
+          border-radius: 4px;
+          width: 100%;
         }
 
         .dropdown-btn:hover {
           color: #577D8E;
+          background-color: rgba(87, 125, 142, 0.1);
+        }
+
+        .dropdown-btn.active {
+          color: #577D8E;
+          font-weight: 700;
+          background-color: rgba(87, 125, 142, 0.15);
         }
 
         .dropdown-arrow {
@@ -427,6 +555,7 @@ export default function Header() {
           color: #6b7280;
           text-decoration: none;
           font-size: 0.9rem;
+          font-weight: 400;
           padding: 0.6rem 0.8rem;
           transition: all 0.3s ease;
           border-radius: 6px;
@@ -437,6 +566,13 @@ export default function Header() {
           color: #577D8E;
           background-color: #f8f9fa;
           transform: translateX(5px);
+        }
+
+        .dropdown-link.active {
+          color: #577D8E;
+          font-weight: 700;
+          background-color: rgba(87, 125, 142, 0.15);
+          border-left: 3px solid #577D8E;
         }
 
         .service-icon {
@@ -470,12 +606,12 @@ export default function Header() {
 
         /* Hourly Services Button */
         .hourly-services-button {
-          background: linear-gradient(135deg, #577D8E, #1C2734);
+          background: #577D8E;
           color: white;
           text-decoration: none;
-          padding: 0.6rem 1.2rem;
-          border-radius: 6px;
-          font-weight: 600;
+          padding: 0.7rem 1.5rem;
+          border-radius: 8px;
+          font-weight: 700;
           font-size: 0.9rem;
           display: flex;
           align-items: center;
@@ -490,7 +626,7 @@ export default function Header() {
         .hourly-services-button:hover {
           transform: translateY(-2px);
           box-shadow: 0 4px 15px rgba(87, 125, 142, 0.4);
-          background: linear-gradient(135deg, #1C2734, #577D8E);
+          background: #4a6a7a;
         }
 
         .hourly-icon {
@@ -583,7 +719,7 @@ export default function Header() {
           color: #1C2734;
           text-decoration: none;
           font-size: 1.1rem;
-          font-weight: 600;
+          font-weight: 500;
           padding: 1rem 0;
           transition: color 0.3s ease;
           width: 100%;
@@ -592,6 +728,14 @@ export default function Header() {
 
         .mobile-nav-link:hover {
           color: #577D8E;
+        }
+
+        .mobile-nav-link.active {
+          color: #577D8E;
+          font-weight: 700;
+          background-color: rgba(87, 125, 142, 0.1);
+          padding-left: 1rem;
+          border-left: 3px solid #577D8E;
         }
 
         .mobile-services-btn {
@@ -606,8 +750,13 @@ export default function Header() {
           padding: 1rem 0;
           color: #1C2734;
           font-size: 1.1rem;
-          font-weight: 600;
+          font-weight: 500;
           white-space: nowrap;
+        }
+
+        .mobile-services-btn.active {
+          color: #577D8E;
+          font-weight: 700;
         }
 
         .mobile-dropdown-arrow {
@@ -638,7 +787,7 @@ export default function Header() {
           color: #577D8E;
           text-decoration: none;
           font-size: 0.95rem;
-          font-weight: 500;
+          font-weight: 400;
           padding: 0.8rem 0;
           transition: color 0.3s ease;
           width: 100%;
@@ -647,6 +796,14 @@ export default function Header() {
 
         .mobile-service-link:hover {
           color: #1C2734;
+        }
+
+        .mobile-service-link.active {
+          color: #577D8E;
+          font-weight: 700;
+          background-color: rgba(87, 125, 142, 0.1);
+          padding-left: 1rem;
+          border-left: 3px solid #577D8E;
         }
 
         .mobile-service-link.view-all {
@@ -660,13 +817,13 @@ export default function Header() {
         /* Mobile Hourly Services Button */
         .mobile-hourly-button {
           display: block;
-          background: linear-gradient(135deg, #577D8E, #1C2734);
+          background: #577D8E;
           color: white;
           text-decoration: none;
           text-align: center;
-          padding: 1rem;
+          padding: 1.2rem;
           border-radius: 8px;
-          font-weight: 600;
+          font-weight: 700;
           font-size: 1.1rem;
           margin: 0;
           transition: all 0.3s ease;
@@ -677,7 +834,7 @@ export default function Header() {
         .mobile-hourly-button:hover {
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(87, 125, 142, 0.3);
-          background: linear-gradient(135deg, #1C2734, #577D8E);
+          background: #4a6a7a;
         }
 
         /* Mobile Styles */
