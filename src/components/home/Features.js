@@ -31,7 +31,7 @@ export default function Features() {
               Why Choose Alpamayo
             </h2>
             <p className="features-subtitle">
-              We combine luxury design with technical excellence to deliver exceptional results for our clients in Dubai.
+              We combine luxury design with technical excellence to deliver exceptional results for our clients in UAE.
             </p>
           </div>
 
