@@ -311,7 +311,7 @@ export default function ContactPreview() {
         </svg>
       ),
       title: "Working Hours",
-      value: "24/7 Emergency",
+      value: "24/7",
       description: "AC services available"
     }
   ]
