@@ -6,43 +6,64 @@ export default function FeaturedServices() {
       title: 'Villa Renovation',
       description: 'Transform your villa into a luxury masterpiece with our comprehensive renovation services. From design to execution, we deliver excellence.',
       image: 'https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      link: '/services/renovation#villa',
+      link: '/services/villa-renovation',
       icon: '🏠'
-    },
-    {
-      title: 'VRF AC Systems',
-      description: 'Advanced Variable Refrigerant Flow AC solutions for optimal climate control in large residential and commercial spaces.',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25856cd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      link: '/services/ac-services#vrf',
-      icon: '❄️'
     },
     {
       title: 'Apartment Renovation',
       description: 'Modernize your apartment with innovative design solutions that maximize space and enhance functionality.',
       image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      link: '/services/renovation#apartment',
+      link: '/services/apartment-renovation',
       icon: '🏢'
-    },
-    {
-      title: 'Split AC Systems',
-      description: 'Efficient and reliable split air conditioner installation and maintenance for optimal cooling performance.',
-      image: 'https://images.unsplash.com/photo-1581993192008-63fd1ea7de1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      link: '/services/ac-services#split',
-      icon: '🌡️'
     },
     {
       title: 'Office Renovation',
       description: 'Create inspiring, productive workspaces that reflect your brand identity and enhance employee well-being.',
       image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      link: '/services/renovation#office',
+      link: '/services/office-renovation',
       icon: '💼'
     },
     {
-      title: 'Water Chiller FCU',
-      description: 'Professional water chiller fan coil unit installation and maintenance for large-scale cooling requirements.',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      link: '/services/ac-services#chiller',
-      icon: '🌀'
+      title: 'Tiles Installation',
+      description: 'Professional tile installation with precision and attention to detail for floors, walls, and outdoor spaces.',
+      image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      link: '/services/tiles-installation',
+      icon: '🧱'
+    },
+    {
+      title: 'False Ceiling & Partitions',
+      description: 'Custom false ceiling designs and partition walls to enhance space utilization and aesthetic appeal.',
+      image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      link: '/services/false-ceiling-partitions',
+      icon: '🏗️'
+    },
+    {
+      title: 'Painting Services',
+      description: 'Professional interior and exterior painting with premium materials and flawless finish.',
+      image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      link: '/services/painting',
+      icon: '🎨'
+    },
+    {
+      title: 'Carpentry Services',
+      description: 'Custom carpentry solutions including furniture, cabinets, and woodwork with expert craftsmanship.',
+      image: 'https://images.unsplash.com/photo-1578775887800-6997be45adf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      link: '/services/carpentry',
+      icon: '🪚'
+    },
+    {
+      title: 'Electrical Services',
+      description: 'Complete electrical solutions including wiring, lighting, and power systems installation and maintenance.',
+      image: 'https://images.unsplash.com/photo-1621905252507-b35492cc74b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      link: '/services/electrical',
+      icon: '⚡'
+    },
+    {
+      title: 'Handyman Services',
+      description: 'Comprehensive handyman services for all your home maintenance, repair, and installation needs.',
+      image: 'https://images.unsplash.com/photo-1581093458791-8a0a1aa1c8e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      link: '/services/handyman',
+      icon: '🔨'
     }
   ];
 
@@ -59,7 +80,7 @@ export default function FeaturedServices() {
               Premium Services
             </h2>
             <p className="services-subtitle">
-              Discover our comprehensive range of luxury renovation and professional AC services 
+              Discover our comprehensive range of luxury renovation and professional technical services 
               tailored for Dubai's elite properties and commercial spaces.
             </p>
           </div>
@@ -101,17 +122,16 @@ export default function FeaturedServices() {
               Ready to Start Your Project?
             </h3>
             <p className="cta-description">
-              Let's discuss your renovation or AC service needs and create a customized solution for your space.
+              Let's discuss your renovation or technical service needs and create a customized solution for your space.
             </p>
             <div className="cta-buttons">
-  <Link href="/contact" className="services-btn services-btn-primary">
-    Get Free Quote
-  </Link>
-  <Link href="/services" className="services-btn services-btn-secondary">
-    View All Services
-  </Link>
-</div>
-
+              <Link href="/contact" className="services-btn services-btn-primary">
+                Get Free Quote
+              </Link>
+              <Link href="/services" className="services-btn services-btn-secondary">
+                View All Services
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -299,7 +319,7 @@ export default function FeaturedServices() {
           align-items: center;
         }
 
-        .btn {
+        .services-btn {
           padding: 0.8rem 1.8rem;
           border-radius: 8px;
           font-weight: 600;
@@ -312,25 +332,26 @@ export default function FeaturedServices() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
+          min-width: 140px;
         }
 
-        .btn-primary {
+        .services-btn-primary {
           background-color: #577D8E;
           color: white;
         }
 
-        .btn-primary:hover {
+        .services-btn-primary:hover {
           background-color: #1C2734;
           transform: scale(1.05);
         }
 
-        .btn-secondary {
+        .services-btn-secondary {
           border: 2px solid #1C2734;
           color: #1C2734;
           background-color: transparent;
         }
 
-        .btn-secondary:hover {
+        .services-btn-secondary:hover {
           background-color: #1C2734;
           color: white;
           transform: scale(1.05);
@@ -368,55 +389,18 @@ export default function FeaturedServices() {
             flex-direction: column;
             gap: 1rem;
           }
-
-
-
-
-          .services-btn {
-  padding: 0.8rem 1.8rem;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 140px;
-}
-
-.services-btn-primary {
-  background-color: #577D8E;
-  color: white;
-}
-
-.services-btn-primary:hover {
-  background-color: #1C2734;
-  transform: scale(1.05);
-}
-
-.services-btn-secondary {
-  border: 2px solid #1C2734;
-  color: #1C2734;
-  background-color: transparent;
-}
-
-.services-btn-secondary:hover {
-  background-color: #1C2734;
-  color: white;
-  transform: scale(1.05);
-}
-
-
-
           
-          .btn {
+          .services-btn {
             width: 100%;
             max-width: 250px;
             justify-content: center;
+          }
+        }
+
+        /* Tablet Styles */
+        @media (min-width: 768px) and (max-width: 1024px) {
+          .services-grid {
+            grid-template-columns: 1fr 1fr;
           }
         }
       `}</style>
