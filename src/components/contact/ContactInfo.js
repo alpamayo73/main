@@ -94,8 +94,8 @@ export default function ContactInfo() {
       ),
       title: "Call Us",
       info: "+971589071754",
-      description: "Speak directly with our experts",
-      hours: "24/7 Emergency AC Services"
+      description: "Speak directly with our experts"
+      
     },
     {
       icon: (
