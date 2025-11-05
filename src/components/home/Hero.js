@@ -109,19 +109,18 @@ export default function Hero() {
               <div
                 key={index}
                 className={`slide ${currentSlide === index ? 'active' : ''}`}
-                data-slide-index={index}
               >
-                {/* Background Image */}
-                <div 
-                  className="slide-background"
-                  style={{ 
-                    backgroundImage: `url('${slide.backgroundImage}')`
-                  }}
-                ></div>
-                
-                {/* Background Overlay */}
-                <div className="background-overlay"></div>
-                
+                {/* Background Image with Overlay - Same structure as original */}
+                <div className="hero-background">
+                  <div 
+                    className="background-image"
+                    style={{ 
+                      backgroundImage: `url('${slide.backgroundImage}')`
+                    }}
+                  ></div>
+                  <div className="background-overlay"></div>
+                </div>
+
                 {/* Content */}
                 <div className="hero-container">
                   <div className="hero-content">
@@ -207,30 +206,37 @@ export default function Hero() {
           width: 100%;
           height: 100%;
           opacity: 0;
-          transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
           transform: translateX(100%);
+          transition: all 0.8s ease-in-out;
+          pointer-events: none;
         }
 
         .slide.active {
           opacity: 1;
           transform: translateX(0);
+          pointer-events: all;
         }
 
-        .slide.prev {
-          transform: translateX(-100%);
-        }
-
-        .slide-background {
+        /* Background Structure - Same as original hero */
+        .hero-background {
           position: absolute;
           top: 0;
           left: 0;
-          width: 100%;
-          height: 100%;
+          right: 0;
+          bottom: 0;
+          z-index: -1;
+        }
+
+        .background-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
           background-attachment: fixed;
-          z-index: 1;
         }
 
         .background-overlay {
@@ -245,7 +251,6 @@ export default function Hero() {
             rgba(87, 125, 142, 0.7) 50%,
             rgba(28, 39, 52, 0.9) 100%
           );
-          z-index: 2;
         }
 
         .hero-container {
@@ -253,12 +258,12 @@ export default function Hero() {
           margin: 0 auto;
           padding: 0 20px;
           width: 100%;
-          height: 100%;
           position: relative;
-          z-index: 3;
+          z-index: 2;
           display: flex;
           align-items: center;
           justify-content: center;
+          height: 100%;
         }
 
         .hero-content {
@@ -458,7 +463,7 @@ export default function Hero() {
             padding: 2rem 0;
           }
 
-          .slide-background {
+          .background-image {
             background-attachment: scroll;
           }
 
