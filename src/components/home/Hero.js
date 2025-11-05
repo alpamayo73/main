@@ -93,110 +93,96 @@ export default function Hero() {
         onMouseLeave={handleMouseLeave}
         ref={sliderRef}
       >
-        {/* Slider Container */}
-        <div className="slider-container">
-          {/* Navigation Arrows */}
-          <button className="slider-arrow slider-arrow-left" onClick={prevSlide}>
-            ‹
-          </button>
-          <button className="slider-arrow slider-arrow-right" onClick={nextSlide}>
-            ›
-          </button>
+        {/* Slides */}
+        <div className="slides-container">
+          {slides.map((slide, index) => (
+            <div
+              key={index}
+              className={`slide ${currentSlide === index ? 'active' : ''}`}
+            >
+              {/* Background Image with Overlay - EXACTLY like original */}
+              <div className="hero-background">
+                <div 
+                  className="background-image"
+                  style={{ 
+                    backgroundImage: `url('${slide.backgroundImage}')`
+                  }}
+                ></div>
+                <div className="background-overlay"></div>
+              </div>
 
-          {/* Slides */}
-          <div className="slides-wrapper">
-            {slides.map((slide, index) => (
-              <div
-                key={index}
-                className={`slide ${currentSlide === index ? 'active' : ''}`}
-              >
-                {/* Background Image with Overlay - Same structure as original */}
-                <div className="hero-background">
-                  <div 
-                    className="background-image"
-                    style={{ 
-                      backgroundImage: `url('${slide.backgroundImage}')`
-                    }}
-                  ></div>
-                  <div className="background-overlay"></div>
-                </div>
+              <div className="hero-container">
+                <div className="hero-content">
+                  {/* Badge */}
+                  <div className="hero-badge">
+                    <span style={{ marginRight: '0.5rem' }}>
+                      {slide.type === 'renovation' ? '🏆' : '🔧'}
+                    </span>
+                    {slide.badge}
+                  </div>
 
-                {/* Content */}
-                <div className="hero-container">
-                  <div className="hero-content">
-                    {/* Badge */}
-                    <div className="hero-badge">
-                      <span style={{ marginRight: '0.5rem' }}>
-                        {slide.type === 'renovation' ? '🏆' : '🔧'}
-                      </span>
-                      {slide.badge}
-                    </div>
+                  <h1 className="hero-title">
+                    {slide.title}
+                    <span className="gradient-text"> {slide.highlighted} </span>
+                    {slide.subtitle}
+                  </h1>
 
-                    <h1 className="hero-title">
-                      {slide.title}
-                      <span className="gradient-text"> {slide.highlighted} </span>
-                      {slide.subtitle}
-                    </h1>
+                  {/* Animated Services */}
+                  <div className="animated-services">
+                    <span key={currentService} className="service-text">
+                      {slide.services[currentService]}
+                    </span>
+                  </div>
 
-                    {/* Animated Services */}
-                    <div className="animated-services">
-                      <span key={currentService} className="service-text">
-                        {slide.services[currentService]}
-                      </span>
-                    </div>
+                  <p className="hero-description">
+                    {slide.description}
+                  </p>
 
-                    <p className="hero-description">
-                      {slide.description}
-                    </p>
+                  {/* Features Grid */}
+                  <div className="features-grid">
+                    {slide.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="feature-item">
+                        <span className="feature-icon">{feature.icon}</span>
+                        <span className="feature-text">{feature.text}</span>
+                      </div>
+                    ))}
+                  </div>
 
-                    {/* Features Grid */}
-                    <div className="features-grid">
-                      {slide.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="feature-item">
-                          <span className="feature-icon">{feature.icon}</span>
-                          <span className="feature-text">{feature.text}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Stats */}
-                    <div className="hero-stats">
-                      {stats.map((stat, statIndex) => (
-                        <div key={statIndex} className="stat-item">
-                          <div className="stat-number">{stat.number}</div>
-                          <div className="stat-label">{stat.label}</div>
-                        </div>
-                      ))}
-                    </div>
+                  {/* Stats */}
+                  <div className="hero-stats">
+                    {stats.map((stat, statIndex) => (
+                      <div key={statIndex} className="stat-item">
+                        <div className="stat-number">{stat.number}</div>
+                        <div className="stat-label">{stat.label}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+
+        {/* Navigation Arrows */}
+        <button className="slider-arrow slider-arrow-left" onClick={prevSlide}>
+          ‹
+        </button>
+        <button className="slider-arrow slider-arrow-right" onClick={nextSlide}>
+          ›
+        </button>
       </section>
 
       <style jsx>{`
         .hero-section {
           position: relative;
           min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
           overflow: hidden;
-          padding: 4rem 0;
         }
 
-        .slider-container {
+        .slides-container {
           position: relative;
           width: 100%;
-          height: 100%;
-        }
-
-        .slides-wrapper {
-          position: relative;
-          width: 100%;
-          height: 100%;
+          height: 100vh;
         }
 
         .slide {
@@ -206,18 +192,14 @@ export default function Hero() {
           width: 100%;
           height: 100%;
           opacity: 0;
-          transform: translateX(100%);
-          transition: all 0.8s ease-in-out;
-          pointer-events: none;
+          transition: opacity 0.8s ease-in-out;
         }
 
         .slide.active {
           opacity: 1;
-          transform: translateX(0);
-          pointer-events: all;
         }
 
-        /* Background Structure - Same as original hero */
+        /* Background Structure - EXACTLY like original hero */
         .hero-background {
           position: absolute;
           top: 0;
@@ -258,12 +240,12 @@ export default function Hero() {
           margin: 0 auto;
           padding: 0 20px;
           width: 100%;
-          position: relative;
-          z-index: 2;
+          height: 100vh;
           display: flex;
           align-items: center;
           justify-content: center;
-          height: 100%;
+          position: relative;
+          z-index: 2;
         }
 
         .hero-content {
@@ -460,7 +442,14 @@ export default function Hero() {
         @media (max-width: 767px) {
           .hero-section {
             min-height: 80vh;
-            padding: 2rem 0;
+          }
+
+          .slides-container {
+            height: 80vh;
+          }
+
+          .hero-container {
+            height: 80vh;
           }
 
           .background-image {
