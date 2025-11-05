@@ -81,12 +81,12 @@ export default function Footer() {
 
               {/* Pages Menu */}
               <div className="footer-section">
-                <h4 className="footer-title">PAGES</h4>
+                <h4 className="footer-title">Useful Links</h4>
                 <ul className="footer-links">
                   <li><Link href="/" className="footer-link">Home</Link></li>
                   <li><Link href="/about" className="footer-link">About Us</Link></li>
                   <li><Link href="/services" className="footer-link">All Services</Link></li>
-                  <li><Link href="/projects" className="footer-link">Our Projects</Link></li>
+                  
                   <li><Link href="/contact" className="footer-link">Contact Us</Link></li>
                   <li><Link href="/faq" className="footer-link">FAQs</Link></li>
                 </ul>
