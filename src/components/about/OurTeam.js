@@ -27,122 +27,90 @@ export default function OurTeam() {
       margin: '0 auto',
       padding: '0 1rem'
     },
-    header: {
-      textAlign: 'center',
-      marginBottom: '4rem'
+    grid: {
+      display: 'grid',
+      gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+      gap: '4rem',
+      alignItems: 'center'
+    },
+    imageContainer: {
+      borderRadius: '20px',
+      overflow: 'hidden',
+      boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+      height: isMobile ? '400px' : '500px',
+      backgroundImage: 'url(https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    },
+    content: {
+      padding: isMobile ? '0' : '0 0 0 2rem'
     },
     title: {
       fontSize: '2.5rem',
       fontWeight: 'bold',
       color: colors.primary,
-      marginBottom: '1rem'
-    },
-    subtitle: {
-      fontSize: '1.25rem',
-      color: '#6B7280',
-      maxWidth: '600px',
-      margin: '0 auto',
-      lineHeight: '1.6'
-    },
-    grid: {
-      display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
-      gap: '2rem'
-    },
-    card: {
-      backgroundColor: colors.white,
-      borderRadius: '16px',
-      overflow: 'hidden',
-      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
-      border: `1px solid #E5E7EB`,
-      transition: 'all 0.3s ease',
-      textAlign: 'center'
-    },
-    image: {
-      height: '250px',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-    },
-    content: {
-      padding: '2rem 1.5rem'
+      marginBottom: '1.5rem'
     },
     name: {
-      fontSize: '1.25rem',
+      fontSize: '1.5rem',
       fontWeight: 'bold',
       color: colors.primary,
       marginBottom: '0.5rem'
     },
     role: {
-      fontSize: '1rem',
+      fontSize: '1.125rem',
       color: colors.secondary,
       fontWeight: '600',
-      marginBottom: '1rem'
+      marginBottom: '2rem'
     },
-    bio: {
-      fontSize: '0.875rem',
+    message: {
+      fontSize: '1.125rem',
       color: '#6B7280',
-      lineHeight: '1.5'
+      lineHeight: '1.7',
+      marginBottom: '1.5rem'
+    },
+    highlight: {
+      fontSize: '1.25rem',
+      color: colors.secondary,
+      fontWeight: '600',
+      fontStyle: 'italic',
+      borderLeft: `4px solid ${colors.secondary}`,
+      paddingLeft: '1.5rem',
+      margin: '2rem 0',
+      lineHeight: '1.6'
     }
   }
 
-  const team = [
-    {
-      name: "Ahmed Al Rashid",
-      role: "Founder & CEO",
-      bio: "With over 15 years in construction and renovation, Ahmed leads our vision for excellence and innovation.",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      name: "Sarah Johnson",
-      role: "Head of Design",
-      bio: "Sarah brings 12 years of interior design experience, specializing in luxury residential and commercial spaces.",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    },
-    {
-      name: "Mohammed Hassan",
-      role: "Technical Director",
-      bio: "Mohammed oversees all AC and technical installations with 10+ years of HVAC engineering expertise.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
-    }
-  ]
+  const founder = {
+    name: "Naseem Saher",
+    role: "Founder & CEO",
+    message: "With over 5 years in construction and renovation, I founded Alpamayo Technical Services with a simple vision: to bring unparalleled craftsmanship and innovative solutions to Dubai's luxury market. Our commitment to excellence has been the cornerstone of our growth from a small boutique service to a comprehensive technical solutions provider.",
+    quote: "Every project is a partnership. We don't just build spaces - we bring our clients' visions to life with precision, quality, and a personal touch that sets us apart."
+  }
 
   return (
     <section style={styles.section}>
       <div style={styles.container}>
-        <div style={styles.header}>
-          <h2 style={styles.title}>Meet Our Leadership Team</h2>
-          <p style={styles.subtitle}>
-            Experienced professionals dedicated to delivering exceptional results for every client
-          </p>
-        </div>
-
         <div style={styles.grid}>
-          {team.map((member, index) => (
-            <div 
-              key={index}
-              style={styles.card}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)'
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.12)'
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = styles.card.boxShadow
-              }}
-            >
-              <div 
-                style={{
-                  ...styles.image,
-                  backgroundImage: `url(${member.image})`
-                }}
-              />
-              <div style={styles.content}>
-                <h3 style={styles.name}>{member.name}</h3>
-                <p style={styles.role}>{member.role}</p>
-                <p style={styles.bio}>{member.bio}</p>
-              </div>
-            </div>
-          ))}
+          <div style={styles.imageContainer} />
+          
+          <div style={styles.content}>
+            <h2 style={styles.title}>Meet our Founder & CEO</h2>
+            <h3 style={styles.name}>{founder.name}</h3>
+            <p style={styles.role}>{founder.role}</p>
+            
+            <p style={styles.message}>
+              {founder.message}
+            </p>
+            
+            <blockquote style={styles.highlight}>
+              "{founder.quote}"
+            </blockquote>
+            
+            <p style={styles.message}>
+              Under Ahmed's leadership, we've grown to serve clients across Dubai's most prestigious communities while maintaining the personal attention and quality that defined our first projects.
+            </p>
+          </div>
         </div>
       </div>
     </section>
