@@ -5,7 +5,7 @@ import ContactInfo from '../components/contact/ContactInfo'
 import ContactForm from '../components/contact/ContactForm'
 import ServiceAreas from '../components/contact/ServiceAreas'
 import FAQ from '../components/contact/FAQ'
-import MapLocation from '../components/contact/MapLocation'
+
 
 export default function Contact() {
   return (
@@ -21,7 +21,7 @@ export default function Contact() {
       <ContactForm />
       <ServiceAreas />
       <FAQ />
-      <MapLocation />
+
     </>
   )
 }
