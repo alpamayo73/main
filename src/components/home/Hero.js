@@ -57,7 +57,7 @@ export default function Hero() {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(slideInterval);
-  }, [isPaused]);
+  }, [isPaused, slides.length]);
 
   // Auto-rotate services for current slide
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Hero() {
       setCurrentService((prev) => (prev + 1) % slides[currentSlide].services.length);
     }, 2000);
     return () => clearInterval(serviceInterval);
-  }, [currentSlide, isPaused]);
+  }, [currentSlide, isPaused, slides]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -108,15 +108,21 @@ export default function Hero() {
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className={`slide ${currentSlide === index ? 'active' : ''} ${
-                  currentSlide === index ? 'current' : ''
-                }`}
-                style={{ 
-                  backgroundImage: `url('${slide.backgroundImage}')`,
-                  zIndex: currentSlide === index ? 2 : 1
-                }}
+                className={`slide ${currentSlide === index ? 'active' : ''}`}
+                data-slide-index={index}
               >
+                {/* Background Image */}
+                <div 
+                  className="slide-background"
+                  style={{ 
+                    backgroundImage: `url('${slide.backgroundImage}')`
+                  }}
+                ></div>
+                
+                {/* Background Overlay */}
                 <div className="background-overlay"></div>
+                
+                {/* Content */}
                 <div className="hero-container">
                   <div className="hero-content">
                     {/* Badge */}
@@ -200,30 +206,31 @@ export default function Hero() {
           left: 0;
           width: 100%;
           height: 100%;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-          transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-        }
-
-        .slide:not(.active) {
           opacity: 0;
-          pointer-events: none;
+          transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+          transform: translateX(100%);
         }
 
-        /* Slide animations */
         .slide.active {
           opacity: 1;
           transform: translateX(0);
         }
 
-        .slide.next {
-          transform: translateX(100%);
-        }
-
         .slide.prev {
           transform: translateX(-100%);
+        }
+
+        .slide-background {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          z-index: 1;
         }
 
         .background-overlay {
@@ -238,6 +245,7 @@ export default function Hero() {
             rgba(87, 125, 142, 0.7) 50%,
             rgba(28, 39, 52, 0.9) 100%
           );
+          z-index: 2;
         }
 
         .hero-container {
@@ -247,7 +255,7 @@ export default function Hero() {
           width: 100%;
           height: 100%;
           position: relative;
-          z-index: 2;
+          z-index: 3;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -443,28 +451,6 @@ export default function Hero() {
           }
         }
 
-        @keyframes slideInRight {
-          from {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-
-        @keyframes slideInLeft {
-          from {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-
         /* Mobile Styles */
         @media (max-width: 767px) {
           .hero-section {
@@ -472,7 +458,7 @@ export default function Hero() {
             padding: 2rem 0;
           }
 
-          .slide {
+          .slide-background {
             background-attachment: scroll;
           }
 
