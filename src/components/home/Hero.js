@@ -1,9 +1,11 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentService, setCurrentService] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const sliderRef = useRef(null);
   
   const slides = [
     {
@@ -16,12 +18,10 @@ export default function Hero() {
       features: [
         { icon: '🏠', text: 'Villa Renovation' },
         { icon: '🏢', text: 'Apartment Renovation' },
-        { icon: '💼', text: 'Office Renovation' },
-        { icon: '🧱', text: 'Tiles Installation' },
-        { icon: '🏗️', text: 'False Ceiling' },
-        { icon: '🎨', text: 'Painting' }
+        { icon: '💼', text: 'Office Renovation' }
       ],
-      badge: '🏆 Premium Renovation Services'
+      badge: '🏆 Premium Renovation Services',
+      backgroundImage: '/images/luxury-renovation-room.jpg'
     },
     {
       type: 'technical',
@@ -31,16 +31,15 @@ export default function Hero() {
       services: ['Tiles Installation', 'False Ceiling & Partitions', 'Painting', 'Carpentry', 'Electrical', 'Air Conditioning', 'Handyman'],
       description: 'Professional technical services with precision engineering, skilled craftsmanship, and reliable solutions for all your maintenance and installation needs.',
       features: [
-        { icon: '🧱', text: 'Tiles Installation' },
-        { icon: '🏗️', text: 'False Ceiling & Partitions' },
-        { icon: '🎨', text: 'Painting' },
         { icon: '🪚', text: 'Carpentry' },
         { icon: '⚡', text: 'Electrical' },
         { icon: '❄️', text: 'Air Conditioning' },
         { icon: '🔨', text: 'Handyman' },
-        { icon: '🔧', text: 'Maintenance' }
+        { icon: '🔧', text: 'Maintenance' },
+        { icon: '💡', text: 'Lighting' }
       ],
-      badge: '🔧 Professional Technical Services'
+      badge: '🔧 Professional Technical Services',
+      backgroundImage: '/images/technical-services.jpg'
     }
   ];
 
@@ -50,21 +49,25 @@ export default function Hero() {
     { number: '98%', label: 'Client Satisfaction' }
   ];
 
-  // Auto-rotate slides
+  // Auto-rotate slides with pause on hover
   useEffect(() => {
+    if (isPaused) return;
+    
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(slideInterval);
-  }, []);
+  }, [isPaused]);
 
   // Auto-rotate services for current slide
   useEffect(() => {
+    if (isPaused) return;
+    
     const serviceInterval = setInterval(() => {
       setCurrentService((prev) => (prev + 1) % slides[currentSlide].services.length);
     }, 2000);
     return () => clearInterval(serviceInterval);
-  }, [currentSlide]);
+  }, [currentSlide, isPaused]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -74,19 +77,22 @@ export default function Hero() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
-  const goToSlide = (index) => {
-    setCurrentSlide(index);
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
   };
 
   return (
     <>
-      <section className="hero-section">
-        {/* Background Image with Overlay */}
-        <div className="hero-background">
-          <div className="background-image"></div>
-          <div className="background-overlay"></div>
-        </div>
-
+      <section 
+        className="hero-section"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        ref={sliderRef}
+      >
         {/* Slider Container */}
         <div className="slider-container">
           {/* Navigation Arrows */}
@@ -97,24 +103,20 @@ export default function Hero() {
             ›
           </button>
 
-          {/* Slide Indicator Dots */}
-          <div className="slide-indicators">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                className={`slide-indicator ${currentSlide === index ? 'active' : ''}`}
-                onClick={() => goToSlide(index)}
-              />
-            ))}
-          </div>
-
           {/* Slides */}
           <div className="slides-wrapper">
             {slides.map((slide, index) => (
               <div
                 key={index}
-                className={`slide ${currentSlide === index ? 'active' : ''}`}
+                className={`slide ${currentSlide === index ? 'active' : ''} ${
+                  currentSlide === index ? 'current' : ''
+                }`}
+                style={{ 
+                  backgroundImage: `url('${slide.backgroundImage}')`,
+                  zIndex: currentSlide === index ? 2 : 1
+                }}
               >
+                <div className="background-overlay"></div>
                 <div className="hero-container">
                   <div className="hero-content">
                     {/* Badge */}
@@ -152,19 +154,6 @@ export default function Hero() {
                       ))}
                     </div>
 
-                    {/* Buttons */}
-                    <div className="hero-buttons">
-                      <Link 
-                        href={slide.type === 'renovation' ? '/services' : '/technical-services'} 
-                        className="hero-btn hero-btn-primary"
-                      >
-                        {slide.type === 'renovation' ? 'Explore Services' : 'View Technical Services'}
-                      </Link>
-                      <Link href="/contact" className="hero-btn hero-btn-secondary">
-                        Free Consultation
-                      </Link>
-                    </div>
-
                     {/* Stats */}
                     <div className="hero-stats">
                       {stats.map((stat, statIndex) => (
@@ -193,42 +182,6 @@ export default function Hero() {
           padding: 4rem 0;
         }
 
-        .hero-background {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          z-index: -1;
-        }
-
-        .background-image {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-image: url('/images/luxury-renovation-room.jpg');
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-attachment: fixed;
-        }
-
-        .background-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(
-            135deg,
-            rgba(28, 39, 52, 0.85) 0%,
-            rgba(87, 125, 142, 0.7) 50%,
-            rgba(28, 39, 52, 0.9) 100%
-          );
-        }
-
         .slider-container {
           position: relative;
           width: 100%;
@@ -247,16 +200,44 @@ export default function Hero() {
           left: 0;
           width: 100%;
           height: 100%;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+        }
+
+        .slide:not(.active) {
           opacity: 0;
-          transform: translateX(50px);
-          transition: all 0.8s ease-in-out;
           pointer-events: none;
         }
 
+        /* Slide animations */
         .slide.active {
           opacity: 1;
           transform: translateX(0);
-          pointer-events: all;
+        }
+
+        .slide.next {
+          transform: translateX(100%);
+        }
+
+        .slide.prev {
+          transform: translateX(-100%);
+        }
+
+        .background-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            135deg,
+            rgba(28, 39, 52, 0.85) 0%,
+            rgba(87, 125, 142, 0.7) 50%,
+            rgba(28, 39, 52, 0.9) 100%
+          );
         }
 
         .hero-container {
@@ -378,57 +359,6 @@ export default function Hero() {
           color: white;
         }
 
-        .hero-buttons {
-          display: flex;
-          gap: 1.5rem;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 3rem;
-          animation: fadeInUp 0.8s ease-out 1s both;
-        }
-
-        .hero-btn {
-          padding: 1rem 2.5rem;
-          border-radius: 50px;
-          font-weight: 600;
-          text-decoration: none;
-          font-size: 1rem;
-          transition: all 0.3s ease;
-          border: none;
-          cursor: pointer;
-          text-align: center;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          min-width: 180px;
-          backdrop-filter: blur(10px);
-        }
-
-        .hero-btn-primary {
-          background: linear-gradient(135deg, #FFD700, #FFA500);
-          color: #1C2734;
-          box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
-        }
-
-        .hero-btn-primary:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
-        }
-
-        .hero-btn-secondary {
-          border: 2px solid white;
-          color: white;
-          background-color: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-        }
-
-        .hero-btn-secondary:hover {
-          background-color: white;
-          color: #1C2734;
-          transform: translateY(-3px);
-          box-shadow: 0 12px 35px rgba(255, 255, 255, 0.3);
-        }
-
         .hero-stats {
           display: flex;
           gap: 3rem;
@@ -491,31 +421,6 @@ export default function Hero() {
           right: 20px;
         }
 
-        .slide-indicators {
-          position: absolute;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          display: flex;
-          gap: 10px;
-          z-index: 10;
-        }
-
-        .slide-indicator {
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          border: 2px solid white;
-          background: transparent;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-
-        .slide-indicator.active {
-          background: white;
-          transform: scale(1.2);
-        }
-
         @keyframes fadeIn {
           from { 
             opacity: 0; 
@@ -538,6 +443,28 @@ export default function Hero() {
           }
         }
 
+        @keyframes slideInRight {
+          from {
+            transform: translateX(100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideInLeft {
+          from {
+            transform: translateX(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
         /* Mobile Styles */
         @media (max-width: 767px) {
           .hero-section {
@@ -545,7 +472,7 @@ export default function Hero() {
             padding: 2rem 0;
           }
 
-          .background-image {
+          .slide {
             background-attachment: scroll;
           }
 
@@ -582,18 +509,6 @@ export default function Hero() {
             font-size: 0.85rem;
           }
 
-          .hero-buttons {
-            flex-direction: column;
-            gap: 1rem;
-            padding: 0 1rem;
-          }
-
-          .hero-btn {
-            width: 100%;
-            max-width: 300px;
-            padding: 0.9rem 2rem;
-          }
-
           .hero-stats {
             gap: 2rem;
             flex-wrap: wrap;
@@ -619,10 +534,6 @@ export default function Hero() {
 
           .slider-arrow-right {
             right: 10px;
-          }
-
-          .slide-indicators {
-            bottom: 20px;
           }
         }
 
