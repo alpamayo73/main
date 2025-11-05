@@ -116,7 +116,7 @@ export default function Header() {
               <Link href="/contact" className="nav-link">Contact</Link>
               
               {/* Hourly Services Button */}
-              <Link href="/hourly-services" className="hourly-services-button">
+              <Link href="/booking" className="hourly-services-button">
                 <span className="hourly-icon">⏱️</span>
                 Hourly Services
               </Link>
@@ -247,7 +247,7 @@ export default function Header() {
               </div>
               
               <div className="mobile-nav-item">
-                <Link href="/hourly-services" className="mobile-hourly-button" onClick={() => setMobileMenuOpen(false)}>
+                <Link href="/booking" className="mobile-hourly-button" onClick={() => setMobileMenuOpen(false)}>
                   Hourly Services
                 </Link>
               </div>
