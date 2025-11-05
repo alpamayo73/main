@@ -37,7 +37,7 @@ export default function Header() {
               ALPAMAYO TECHNICAL SERVICES
             </Link>
 
-            {/* Desktop Navigation - UNCHANGED */}
+            {/* Desktop Navigation */}
             <div className="desktop-nav">
               <Link href="/" className="nav-link">Home</Link>
               <Link href="/about" className="nav-link">About</Link>
@@ -115,10 +115,10 @@ export default function Header() {
               <Link href="/faq" className="nav-link">FAQs</Link>
               <Link href="/contact" className="nav-link">Contact</Link>
               
-              {/* Book Now Button */}
-              <Link href="/booking" className="book-button">
-                <span className="book-icon">📅</span>
-                Book Now
+              {/* Hourly Services Button */}
+              <Link href="/hourly-services" className="hourly-services-button">
+                <span className="hourly-icon">⏱️</span>
+                Hourly Services
               </Link>
             </div>
 
@@ -134,7 +134,7 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* Mobile Navigation - UPDATED */}
+        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="mobile-nav">
             <div className="mobile-nav-header">
@@ -247,8 +247,8 @@ export default function Header() {
               </div>
               
               <div className="mobile-nav-item">
-                <Link href="/booking" className="mobile-book-button" onClick={() => setMobileMenuOpen(false)}>
-                  Book Service
+                <Link href="/hourly-services" className="mobile-hourly-button" onClick={() => setMobileMenuOpen(false)}>
+                  Hourly Services
                 </Link>
               </div>
             </div>
@@ -355,7 +355,7 @@ export default function Header() {
           color: #577D8E;
         }
 
-        /* Enhanced Services Dropdown - UNCHANGED */
+        /* Enhanced Services Dropdown */
         .services-dropdown {
           position: relative;
         }
@@ -468,8 +468,8 @@ export default function Header() {
           box-shadow: 0 4px 12px rgba(87, 125, 142, 0.3);
         }
 
-        /* Book Now Button */
-        .book-button {
+        /* Hourly Services Button */
+        .hourly-services-button {
           background: linear-gradient(135deg, #577D8E, #1C2734);
           color: white;
           text-decoration: none;
@@ -483,14 +483,17 @@ export default function Header() {
           transition: all 0.3s ease;
           box-shadow: 0 2px 10px rgba(87, 125, 142, 0.3);
           white-space: nowrap;
+          border: none;
+          cursor: pointer;
         }
 
-        .book-button:hover {
+        .hourly-services-button:hover {
           transform: translateY(-2px);
           box-shadow: 0 4px 15px rgba(87, 125, 142, 0.4);
+          background: linear-gradient(135deg, #1C2734, #577D8E);
         }
 
-        .book-icon {
+        .hourly-icon {
           font-size: 1rem;
         }
 
@@ -528,7 +531,7 @@ export default function Header() {
           transform: rotate(-45deg) translate(6px, -6px);
         }
 
-        /* Mobile Navigation - UPDATED */
+        /* Mobile Navigation */
         .mobile-nav {
           position: fixed;
           top: 0;
@@ -654,7 +657,8 @@ export default function Header() {
           border-top: 2px solid #e5e7eb;
         }
 
-        .mobile-book-button {
+        /* Mobile Hourly Services Button */
+        .mobile-hourly-button {
           display: block;
           background: linear-gradient(135deg, #577D8E, #1C2734);
           color: white;
@@ -670,9 +674,10 @@ export default function Header() {
           width: 100%;
         }
 
-        .mobile-book-button:hover {
+        .mobile-hourly-button:hover {
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(87, 125, 142, 0.3);
+          background: linear-gradient(135deg, #1C2734, #577D8E);
         }
 
         /* Mobile Styles */
