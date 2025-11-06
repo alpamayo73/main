@@ -99,7 +99,7 @@ export default function OurTeam() {
         <div style={styles.grid}>
           <div style={styles.imageContainer}>
             <img 
-              src="/images/ceo-profile.jpg" 
+              src="/images/ceo-profile.png" 
               alt="Naseem Saher - Founder & CEO of Alpamayo Technical Services"
               style={styles.image}
               onError={(e) => {
