@@ -34,13 +34,18 @@ export default function OurTeam() {
       alignItems: 'center'
     },
     imageContainer: {
-      borderRadius: '20px',
-      overflow: 'hidden',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    image: {
+      width: isMobile ? '300px' : '400px',
+      height: isMobile ? '300px' : '400px',
+      borderRadius: '50%',
+      objectFit: 'cover',
       boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-      height: isMobile ? '400px' : '500px',
-      backgroundImage: 'url(https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
+      border: `4px solid ${colors.white}`,
+      outline: `2px solid ${colors.secondary}`
     },
     content: {
       padding: isMobile ? '0' : '0 0 0 2rem'
@@ -92,7 +97,17 @@ export default function OurTeam() {
     <section style={styles.section}>
       <div style={styles.container}>
         <div style={styles.grid}>
-          <div style={styles.imageContainer} />
+          <div style={styles.imageContainer}>
+            <img 
+              src="/images/ceo-profile.jpg" 
+              alt="Naseem Saher - Founder & CEO of Alpamayo Technical Services"
+              style={styles.image}
+              onError={(e) => {
+                // Fallback image if the specified image doesn't exist
+                e.target.src = 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+              }}
+            />
+          </div>
           
           <div style={styles.content}>
             <h2 style={styles.title}>Meet our Founder & CEO</h2>
@@ -108,7 +123,7 @@ export default function OurTeam() {
             </blockquote>
             
             <p style={styles.message}>
-              Under Ahmed's leadership, we've grown to serve clients across Dubai's most prestigious communities while maintaining the personal attention and quality that defined our first projects.
+              Under {founder.name.split(' ')[0]}'s leadership, we've grown to serve clients across Dubai's most prestigious communities while maintaining the personal attention and quality that defined our first projects.
             </p>
           </div>
         </div>
