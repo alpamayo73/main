@@ -37,10 +37,10 @@ export default function Stats() {
     if (!isVisible) return
 
     const targetValues = {
-      projects: 250,
-      clients: 180,
-      experience: 8,
-      team: 45
+      projects: 70,
+      clients: 50,
+      experience: 2,
+      
     }
 
     const duration = 2000
