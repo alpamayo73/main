@@ -111,10 +111,6 @@ export default function GeneralFAQ() {
       answer: "Yes, all our technicians are certified, licensed by Dubai Municipality, and fully insured. We maintain the highest standards of professionalism and safety in all our operations. Our team undergoes regular training to stay updated with the latest technologies and safety protocols."
     },
     {
-      question: "Do you offer emergency services?",
-      answer: "Yes, we provide 24/7 emergency services for AC repairs and urgent renovation issues. Our emergency team can typically reach you within 2 hours for critical situations, especially during Dubai's extreme summer months when AC failures require immediate attention."
-    },
-    {
       question: "What are your working hours?",
       answer: "Our standard office hours are Monday to Saturday, 8:00 AM to 6:00 PM. However, we provide 24/7 emergency AC services. For renovation projects, we work according to agreed schedules that may include evenings or weekends to minimize disruption to your daily routine."
     },
