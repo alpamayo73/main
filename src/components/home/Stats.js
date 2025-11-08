@@ -247,7 +247,7 @@ export default function Stats() {
     { number: counters.projects, suffix: '+', label: 'Projects Completed' },
     { number: counters.clients, suffix: '+', label: 'Happy Clients' },
     { number: counters.experience, suffix: '+', label: 'Years Experience' },
-    { number: counters.team, suffix: '+', label: 'Expert Team Members' }
+    
   ]
 
   return (
