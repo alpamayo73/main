@@ -1,5 +1,4 @@
 // src/components/home/Testimonials.js
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
 
 export default function Testimonials() {
@@ -30,24 +29,21 @@ export default function Testimonials() {
       name: "Ahmed Al Maktoum",
       role: "Villa Owner, Emirates Hills",
       content: "Alpamayo transformed our villa into a modern masterpiece. Their attention to detail and premium finishes exceeded our expectations. The team was professional and delivered on time.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      rating: 5
     },
     {
       id: 2,
       name: "Sarah Johnson",
       role: "CEO, Tech Innovations",
       content: "The office renovation was completed on time and within budget. The team's professionalism and quality of work is exceptional. Our employees love the new workspace!",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      rating: 5
     },
     {
       id: 3,
       name: "Mohammed Hassan",
       role: "Apartment Owner, Downtown Dubai",
       content: "Outstanding AC installation service. The VRF system works perfectly and has significantly reduced our energy costs. 24/7 support is a game-changer in Dubai's climate.",
-      rating: 5,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+      rating: 5
     }
   ]
 
@@ -101,26 +97,18 @@ export default function Testimonials() {
     },
     testimonialContent: {
       display: 'flex',
-      flexDirection: isMobile ? 'column' : 'row',
+      flexDirection: 'column',
       alignItems: 'center',
-      gap: isMobile ? '2rem' : '3rem'
-    },
-    clientImage: {
-      flexShrink: 0,
-      width: isMobile ? '80px' : '100px',
-      height: isMobile ? '80px' : '100px',
-      borderRadius: '50%',
-      overflow: 'hidden',
-      border: `3px solid ${colors.secondary}`,
-      boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)'
+      gap: '2rem',
+      textAlign: 'center'
     },
     testimonialText: {
       flex: 1,
-      textAlign: isMobile ? 'center' : 'left'
+      width: '100%'
     },
     stars: {
       display: 'flex',
-      justifyContent: isMobile ? 'center' : 'flex-start',
+      justifyContent: 'center',
       gap: '0.25rem',
       marginBottom: '1.5rem'
     },
@@ -132,7 +120,7 @@ export default function Testimonials() {
       color: '#E2E8F0'
     },
     clientInfo: {
-      textAlign: isMobile ? 'center' : 'left'
+      textAlign: 'center'
     },
     clientName: {
       fontSize: '1.25rem',
@@ -175,17 +163,6 @@ export default function Testimonials() {
         {/* Testimonial Carousel */}
         <div style={styles.testimonialContainer}>
           <div style={styles.testimonialContent}>
-            {/* Client Image */}
-            <div style={styles.clientImage}>
-              <Image
-                src={testimonials[activeTestimonial].image}
-                alt={testimonials[activeTestimonial].name}
-                width={100}
-                height={100}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            </div>
-
             {/* Testimonial Text */}
             <div style={styles.testimonialText}>
               <div style={styles.stars}>
