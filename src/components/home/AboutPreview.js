@@ -39,7 +39,7 @@ export default function AboutPreview() {
             {/* Image */}
             <div className="about-image">
               <img 
-                src="https://images.unsplash.com/photo-1558036117-15e82a2c9c7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.craftedbeds.co.uk%2Fblogs%2Fnews%2Fluxurious-bedroom-decor-ideas&psig=AOvVaw0ogqcEDz_59an6x-hUJdeP&ust=1762707133123000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCLiVl_aB45ADFQAAAAAdAAAAABAM"
                 alt="Luxury renovation in UAE"
                 className="about-img"
               />
