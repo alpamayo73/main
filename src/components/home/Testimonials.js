@@ -158,41 +158,8 @@ export default function Testimonials() {
       border: 'none',
       cursor: 'pointer',
       transition: 'all 0.3s ease'
-    },
-    statsGrid: {
-      display: 'grid',
-      gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
-      gap: '1.5rem',
-      marginTop: '4rem'
-    },
-    statCard: {
-      textAlign: 'center',
-      padding: '1.5rem',
-      backgroundColor: 'rgba(255, 255, 255, 0.05)',
-      borderRadius: '12px',
-      backdropFilter: 'blur(10px)',
-      border: '1px solid rgba(255, 255, 255, 0.1)',
-      transition: 'all 0.3s ease'
-    },
-    statNumber: {
-      fontSize: '2rem',
-      fontWeight: 'bold',
-      color: colors.secondary,
-      marginBottom: '0.5rem'
-    },
-    statLabel: {
-      fontSize: '0.875rem',
-      color: '#CBD5E0',
-      fontWeight: '600'
     }
   }
-
-  const stats = [
-    { number: '98%', label: 'Client Satisfaction' },
-    { number: '250+', label: 'Projects Completed' },
-    { number: '24/7', label: 'Support Available' },
-    { number: '5★', label: 'Average Rating' }
-  ]
 
   return (
     <section style={styles.section}>
@@ -264,27 +231,6 @@ export default function Testimonials() {
               />
             ))}
           </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div style={styles.statsGrid}>
-          {stats.map((stat, index) => (
-            <div 
-              key={index}
-              style={styles.statCard}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)'
-                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.backgroundColor = styles.statCard.backgroundColor
-              }}
-            >
-              <div style={styles.statNumber}>{stat.number}</div>
-              <div style={styles.statLabel}>{stat.label}</div>
-            </div>
-          ))}
         </div>
       </div>
     </section>
