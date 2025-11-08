@@ -52,18 +52,6 @@ export default function LuxuryServices() {
       features: ["Ergonomic Design", "Brand Integration", "Professional Finish", "Technology Integration"],
       image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       startingPrice: "AED 80,000"
-    },
-    {
-      icon: (
-        <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        </svg>
-      ),
-      title: "AC Services",
-      description: "Advanced climate control solutions for ultimate comfort in Dubai's challenging climate. Energy-efficient systems that save you money.",
-      features: ["VRF Systems", "Energy Efficient", "24/7 Maintenance", "Smart Controls"],
-      image: "https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-      startingPrice: "AED 5,000"
     }
   ]
 
@@ -207,7 +195,7 @@ export default function LuxuryServices() {
       cursor: 'pointer',
       transition: 'all 0.3s ease',
       flex: 1,
-      maxWidth: '200px'
+      maxWidth: '250px'
     },
     desktopActiveService: {
       backgroundColor: colors.white,
@@ -384,7 +372,7 @@ export default function LuxuryServices() {
         <div style={styles.header}>
           <h2 style={styles.title}>Luxury Services</h2>
           <p style={styles.subtitle}>
-            Premium renovation and AC solutions tailored for Dubai's most discerning clients
+            Premium renovation solutions tailored for Dubai's most discerning clients
           </p>
         </div>
 
