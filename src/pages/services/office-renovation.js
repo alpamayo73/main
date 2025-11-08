@@ -4,7 +4,7 @@ import OfficeHero from '../../components/services/office/OfficeHero'
 import OfficeOverview from '../../components/services/office/OfficeOverview'
 import OfficeProcess from '../../components/services/office/OfficeProcess'
 import OfficeFeatures from '../../components/services/office/OfficeFeatures'
-import OfficePortfolio from '../../components/services/office/OfficePortfolio'
+
 import OfficeCTA from '../../components/services/office/OfficeCTA'
 
 export default function OfficeRenovation() {
@@ -20,7 +20,7 @@ export default function OfficeRenovation() {
       <OfficeOverview />
       <OfficeProcess />
       <OfficeFeatures />
-      <OfficePortfolio />
+
       <OfficeCTA />
     </>
   )
