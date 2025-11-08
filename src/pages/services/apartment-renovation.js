@@ -4,7 +4,7 @@ import ApartmentHero from '../../components/services/apartment/ApartmentHero'
 import ApartmentOverview from '../../components/services/apartment/ApartmentOverview'
 import ApartmentProcess from '../../components/services/apartment/ApartmentProcess'
 import ApartmentFeatures from '../../components/services/apartment/ApartmentFeatures'
-import ApartmentPortfolio from '../../components/services/apartment/ApartmentPortfolio'
+
 import ApartmentCTA from '../../components/services/apartment/ApartmentCTA'
 
 export default function ApartmentRenovation() {
@@ -20,7 +20,7 @@ export default function ApartmentRenovation() {
       <ApartmentOverview />
       <ApartmentProcess />
       <ApartmentFeatures />
-      <ApartmentPortfolio />
+      
       <ApartmentCTA />
     </>
   )
