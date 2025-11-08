@@ -35,7 +35,7 @@ export default function Hero() {
         { icon: '❄️', text: 'Air Conditioning' },
         { icon: '🔨', text: 'Handyman' },
         { icon: '🔧', text: 'Maintenance' },
-        { icon: '💡', text: 'Lighting' }
+        { icon: '🧱', text: 'Tiles Work' }
       ],
       badge: 'Professional Technical Services',
       backgroundImage: '/images/technical-services.jpg'
@@ -238,6 +238,7 @@ export default function Hero() {
           margin: 0 auto;
           text-align: center;
           color: white;
+          padding-top: 60px; /* Added padding to prevent header overlap */
         }
 
         .hero-badge {
@@ -435,6 +436,14 @@ export default function Hero() {
 
           .hero-container {
             height: 80vh;
+            padding: 0 15px;
+            align-items: flex-start; /* Changed from center to flex-start */
+            padding-top: 80px; /* Added padding to prevent header overlap */
+          }
+
+          .hero-content {
+            padding-top: 0;
+            margin-top: 0;
           }
 
           .background-image {
@@ -443,26 +452,30 @@ export default function Hero() {
 
           .hero-title {
             font-size: 2.5rem;
+            margin-bottom: 0.8rem;
           }
 
           .animated-services {
             font-size: 1.4rem;
             min-height: 40px;
+            margin-bottom: 1.5rem;
           }
 
           .hero-description {
             font-size: 1.1rem;
-            padding: 0 1rem;
+            padding: 0 0.5rem;
+            margin-bottom: 2rem;
           }
 
           .features-grid {
             grid-template-columns: 1fr 1fr;
             gap: 0.8rem;
-            padding: 0 1rem;
+            padding: 0 0.5rem;
+            margin-bottom: 2rem;
           }
 
           .feature-item {
-            padding: 0.8rem;
+            padding: 0.8rem 0.5rem;
           }
 
           .feature-icon {
@@ -471,20 +484,21 @@ export default function Hero() {
           }
 
           .feature-text {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
           }
 
           .hero-stats {
-            gap: 2rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
+            margin-top: 1rem;
           }
 
           .stat-number {
-            font-size: 2rem;
+            font-size: 1.8rem;
           }
 
           .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
           }
 
           .slider-arrow {
