@@ -4,7 +4,7 @@ import VillaHero from '../../components/services/villa/VillaHero'
 import VillaOverview from '../../components/services/villa/VillaOverview'
 import VillaProcess from '../../components/services/villa/VillaProcess'
 import VillaFeatures from '../../components/services/villa/VillaFeatures'
-import VillaPortfolio from '../../components/services/villa/VillaPortfolio'
+
 
 import VillaCTA from '../../components/services/villa/VillaCTA'
 
@@ -21,7 +21,7 @@ export default function VillaRenovation() {
       <VillaOverview />
       <VillaProcess />
       <VillaFeatures />
-      <VillaPortfolio />
+
 
       <VillaCTA />
     </>
