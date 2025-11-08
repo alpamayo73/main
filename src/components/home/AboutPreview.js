@@ -19,21 +19,6 @@ export default function AboutPreview() {
                 experience and a commitment to excellence, we transform spaces into exceptional 
                 living and working environments.
               </p>
-
-              <div className="about-stats">
-                <div className="stat-card primary">
-                  <div className="stat-number">5+</div>
-                  <div className="stat-label">Years Experience</div>
-                </div>
-                <div className="stat-card secondary">
-                  <div className="stat-number">200+</div>
-                  <div className="stat-label">Projects Completed</div>
-                </div>
-              </div>
-
-<Link href="/about" className="about-btn about-btn-primary">
-  Learn More About Us
-</Link>
             </div>
 
             {/* Image */}
@@ -78,63 +63,7 @@ export default function AboutPreview() {
         .about-description {
           font-size: 1.125rem;
           color: #6b7280;
-          margin-bottom: 2rem;
           line-height: 1.6;
-        }
-
-        .about-stats {
-          display: flex;
-          gap: 1rem;
-          margin-bottom: 2rem;
-        }
-
-        .stat-card {
-          color: white;
-          padding: 1rem 1.5rem;
-          border-radius: 8px;
-          text-align: center;
-        }
-
-        .stat-card.primary {
-          background-color: #577D8E;
-        }
-
-        .stat-card.secondary {
-          background-color: #1C2734;
-        }
-
-        .stat-number {
-          font-size: 1.5rem;
-          font-weight: bold;
-          margin-bottom: 0.25rem;
-        }
-
-        .stat-label {
-          font-size: 0.9rem;
-        }
-
-        .btn {
-          padding: 0.8rem 1.5rem;
-          border-radius: 6px;
-          font-weight: bold;
-          text-decoration: none;
-          transition: all 0.3s ease;
-          border: none;
-          cursor: pointer;
-          text-align: center;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .btn-primary {
-          background-color: #577D8E;
-          color: white;
-        }
-
-        .btn-primary:hover {
-          background-color: #1C2734;
-          transform: scale(1.05);
         }
 
         .about-image {
@@ -169,54 +98,6 @@ export default function AboutPreview() {
             text-align: center;
             font-size: 1rem;
           }
-          
-          .about-stats {
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-          }
-          
-          .stat-card {
-            width: 100%;
-            max-width: 200px;
-          }
-          
-          .btn {
-            display: block;
-            text-align: center;
-            margin: 0 auto;
-            width: 100%;
-            max-width: 250px;
-          }
-
-
-
-
-          .about-btn {
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about-btn-primary {
-  background-color: #577D8E;
-  color: white;
-}
-
-.about-btn-primary:hover {
-  background-color: #1C2734;
-  transform: scale(1.05);
-}
-
-
           
           .about-img {
             height: 300px;
