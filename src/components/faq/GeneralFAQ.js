@@ -121,10 +121,6 @@ export default function GeneralFAQ() {
     {
       question: "How long has Alpamayo been in business?",
       answer: "Alpamayo Technical Services was established in 2016 and has been serving Dubai's residential and commercial clients for over 8 years. We have completed 250+ projects and built a reputation for quality and reliability in the Dubai market."
-    },
-    {
-      question: "Do you provide references or portfolio of past work?",
-      answer: "Yes, we have an extensive portfolio of completed projects including luxury villas, apartments, and commercial spaces. We can provide references and arrange site visits to completed projects (with client permission). Our project gallery is also available on our website and during consultations."
     }
   ]
 
