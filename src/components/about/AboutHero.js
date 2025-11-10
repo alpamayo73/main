@@ -84,7 +84,7 @@ export default function AboutHero() {
         <div style={styles.content}>
           <h1 style={styles.title}>Building Dubai's Future, One Space at a Time</h1>
           <p style={styles.subtitle}>
-            For over 8 years, Alpamayo Technical Services has been transforming spaces across Dubai with premium renovation and AC solutions that combine luxury, innovation, and reliability.
+            For over 2 years, Alpamayo Technical Services has been transforming spaces across UAE with premium Renovation and Technical solutions that combine luxury, innovation, and reliability.
           </p>
           
           <div style={styles.stats}>
