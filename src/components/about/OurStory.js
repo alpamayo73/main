@@ -78,11 +78,11 @@ export default function OurStory() {
           <div style={styles.content}>
             <h2 style={styles.title}>Our Story</h2>
             <p style={styles.text}>
-              Founded in 2016, Alpamayo Technical Services began as a small team of passionate craftsmen with a vision to redefine luxury living in Dubai. What started as a boutique renovation service has grown into a comprehensive technical solutions provider.
+              Alpamayo Technical Services began as a small team of passionate craftsmen with a vision to redefine luxury living in UAE. What started as a boutique renovation service has grown into a comprehensive technical solutions provider.
             </p>
             
             <p style={styles.text}>
-              Our journey began in the heart of Al Qouz, where we delivered our first villa renovation project. The exceptional quality and attention to detail quickly earned us recognition among Dubai's discerning residents.
+              Our journey began in the heart of Al Qouz, where we delivered our first villa renovation project. The exceptional quality and attention to detail quickly earned us recognition among UAE's discerning residents.
             </p>
             
             <blockquote style={styles.highlight}>
@@ -90,7 +90,7 @@ export default function OurStory() {
             </blockquote>
             
             <p style={styles.text}>
-              Today, we serve clients across Dubai's most prestigious communities, from Palm Jumeirah to Emirates Hills, bringing innovative solutions and unparalleled craftsmanship to every project.
+              Today, we serve clients across UAE's most prestigious communities, from Palm Jumeirah to Emirates Hills, bringing innovative solutions and unparalleled craftsmanship to every project.
             </p>
           </div>
         </div>
