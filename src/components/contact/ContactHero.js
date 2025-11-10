@@ -87,7 +87,7 @@ export default function ContactHero() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
-      title: "24/7 Support",
+      title: "Support",
       text: "Round-the-clock emergency services for all your AC and renovation needs"
     },
     {
@@ -116,7 +116,7 @@ export default function ContactHero() {
         <div style={styles.content}>
           <h1 style={styles.title}>Get In Touch With Our Experts</h1>
           <p style={styles.subtitle}>
-            Ready to transform your space? Contact Dubai's premier renovation and AC services company for a free consultation and quote.
+            Ready to transform your space? Contact UAE's premier renovation and AC services company for a free consultation and quote.
           </p>
           
           <div style={styles.features}>
