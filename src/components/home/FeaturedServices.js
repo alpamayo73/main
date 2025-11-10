@@ -40,14 +40,14 @@ export default function FeaturedServices() {
     {
       title: 'Painting Services',
       description: 'Professional interior and exterior painting with premium materials and flawless finish.',
-      image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://unsplash.com/photos/blue-paint-brush-Cl-OpYWFFm0',
       link: '/services/painting',
       icon: '🎨'
     },
     {
       title: 'Carpentry Services',
       description: 'Custom carpentry solutions including furniture, cabinets, and woodwork with expert craftsmanship.',
-      image: 'https://images.unsplash.com/photo-1578775887800-6997be45adf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/carpentry',
       icon: '🪚'
     },
@@ -61,7 +61,7 @@ export default function FeaturedServices() {
     {
       title: 'Handyman Services',
       description: 'Comprehensive handyman services for all your home maintenance, repair, and installation needs.',
-      image: 'https://images.unsplash.com/photo-1581093458791-8a0a1aa1c8e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://unsplash.com/photos/man-standing-infront-of-miter-saw-WEWTGkPUVT0',
       link: '/services/handyman',
       icon: '🔨'
     }
