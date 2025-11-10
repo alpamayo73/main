@@ -258,7 +258,7 @@ export default function Stats() {
       <div style={styles.container}>
         {/* Header */}
         <div style={styles.header}>
-          <h2 style={styles.title}>Why Choose Alpamayo?</h2>
+          <h2 style={styles.title}>Our Stats</h2>
           <p style={styles.subtitle}>
             Trusted by Dubai's elite for premium renovation and AC services with unmatched quality and reliability
           </p>
