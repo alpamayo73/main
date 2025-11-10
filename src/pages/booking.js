@@ -200,7 +200,7 @@ export default function Booking() {
     },
     serviceGrid: {
       display: 'grid',
-      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(200px, 1fr))',
+      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
       gap: isMobile ? '1rem' : '1.5rem',
       marginBottom: '1rem'
     },
@@ -218,7 +218,7 @@ export default function Booking() {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      minHeight: isMobile ? '140px' : '160px'
+      minHeight: isMobile ? '200px' : '240px'
     },
     serviceCardSelected: {
       backgroundColor: 'white',
@@ -226,9 +226,9 @@ export default function Booking() {
       boxShadow: '0 20px 40px rgba(87, 125, 142, 0.15)'
     },
     serviceImage: {
-      width: isMobile ? '80px' : '100px',
-      height: isMobile ? '80px' : '100px',
-      borderRadius: '50%',
+      width: isMobile ? '120px' : '150px',
+      height: isMobile ? '90px' : '120px',
+      borderRadius: isMobile ? '12px' : '15px',
       objectFit: 'cover',
       marginBottom: isMobile ? '0.75rem' : '1rem',
       border: '3px solid #f1f5f9',
@@ -454,7 +454,7 @@ export default function Booking() {
           {/* Main Form */}
           <div style={styles.formSection}>
             <form onSubmit={handleSubmit}>
-              {/* Service Selection - UPDATED WITH IMAGES AND NO BORDERS */}
+              {/* Service Selection - UPDATED WITH RECTANGULAR IMAGES AND "HOUR" */}
               <div style={styles.section}>
                 <h2 style={styles.sectionTitle}>Choose Your Service</h2>
                 <div style={styles.serviceGrid}>
@@ -508,7 +508,7 @@ export default function Booking() {
                         }}
                       />
                       <div style={styles.serviceName}>{service.name}</div>
-                      <div style={styles.servicePrice}>{service.price} AED/hr</div>
+                      <div style={styles.servicePrice}>{service.price} AED/HOUR</div>
                     </div>
                   ))}
                 </div>
@@ -725,10 +725,10 @@ export default function Booking() {
                       }}
                     >
                       {[1, 2, 3, 4, 5, 6, 7, 8].map(hours => (
-                        <option key={hours} value={hours}>{hours} hour{hours > 1 ? 's' : ''}</option>
+                        <option key={hours} value={hours}>{hours} HOUR{hours > 1 ? 'S' : ''}</option>
                       ))}
                     </select>
-                    <div style={styles.durationNote}>Minimum booking: 1 hour</div>
+                    <div style={styles.durationNote}>Minimum booking: 1 HOUR</div>
                   </div>
                 </div>
               </div>
@@ -796,12 +796,12 @@ export default function Booking() {
             
             <div style={styles.summaryItem}>
               <span style={styles.summaryLabel}>Rate</span>
-              <span style={styles.summaryValue}>{serviceTypes[formData.serviceType].price} AED/hour</span>
+              <span style={styles.summaryValue}>{serviceTypes[formData.serviceType].price} AED/HOUR</span>
             </div>
             
             <div style={styles.summaryItem}>
               <span style={styles.summaryLabel}>Duration</span>
-              <span style={styles.summaryValue}>{formData.duration} hour{formData.duration > 1 ? 's' : ''}</span>
+              <span style={styles.summaryValue}>{formData.duration} HOUR{formData.duration > 1 ? 'S' : ''}</span>
             </div>
 
             {formData.date && (
