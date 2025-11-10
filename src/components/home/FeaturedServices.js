@@ -40,7 +40,7 @@ export default function FeaturedServices() {
     {
       title: 'Painting Services',
       description: 'Professional interior and exterior painting with premium materials and flawless finish.',
-      image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1572981779307-38f8b0456222?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/painting',
       icon: '🎨'
     },
@@ -61,7 +61,7 @@ export default function FeaturedServices() {
     {
       title: 'Handyman Services',
       description: 'Comprehensive handyman services for all your home maintenance, repair, and installation needs.',
-      image: 'https://images.unsplash.com/photo-1572981779307-38f8b0456222?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       link: '/services/handyman',
       icon: '🔨'
     }
