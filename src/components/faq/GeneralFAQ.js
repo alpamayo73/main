@@ -115,8 +115,16 @@ export default function GeneralFAQ() {
       answer: "Our standard office hours are Monday to Saturday, 8:00 AM to 6:00 PM. However, we provide 24/7 emergency AC services. For renovation projects, we work according to agreed schedules that may include evenings or weekends to minimize disruption to your daily routine."
     },
     {
-      question: "How long has Alpamayo been in business?",
-      answer: "Alpamayo Technical Services was established in 2016 and has been serving Dubai's residential and commercial clients for over 8 years. We have completed 250+ projects and built a reputation for quality and reliability in the Dubai market."
+      question: "How to reach to Alpamayo for inquries and quotations??",
+      answer: "You can call us, send a message on given number or email us as well. We reply at same time or maximum in one day."
+    },
+    {
+      question: "How is renovation project initiated??",
+      answer: "Please share you project details. Our team will visit to understand and will provide you best quotation."
+    },
+    {
+      question: "Alpamayo is based in which emirate in UAE??",
+      answer: "Alpamayo is based in Dubai but we provide services all over UAE."
     }
   ]
 
