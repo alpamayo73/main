@@ -29,7 +29,7 @@ const HandymanHeroSection = () => {
       padding: '0 1rem'
     },
     title: {
-      fontSize: '3.5rem',
+      fontSize: '2.5rem',
       fontWeight: 700,
       marginBottom: '1.5rem',
       letterSpacing: '0.05em',
