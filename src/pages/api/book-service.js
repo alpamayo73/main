@@ -35,7 +35,6 @@ export default async function handler(req, res) {
     console.log('Date/Time:', date + ' at ' + time);
     console.log('Duration:', duration + ' hours');
     console.log('Total:', totalAmount + ' AED');
-    console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
 
     let emailSuccess = false;
     let emailDetails = {};
@@ -95,14 +94,12 @@ export default async function handler(req, res) {
 // Resend email configuration
 async function sendResendEmails(bookingData) {
   try {
-    // Use your verified domain email address
     const fromEmail = 'Alpamayo Technical Services <info@thealpamayo.com>';
-    
     console.log('📧 Sending emails using:', fromEmail);
 
     const results = {};
 
-    // Send email to user with better anti-spam configuration
+    // Send email to user (this is working)
     console.log('Sending confirmation email to user:', bookingData.email);
     const userEmailResult = await resend.emails.send({
       from: fromEmail,
@@ -111,10 +108,6 @@ async function sendResendEmails(bookingData) {
       subject: `Booking Confirmed - ${bookingData.bookingId}`,
       html: createUserEmailTemplate(bookingData),
       text: createUserTextTemplate(bookingData),
-      headers: {
-        'X-Entity-Ref-ID': bookingData.bookingId,
-        'List-Unsubscribe': '<mailto:info@thealpamayo.com?subject=Unsubscribe>',
-      }
     });
 
     if (userEmailResult.error) {
@@ -125,52 +118,85 @@ async function sendResendEmails(bookingData) {
       results.userId = userEmailResult.data?.id;
     }
 
-    // Send email to admin
-    const adminEmail = 'info@thealpamayo.com';
-    console.log('Sending notification email to admin:', adminEmail);
-    
-    const adminEmailResult = await resend.emails.send({
-      from: fromEmail,
-      to: [adminEmail],
-      subject: `New Service Booking - ${bookingData.serviceName} - ${bookingData.name}`,
-      html: createAdminEmailTemplate(bookingData),
-      text: createAdminTextTemplate(bookingData),
-      headers: {
-        'X-Entity-Ref-ID': `ADMIN-${bookingData.bookingId}`,
-        'Importance': 'High',
-        'Priority': 'Urgent'
-      }
-    });
+    // SOLVED: Use different email for admin notifications
+    // Don't send from and to the same email address
+    const adminEmailsToTry = [
+      'alpamayo73@gmail.com', // Your personal email for testing
+      process.env.ADMIN_EMAIL, // Any other admin email you set
+      'bookings@thealpamayo.com' // Alternative company email
+    ].filter(email => email && email !== 'info@thealpamayo.com'); // Don't send to same as from
 
-    if (adminEmailResult.error) {
-      console.error('❌ Admin email failed:', adminEmailResult.error);
-      results.adminError = adminEmailResult.error.message;
+    console.log('🔄 Trying admin emails:', adminEmailsToTry);
+
+    let adminSuccess = false;
+    
+    for (const adminEmail of adminEmailsToTry) {
+      if (adminSuccess) break;
       
-      // Try alternative admin email if primary fails
-      if (process.env.ADMIN_EMAIL && process.env.ADMIN_EMAIL !== adminEmail) {
-        console.log('🔄 Trying alternative admin email:', process.env.ADMIN_EMAIL);
-        const altAdminResult = await resend.emails.send({
+      console.log(`📧 Attempting to send admin email to: ${adminEmail}`);
+      
+      try {
+        const adminEmailResult = await resend.emails.send({
           from: fromEmail,
-          to: [process.env.ADMIN_EMAIL],
-          subject: `New Service Booking - ${bookingData.serviceName} - ${bookingData.name}`,
-          html: createAdminEmailTemplate(bookingData)
+          to: [adminEmail],
+          subject: `[URGENT] New Booking: ${bookingData.serviceName} - ${bookingData.name}`,
+          html: createAdminEmailTemplate(bookingData),
+          text: createAdminTextTemplate(bookingData),
         });
-        
+
+        if (adminEmailResult.error) {
+          console.error(`❌ Admin email to ${adminEmail} failed:`, adminEmailResult.error);
+          results[`adminError_${adminEmail}`] = adminEmailResult.error.message;
+        } else {
+          console.log(`✅ Admin email sent to ${adminEmail}:`, adminEmailResult.data?.id);
+          results.adminId = adminEmailResult.data?.id;
+          results.successfulAdminEmail = adminEmail;
+          adminSuccess = true;
+          break;
+        }
+      } catch (error) {
+        console.error(`❌ Admin email to ${adminEmail} error:`, error.message);
+        results[`adminError_${adminEmail}`] = error.message;
+      }
+    }
+
+    // If no admin emails worked, send to a different from address
+    if (!adminSuccess) {
+      console.log('🔄 Trying alternative approach for admin notification...');
+      
+      // Try sending from a different "from" address
+      try {
+        const altAdminResult = await resend.emails.send({
+          from: 'Alpamayo Bookings <bookings@thealpamayo.com>',
+          to: ['alpamayo73@gmail.com'], // Your personal email
+          subject: `[SYSTEM] New Booking Notification - ${bookingData.bookingId}`,
+          html: createSimpleAdminTemplate(bookingData),
+        });
+
         if (altAdminResult.error) {
           console.error('❌ Alternative admin email also failed:', altAdminResult.error);
         } else {
           console.log('✅ Alternative admin email sent:', altAdminResult.data?.id);
-          results.adminId = altAdminResult.data?.id;
+          adminSuccess = true;
         }
+      } catch (error) {
+        console.error('❌ Alternative admin email error:', error);
       }
-    } else {
-      console.log('✅ Admin email sent via Resend:', adminEmailResult.data?.id);
-      results.adminId = adminEmailResult.data?.id;
     }
 
-    // If both emails failed, throw error
-    if (results.userError && results.adminError) {
-      throw new Error(`User: ${results.userError}, Admin: ${results.adminError}`);
+    // Log critical booking info for manual follow-up
+    console.log('📋 BOOKING DETAILS FOR MANUAL FOLLOW-UP:');
+    console.log('👤 Customer:', bookingData.name);
+    console.log('📞 Phone:', bookingData.phone);
+    console.log('📧 Email:', bookingData.email);
+    console.log('🛠️ Service:', bookingData.serviceName);
+    console.log('📅 Date:', bookingData.date, 'at', bookingData.time);
+    console.log('💰 Amount:', bookingData.totalAmount, 'AED');
+    console.log('📍 Address:', bookingData.address, ',', bookingData.area);
+
+    // If user email failed, throw error
+    if (results.userError) {
+      throw new Error(`User email failed: ${results.userError}`);
     }
 
     return results;
@@ -179,6 +205,23 @@ async function sendResendEmails(bookingData) {
     console.error('❌ Resend email error:', error);
     throw error;
   }
+}
+
+// Simple admin template for alternative approach
+function createSimpleAdminTemplate(bookingData) {
+  return `
+    <div>
+      <h2>New Booking Received</h2>
+      <p><strong>Customer:</strong> ${bookingData.name}</p>
+      <p><strong>Phone:</strong> ${bookingData.phone}</p>
+      <p><strong>Service:</strong> ${bookingData.serviceName}</p>
+      <p><strong>Date/Time:</strong> ${bookingData.date} at ${bookingData.time}</p>
+      <p><strong>Total:</strong> ${bookingData.totalAmount} AED</p>
+      <p><strong>Address:</strong> ${bookingData.address}, ${bookingData.area}</p>
+      <p><strong>Description:</strong> ${bookingData.description}</p>
+      <p><em>Contact customer within 30 minutes!</em></p>
+    </div>
+  `;
 }
 
 // Text templates
@@ -251,7 +294,6 @@ function createUserEmailTemplate(bookingData) {
         .content { padding: 30px; }
         .details { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #577D8E; }
         .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; border-top: 1px solid #eee; }
-        .unsubscribe { font-size: 12px; color: #999; text-align: center; margin-top: 20px; }
       </style>
     </head>
     <body>
@@ -282,18 +324,12 @@ function createUserEmailTemplate(bookingData) {
           
           <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <h4 style="margin-top: 0;">📞 What's Next?</h4>
-            <p>Our team will contact you at <strong>${bookingData.phone}</strong> within 30 minutes to confirm your appointment details and exact timing.</p>
-            <p>Please ensure your phone is accessible and you have any necessary building access codes ready.</p>
+            <p>Our team will contact you at <strong>${bookingData.phone}</strong> within 30 minutes to confirm your appointment.</p>
           </div>
         </div>
         <div class="footer">
           <p><strong>Alpamayo Technical Services</strong><br>
-          Professional Home Services Across Dubai<br>
           📞 +971 50 123 4567 | ✉️ info@thealpamayo.com</p>
-          <p>Dubai, United Arab Emirates</p>
-        </div>
-        <div class="unsubscribe">
-          <p>This is a transactional email for your booking confirmation. If you wish to unsubscribe from marketing emails, <a href="mailto:info@thealpamayo.com?subject=Unsubscribe">click here</a>.</p>
         </div>
       </div>
     </body>
@@ -328,8 +364,8 @@ function createAdminEmailTemplate(bookingData) {
           <div class="urgent">
             <h3 style="margin-top: 0; color: #92400e;">📞 CONTACT CUSTOMER IMMEDIATELY</h3>
             <p><strong>Customer:</strong> ${bookingData.name}</p>
-            <p><strong>Phone:</strong> <a href="tel:${bookingData.phone}">${bookingData.phone}</a></p>
-            <p><strong>Email:</strong> <a href="mailto:${bookingData.email}">${bookingData.email}</a></p>
+            <p><strong>Phone:</strong> ${bookingData.phone}</p>
+            <p><strong>Email:</strong> ${bookingData.email}</p>
           </div>
           
           <div class="customer-info">
@@ -353,7 +389,6 @@ function createAdminEmailTemplate(bookingData) {
               <li>Contact customer at <strong>${bookingData.phone}</strong> within 30 minutes</li>
               <li>Confirm appointment timing and details</li>
               <li>Assign appropriate technician</li>
-              <li>Update booking status in system</li>
             </ol>
           </div>
           
