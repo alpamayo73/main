@@ -38,10 +38,11 @@ export default async function handler(req, res) {
     console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
 
     let emailSuccess = false;
+    let emailDetails = {};
 
-    // Try to send emails with Resend using your verified domain
+    // Try to send emails with Resend
     try {
-      await sendResendEmails({
+      emailDetails = await sendResendEmails({
         bookingId,
         serviceName,
         name,
@@ -58,8 +59,7 @@ export default async function handler(req, res) {
       emailSuccess = true;
       console.log('✅ All emails sent successfully via Resend');
     } catch (emailError) {
-      console.log('❌ Resend email sending failed:', emailError.message);
-      // Continue with booking even if email fails
+      console.log('❌ Email sending failed:', emailError.message);
     }
 
     // Success response
@@ -69,6 +69,8 @@ export default async function handler(req, res) {
         ? 'Booking confirmed successfully! Confirmation email has been sent to your email.'
         : 'Booking confirmed successfully! Our team will contact you within 30 minutes.',
       bookingId: bookingId,
+      emailSent: emailSuccess,
+      emailDetails: emailDetails,
       summary: {
         service: serviceName,
         date: date,
@@ -94,56 +96,92 @@ export default async function handler(req, res) {
 async function sendResendEmails(bookingData) {
   try {
     // Use your verified domain email address
-    const fromEmail = 'info@thealpamayo.com'; // Changed to info@thealpamayo.com
+    const fromEmail = 'Alpamayo Technical Services <info@thealpamayo.com>';
     
-    console.log('📧 Sending emails using domain:', fromEmail);
+    console.log('📧 Sending emails using:', fromEmail);
 
-    // Send email to user
+    const results = {};
+
+    // Send email to user with better anti-spam configuration
     console.log('Sending confirmation email to user:', bookingData.email);
     const userEmailResult = await resend.emails.send({
-      from: `Alpamayo Technical Services <${fromEmail}>`,
+      from: fromEmail,
       to: [bookingData.email],
+      replyTo: 'info@thealpamayo.com',
       subject: `Booking Confirmed - ${bookingData.bookingId}`,
       html: createUserEmailTemplate(bookingData),
-      text: createUserTextTemplate(bookingData)
+      text: createUserTextTemplate(bookingData),
+      headers: {
+        'X-Entity-Ref-ID': bookingData.bookingId,
+        'List-Unsubscribe': '<mailto:info@thealpamayo.com?subject=Unsubscribe>',
+      }
     });
 
     if (userEmailResult.error) {
-      throw new Error(`User email failed: ${userEmailResult.error.message}`);
+      console.error('❌ User email failed:', userEmailResult.error);
+      results.userError = userEmailResult.error.message;
+    } else {
+      console.log('✅ User email sent via Resend:', userEmailResult.data?.id);
+      results.userId = userEmailResult.data?.id;
     }
 
-    console.log('✅ User email sent via Resend:', userEmailResult.data?.id);
-
     // Send email to admin
-    const adminEmail = process.env.ADMIN_EMAIL || 'info@thealpamayo.com';
+    const adminEmail = 'info@thealpamayo.com';
     console.log('Sending notification email to admin:', adminEmail);
     
     const adminEmailResult = await resend.emails.send({
-      from: `Alpamayo Technical Services <${fromEmail}>`,
+      from: fromEmail,
       to: [adminEmail],
-      subject: `🚨 NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
+      subject: `New Service Booking - ${bookingData.serviceName} - ${bookingData.name}`,
       html: createAdminEmailTemplate(bookingData),
-      text: createAdminTextTemplate(bookingData)
+      text: createAdminTextTemplate(bookingData),
+      headers: {
+        'X-Entity-Ref-ID': `ADMIN-${bookingData.bookingId}`,
+        'Importance': 'High',
+        'Priority': 'Urgent'
+      }
     });
 
     if (adminEmailResult.error) {
-      throw new Error(`Admin email failed: ${adminEmailResult.error.message}`);
+      console.error('❌ Admin email failed:', adminEmailResult.error);
+      results.adminError = adminEmailResult.error.message;
+      
+      // Try alternative admin email if primary fails
+      if (process.env.ADMIN_EMAIL && process.env.ADMIN_EMAIL !== adminEmail) {
+        console.log('🔄 Trying alternative admin email:', process.env.ADMIN_EMAIL);
+        const altAdminResult = await resend.emails.send({
+          from: fromEmail,
+          to: [process.env.ADMIN_EMAIL],
+          subject: `New Service Booking - ${bookingData.serviceName} - ${bookingData.name}`,
+          html: createAdminEmailTemplate(bookingData)
+        });
+        
+        if (altAdminResult.error) {
+          console.error('❌ Alternative admin email also failed:', altAdminResult.error);
+        } else {
+          console.log('✅ Alternative admin email sent:', altAdminResult.data?.id);
+          results.adminId = altAdminResult.data?.id;
+        }
+      }
+    } else {
+      console.log('✅ Admin email sent via Resend:', adminEmailResult.data?.id);
+      results.adminId = adminEmailResult.data?.id;
     }
 
-    console.log('✅ Admin email sent via Resend:', adminEmailResult.data?.id);
+    // If both emails failed, throw error
+    if (results.userError && results.adminError) {
+      throw new Error(`User: ${results.userError}, Admin: ${results.adminError}`);
+    }
 
-    return true;
+    return results;
 
   } catch (error) {
-    console.error('❌ Resend email error details:', {
-      message: error.message,
-      error: error
-    });
+    console.error('❌ Resend email error:', error);
     throw error;
   }
 }
 
-// Text templates (keep the same as before)
+// Text templates
 function createUserTextTemplate(bookingData) {
   return `
 BOOKING CONFIRMED - ${bookingData.bookingId}
@@ -197,20 +235,23 @@ ${bookingData.description}
   `;
 }
 
-// HTML templates (keep the same as before)
+// HTML templates
 function createUserEmailTemplate(bookingData) {
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Booking Confirmation - Alpamayo Technical Services</title>
       <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 10px; overflow: hidden; }
         .header { background: #1C2734; color: white; padding: 30px; text-align: center; }
         .content { padding: 30px; }
-        .details { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .details { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #577D8E; }
         .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; border-top: 1px solid #eee; }
+        .unsubscribe { font-size: 12px; color: #999; text-align: center; margin-top: 20px; }
       </style>
     </head>
     <body>
@@ -221,28 +262,38 @@ function createUserEmailTemplate(bookingData) {
         </div>
         <div class="content">
           <p>Dear <strong>${bookingData.name}</strong>,</p>
-          <p>Your booking has been successfully confirmed! Our team will contact you within 30 minutes.</p>
+          <p>Thank you for booking with Alpamayo Technical Services! Your booking has been successfully confirmed.</p>
           
           <div class="details">
-            <h3>📋 Booking Summary</h3>
+            <h3 style="margin-top: 0; color: #1C2734;">📋 Booking Summary</h3>
             <p><strong>Booking ID:</strong> ${bookingData.bookingId}</p>
             <p><strong>Service:</strong> ${bookingData.serviceName}</p>
             <p><strong>Date & Time:</strong> ${bookingData.date} at ${bookingData.time}</p>
             <p><strong>Duration:</strong> ${bookingData.duration} hour${bookingData.duration > 1 ? 's' : ''}</p>
             <p><strong>Total Amount:</strong> ${bookingData.totalAmount} AED</p>
             <p><strong>Address:</strong> ${bookingData.address}, ${bookingData.area}, Dubai</p>
+            <p><strong>Contact Phone:</strong> ${bookingData.phone}</p>
           </div>
 
-          <p><strong>Service Description:</strong><br>${bookingData.description}</p>
+          <div style="background: #fff3cd; padding: 15px; border-radius: 6px; margin: 20px 0;">
+            <strong>Service Description:</strong><br>
+            ${bookingData.description}
+          </div>
           
           <div style="background: #e8f4fd; padding: 15px; border-radius: 8px; margin: 20px 0;">
-            <h4>📞 What's Next?</h4>
-            <p>Our team will call you at <strong>${bookingData.phone}</strong> within 30 minutes to confirm.</p>
+            <h4 style="margin-top: 0;">📞 What's Next?</h4>
+            <p>Our team will contact you at <strong>${bookingData.phone}</strong> within 30 minutes to confirm your appointment details and exact timing.</p>
+            <p>Please ensure your phone is accessible and you have any necessary building access codes ready.</p>
           </div>
         </div>
         <div class="footer">
           <p><strong>Alpamayo Technical Services</strong><br>
-          Phone: +971 50 123 4567 | Email: info@thealpamayo.com</p>
+          Professional Home Services Across Dubai<br>
+          📞 +971 50 123 4567 | ✉️ info@thealpamayo.com</p>
+          <p>Dubai, United Arab Emirates</p>
+        </div>
+        <div class="unsubscribe">
+          <p>This is a transactional email for your booking confirmation. If you wish to unsubscribe from marketing emails, <a href="mailto:info@thealpamayo.com?subject=Unsubscribe">click here</a>.</p>
         </div>
       </div>
     </body>
@@ -256,12 +307,15 @@ function createAdminEmailTemplate(bookingData) {
     <html>
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>New Booking Alert - Alpamayo Technical Services</title>
       <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background: #fef2f2; }
         .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 10px; overflow: hidden; }
         .header { background: #dc2626; color: white; padding: 20px; text-align: center; }
         .content { padding: 20px; }
-        .urgent { background: #fef3c7; padding: 15px; border-radius: 8px; margin: 15px 0; }
+        .urgent { background: #fef3c7; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #d97706; }
+        .customer-info { background: #f8fafc; padding: 15px; border-radius: 8px; margin: 15px 0; }
       </style>
     </head>
     <body>
@@ -272,20 +326,40 @@ function createAdminEmailTemplate(bookingData) {
         </div>
         <div class="content">
           <div class="urgent">
-            <h3>📞 CONTACT CUSTOMER IMMEDIATELY</h3>
+            <h3 style="margin-top: 0; color: #92400e;">📞 CONTACT CUSTOMER IMMEDIATELY</h3>
             <p><strong>Customer:</strong> ${bookingData.name}</p>
-            <p><strong>Phone:</strong> ${bookingData.phone}</p>
+            <p><strong>Phone:</strong> <a href="tel:${bookingData.phone}">${bookingData.phone}</a></p>
+            <p><strong>Email:</strong> <a href="mailto:${bookingData.email}">${bookingData.email}</a></p>
           </div>
           
-          <p><strong>Booking ID:</strong> ${bookingData.bookingId}</p>
-          <p><strong>Service:</strong> ${bookingData.serviceName}</p>
-          <p><strong>Date/Time:</strong> ${bookingData.date} at ${bookingData.time}</p>
-          <p><strong>Duration:</strong> ${bookingData.duration} hours</p>
-          <p><strong>Total:</strong> ${bookingData.totalAmount} AED</p>
-          <p><strong>Address:</strong> ${bookingData.address}, ${bookingData.area}</p>
-          <p><strong>Description:</strong> ${bookingData.description}</p>
+          <div class="customer-info">
+            <h4 style="margin-top: 0;">Booking Details</h4>
+            <p><strong>Booking ID:</strong> ${bookingData.bookingId}</p>
+            <p><strong>Service:</strong> ${bookingData.serviceName}</p>
+            <p><strong>Date/Time:</strong> ${bookingData.date} at ${bookingData.time}</p>
+            <p><strong>Duration:</strong> ${bookingData.duration} hours</p>
+            <p><strong>Total Amount:</strong> ${bookingData.totalAmount} AED</p>
+            <p><strong>Service Location:</strong> ${bookingData.address}, ${bookingData.area}, Dubai</p>
+          </div>
+
+          <div style="background: #f3f4f6; padding: 15px; border-radius: 6px;">
+            <strong>Service Description:</strong><br>
+            ${bookingData.description}
+          </div>
           
-          <p style="color: #dc2626; font-weight: bold;">⏰ Booking received: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })}</p>
+          <div style="margin-top: 20px; padding: 15px; background: #dcfce7; border-radius: 6px;">
+            <h4 style="margin-top: 0;">✅ Action Required</h4>
+            <ol>
+              <li>Contact customer at <strong>${bookingData.phone}</strong> within 30 minutes</li>
+              <li>Confirm appointment timing and details</li>
+              <li>Assign appropriate technician</li>
+              <li>Update booking status in system</li>
+            </ol>
+          </div>
+          
+          <p style="color: #dc2626; font-weight: bold; text-align: center;">
+            ⏰ Booking received: ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dubai' })} (Dubai Time)
+          </p>
         </div>
       </div>
     </body>
