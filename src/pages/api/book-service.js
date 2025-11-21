@@ -121,8 +121,8 @@ async function sendResendEmails(bookingData) {
     // SOLVED: Use different email for admin notifications
     // Don't send from and to the same email address
     const adminEmailsToTry = [
-      'alpamayo73@gmail.com', // Your personal email for testing
-      process.env.ADMIN_EMAIL, // Any other admin email you set
+      'inquiry.alpamayo@gmail.com', 
+      process.env.ADMIN_EMAIL, 
       'bookings@thealpamayo.com' // Alternative company email
     ].filter(email => email && email !== 'info@thealpamayo.com'); // Don't send to same as from
 
@@ -168,7 +168,7 @@ async function sendResendEmails(bookingData) {
       try {
         const altAdminResult = await resend.emails.send({
           from: 'Alpamayo Bookings <bookings@thealpamayo.com>',
-          to: ['alpamayo73@gmail.com'], // Your personal email
+          to: ['inquiry.alpamayo@gmail.com'], 
           subject: `[SYSTEM] New Booking Notification - ${bookingData.bookingId}`,
           html: createSimpleAdminTemplate(bookingData),
         });
