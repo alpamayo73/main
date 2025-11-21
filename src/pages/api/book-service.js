@@ -1,4 +1,6 @@
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -33,14 +35,13 @@ export default async function handler(req, res) {
     console.log('Date/Time:', date + ' at ' + time);
     console.log('Duration:', duration + ' hours');
     console.log('Total:', totalAmount + ' AED');
-    console.log('GMAIL_USER exists:', !!process.env.GMAIL_USER);
-    console.log('GMAIL_APP_PASSWORD exists:', !!process.env.GMAIL_APP_PASSWORD);
+    console.log('RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
 
     let emailSuccess = false;
 
-    // Try to send emails with Gmail
+    // Try to send emails with Resend using your verified domain
     try {
-      await sendGmailEmails({
+      await sendResendEmails({
         bookingId,
         serviceName,
         name,
@@ -55,9 +56,9 @@ export default async function handler(req, res) {
         totalAmount
       });
       emailSuccess = true;
-      console.log('✅ All emails sent successfully via Gmail');
+      console.log('✅ All emails sent successfully via Resend');
     } catch (emailError) {
-      console.log('❌ Gmail sending failed:', emailError.message);
+      console.log('❌ Resend email sending failed:', emailError.message);
       // Continue with booking even if email fails
     }
 
@@ -89,98 +90,60 @@ export default async function handler(req, res) {
   }
 }
 
-// Gmail configuration
-async function sendGmailEmails(bookingData) {
-  let transporter;
-
+// Resend email configuration
+async function sendResendEmails(bookingData) {
   try {
-    console.log('🔧 Creating Gmail transporter...');
+    // Use your verified domain email address
+    const fromEmail = 'info@thealpamayo.com'; // Changed to info@thealpamayo.com
     
-    // Create transporter with multiple configuration options
-    transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
-      },
-      // Add timeout settings to prevent hanging
-      connectionTimeout: 10000,
-      greetingTimeout: 10000,
-      socketTimeout: 10000,
-      // Additional security settings
-      secure: false, // Use TLS
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
-
-    console.log('🔐 Verifying Gmail transporter...');
-    
-    // Verify connection configuration
-    await transporter.verify();
-    console.log('✅ Gmail transporter verified successfully');
+    console.log('📧 Sending emails using domain:', fromEmail);
 
     // Send email to user
-    console.log('📧 Sending email to user:', bookingData.email);
-    
-    const userMailOptions = {
-      from: {
-        name: 'Alpamayo Technical Services',
-        address: process.env.GMAIL_USER
-      },
-      to: bookingData.email,
+    console.log('Sending confirmation email to user:', bookingData.email);
+    const userEmailResult = await resend.emails.send({
+      from: `Alpamayo Technical Services <${fromEmail}>`,
+      to: [bookingData.email],
       subject: `Booking Confirmed - ${bookingData.bookingId}`,
       html: createUserEmailTemplate(bookingData),
       text: createUserTextTemplate(bookingData)
-    };
+    });
 
-    const userResult = await transporter.sendMail(userMailOptions);
-    console.log('✅ User email sent via Gmail:', userResult.messageId);
+    if (userEmailResult.error) {
+      throw new Error(`User email failed: ${userEmailResult.error.message}`);
+    }
+
+    console.log('✅ User email sent via Resend:', userEmailResult.data?.id);
 
     // Send email to admin
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.GMAIL_USER;
-    console.log('📧 Sending email to admin:', adminEmail);
+    const adminEmail = process.env.ADMIN_EMAIL || 'info@thealpamayo.com';
+    console.log('Sending notification email to admin:', adminEmail);
     
-    const adminMailOptions = {
-      from: {
-        name: 'Alpamayo Technical Services',
-        address: process.env.GMAIL_USER
-      },
-      to: adminEmail,
+    const adminEmailResult = await resend.emails.send({
+      from: `Alpamayo Technical Services <${fromEmail}>`,
+      to: [adminEmail],
       subject: `🚨 NEW BOOKING: ${bookingData.serviceName} - ${bookingData.name}`,
       html: createAdminEmailTemplate(bookingData),
       text: createAdminTextTemplate(bookingData)
-    };
+    });
 
-    const adminResult = await transporter.sendMail(adminMailOptions);
-    console.log('✅ Admin email sent via Gmail:', adminResult.messageId);
+    if (adminEmailResult.error) {
+      throw new Error(`Admin email failed: ${adminEmailResult.error.message}`);
+    }
+
+    console.log('✅ Admin email sent via Resend:', adminEmailResult.data?.id);
 
     return true;
 
   } catch (error) {
-    console.error('❌ Gmail error details:', {
+    console.error('❌ Resend email error details:', {
       message: error.message,
-      code: error.code,
-      command: error.command
+      error: error
     });
-    
-    // More specific error handling
-    if (error.code === 'EAUTH') {
-      throw new Error('Gmail authentication failed. Check your email and app password.');
-    } else if (error.code === 'ECONNECTION') {
-      throw new Error('Cannot connect to Gmail server. Check your network.');
-    } else {
-      throw error;
-    }
-  } finally {
-    // Close the transporter
-    if (transporter) {
-      transporter.close();
-    }
+    throw error;
   }
 }
 
-// Text templates
+// Text templates (keep the same as before)
 function createUserTextTemplate(bookingData) {
   return `
 BOOKING CONFIRMED - ${bookingData.bookingId}
@@ -205,7 +168,7 @@ Our team will contact you within 30 minutes to confirm your appointment.
 
 Thank you for choosing Alpamayo Technical Services!
 Phone: +971 50 123 4567
-Email: support@alpamayoservices.com
+Email: info@thealpamayo.com
   `;
 }
 
@@ -234,7 +197,7 @@ ${bookingData.description}
   `;
 }
 
-// HTML templates
+// HTML templates (keep the same as before)
 function createUserEmailTemplate(bookingData) {
   return `
     <!DOCTYPE html>
@@ -279,7 +242,7 @@ function createUserEmailTemplate(bookingData) {
         </div>
         <div class="footer">
           <p><strong>Alpamayo Technical Services</strong><br>
-          Phone: +971 50 123 4567 | Email: support@alpamayoservices.com</p>
+          Phone: +971 50 123 4567 | Email: info@thealpamayo.com</p>
         </div>
       </div>
     </body>
