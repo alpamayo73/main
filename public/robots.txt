@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thealpamayo.com/sitemap.xml
+Sitemap: https://thealpamayo.com/api/sitemap
