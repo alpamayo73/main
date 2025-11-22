@@ -1,12 +1,4 @@
-import { MetadataRoute } from 'next'
+User-agent: *
+Allow: /
 
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      // disallow: '/private/',
-    },
-    sitemap: 'https://thealpamayo.com/sitemap.xml',
-  }
-}
+Sitemap: https://thealpamayo.com/sitemap.xml
