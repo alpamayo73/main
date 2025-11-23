@@ -99,7 +99,6 @@ export default function Footer() {
                   <li><Link href="/services/villa-renovation" className="footer-link">Villa Renovation</Link></li>
                   <li><Link href="/services/apartment-renovation" className="footer-link">Apartment Renovation</Link></li>
                   <li><Link href="/services/office-renovation" className="footer-link">Office Renovation</Link></li>
-                  <li><Link href="/services/renovation" className="footer-link">All Renovation Services</Link></li>
                 </ul>
               </div>
 
@@ -114,7 +113,6 @@ export default function Footer() {
                   <li><Link href="/services/electrical" className="footer-link">Electrical</Link></li>
                   <li><Link href="/services/air-conditioning" className="footer-link">Air Conditioning</Link></li>
                   <li><Link href="/services/handyman" className="footer-link">Handyman</Link></li>
-                  <li><Link href="/services/specialized" className="footer-link">All Specialized Services</Link></li>
                 </ul>
               </div>
             </div>
