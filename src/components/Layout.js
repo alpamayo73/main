@@ -1,5 +1,6 @@
 import Header from './Header';
 import Footer from './Footer';
+import FloatingWhatsApp from './FloatingWhatsApp';
 
 export default function Layout({ children }) {
   return (
@@ -11,6 +12,7 @@ export default function Layout({ children }) {
       <Header />
       <main style={{ flexGrow: 1 }}>{children}</main>
       <Footer />
+      <FloatingWhatsApp />
     </div>
   );
 }
